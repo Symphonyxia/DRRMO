@@ -36,7 +36,7 @@
         </div>
 
         <div class="col-xl-3 col-md-4 mb-4">
-            <a href="create.php" class="card-link">
+            <a href="index.php" class="card-link">
                 <div class="card border-left-success shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
