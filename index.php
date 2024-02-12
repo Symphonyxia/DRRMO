@@ -163,11 +163,9 @@ include 'header.php';
                                             value="Response"> Response to Scene
                                         <input type="text" class="form-check-input" name="responseType[]" value="">
                                         Others:___________
-
                                     </label>
                                 </th>
                                 <th>Enroute</th>
-                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -189,20 +187,14 @@ include 'header.php';
                                             value="residence"> Home/Residence
                                             <input type="checkbox" class="form-check-input" name="responseType[]"
                                             value="bridge"> Bridge
-                                        <input type="checkbox" class="form-check-input" name="responseType[]"
+                                            <input type="checkbox" class="form-check-input" name="responseType[]"
                                             value="bar"> Restuarant/Bar
                                             <input type="checkbox" class="form-check-input" name="responseType[]"
                                             value="farm"> Farm
-                                        <input type="checkbox" class="form-check-input" name="responseType[]"
+                                            <input type="checkbox" class="form-check-input" name="responseType[]"
                                             value="school"> School
                                             <input type="checkbox" class="form-check-input" name="responseType[]"
                                             value="clinic"> Clinic/RHU
-                                        <input type="checkbox" class="form-check-input" name="responseType[]"
-                                            value="street"> Highway/Street
-                                            <input type="checkbox" class="form-check-input" name="responseType[]"
-                                            value="bldg"> Public Building
-                                        <input type="text" class="form-check-input" name="responseType[]" value="">
-                                        Others:___________
                                     </label>
 
                                 </th>
@@ -213,8 +205,19 @@ include 'header.php';
                                 <td></td>
                                 <td></td>
                             </tr>
+
                             <tr>
-                                <th colspan="14">Type of Call:</th>
+                                <th colspan="14">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" name="responseType[]"
+                                            value="street"> Highway/Street
+                                            <input type="checkbox" class="form-check-input" name="responseType[]"
+                                            value="bldg"> Public Building
+                                        <input type="text" class="form-check-input" name="responseType[]" value="">
+                                        Others:___________
+                                    </label>
+
+                                </th>
                                 <th>Descn</th>
                                 <td></td>
                                 <td></td>
@@ -222,9 +225,10 @@ include 'header.php';
                                 <td></td>
                                 <td></td>
                             </tr>
+                        
 
                             <tr>
-                                <th colspan="14">Location Type:</th>
+                                <th colspan="14">SRR Services:</th>
                                 <th>In svc</th>
                                 <td></td>
                                 <td></td>
@@ -233,7 +237,26 @@ include 'header.php';
                                 <td></td>
                             </tr>
                             <tr>
-                                <th colspan="14">SRR Services:</th>
+                                <th colspan="14">Type of Call:
+
+                                <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" name="responseType[]"
+                                            value="fire"> Fire
+                                        <input type="checkbox" class="form-check-input" name="responseType[]"
+                                            value="vehicular"> Vehicular Accident
+                                            <input type="checkbox" class="form-check-input" name="responseType[]"
+                                            value="earthquake"> Earthquake
+                                        <input type="checkbox" class="form-check-input" name="responseType[]"
+                                            value="collapse"> Collapse
+                                            <input type="checkbox" class="form-check-input" name="responseType[]"
+                                            value="suicide"> Suicide
+                                        <input type="checkbox" class="form-check-input" name="responseType[]"
+                                            value="drowning"> Drowning
+                                            <input type="checkbox" class="form-check-input" name="responseType[]"
+                                            value="storm"> Storm Surge
+                                       
+                                    </label>
+                                </th>
                                 <th>Op Tm</th>
                                 <td></td>
                                 <td></td>
@@ -241,6 +264,28 @@ include 'header.php';
                                 <td></td>
                                 <td></td>
                             </tr>
+                            <tr>
+                                <th colspan="14">
+
+                                <label class="form-check-label">
+
+                                        <input type="checkbox" class="form-check-input" name="responseType[]"
+                                            value="flooding"> Flooding
+                                            <input type="checkbox" class="form-check-input" name="responseType[]"
+                                            value="roving"> Roving/Inspection
+                                        <input type="text" class="form-check-input" name="responseType[]" value="">
+                                        Others:___________
+
+                                    </label>
+                                </th>
+                                <th></th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
                             <tr>
                                 <th colspan="20">Incident Commander:</th>
                             </tr>
@@ -559,7 +604,7 @@ include 'header.php';
                         </tr>
                         <tr>
                             <td>
-                                << /td>
+                                <
                             <td>Spread</td>
                         </tr>
                         <tr>
