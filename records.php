@@ -153,7 +153,7 @@ include 'sidebar.php';
 
                             <tr>
                                 <th colspan="14">Incident Address/Location:</th>
-                                <th>Call Revd</th>
+                                <th>Call Received:</th>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -177,7 +177,7 @@ include 'sidebar.php';
 
                                     </label>
                                 </th>
-                                <th>Enroute</th>
+                                <th>Enroute:</th>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -210,7 +210,7 @@ include 'sidebar.php';
                                     </label>
 
                                 </th>
-                                <th>At scn</th>
+                                <th>At scene:</th>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -232,7 +232,7 @@ include 'sidebar.php';
 
                                     </label>
                                 </th>
-                                <th>Descn</th>
+                                <th>Depart scene:</th>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -256,7 +256,7 @@ include 'sidebar.php';
 
                                             </label>
                                         </th>
-                                        <th>In svc</th>
+                                        <th>In service:</th>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -276,7 +276,7 @@ include 'sidebar.php';
 
                                             </label>
                                         </th>
-                                        <th>Op Tm</th>
+                                        <th>Operation team:</th>
                                         <td></td>
                                         <td></td>
                                         <td></td>

@@ -11,7 +11,7 @@ if (isset($_POST['register'])) {
 
     if ($password != $confirm) {
         $_SESSION['error'] = 'Passwords did not match';
-        header("Location: login.php");
+        header("Location: signin.php");
         exit();
     } else {
 
@@ -21,6 +21,8 @@ if (isset($_POST['register'])) {
 
         if ($stmt->rowCount() > 0) {
             $_SESSION['error'] = 'Email already taken';
+            header("Location: signin.php");
+            exit();
         } else {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
