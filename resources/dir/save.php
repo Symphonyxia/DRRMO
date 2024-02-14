@@ -26,6 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         $stmt->bindParam(':images', $_POST['images']);
         $stmt->bindParam(':defib', $_POST['defib']);
 
+
+        //error in this part 
+
         $stmt->bindParam(':no_cas', $_POST['no_cas']);
         $stmt->bindParam(':amb_spec', $_POST['amb_spec']);
         $stmt->bindParam(':time_start', $_POST['time_start']);
