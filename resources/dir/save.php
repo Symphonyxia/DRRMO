@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
  
         include '../../boot.php';
 
-        $stmt = $pdo->prepare("INSERT INTO usar (unit, irf_no, date, incident_loc, incident_comm, agency, position, address, contact_no, incident, recommendation, narrative, map_loc, latitude, longitude, dist_ratio, images, defib, response_type, no_cas, amb_spec, time_start, time_end, cycle, cr, enr, atscn, descn, insvc, optm, end, begin, total, cpr, casualty, ambulance_req) 
+        $stmt = $pdo->prepare("INSERT INTO usar (unit, irf_no, date, incident_loc, incident_comm, agency, position, address, contact_no, incident, recommendation, narrative, map_loc, latitude, longitude, dist_ratio, images, defib, no_cas, amb_spec, time_start, time_end, cycle, cr, enr, atscn, descn, insvc, optm, end, begin, total, cpr, casualty, ambulance_req) 
         VALUES (:unit, :irf_no, :date, :incident_loc, :incident_comm, :agency, :position, :address, :contact_no, :incident, :recommendation, :narrative, :map_loc, :latitude, :longitude, :dist_ratio, :images, :defib,  :no_cas, :amb_spec, :time_start, :time_end, :cycle, :cr, :enr, :atscn, :descn, :insvc, :optm, :end, :begin, :total, :cpr, :casualty, :ambulance_req)");
 
         $stmt->bindParam(':unit', $_POST['unit']);
@@ -25,9 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         $stmt->bindParam(':dist_ratio', $_POST['dist_ratio']);
         $stmt->bindParam(':images', $_POST['images']);
         $stmt->bindParam(':defib', $_POST['defib']);
-
-
-        //error in this part 
 
         $stmt->bindParam(':no_cas', $_POST['no_cas']);
         $stmt->bindParam(':amb_spec', $_POST['amb_spec']);
