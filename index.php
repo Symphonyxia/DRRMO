@@ -30,15 +30,16 @@ include 'sidebar.php';
                             </tr>
                             <tr>
                                 <th>END</th>
-                                <td><input type="number" name = "end" id="end_mileage_1" oninput="calculateTotal();"></td>
+                                <td><input type="number" name="end" id="end_mileage_1" oninput="calculateTotal();"></td>
                             </tr>
                             <tr>
                                 <th>BEGIN</th>
-                                <td><input type="number" name= "start" id="begin_mileage_1" oninput="calculateTotal();"></td>
+                                <td><input type="number" name="begin" id="begin_mileage_1" oninput="calculateTotal();"></td>
                             </tr>
                             <tr>
                                 <th>TOTAL</th>
-                                <td><span id="total_mileage" name = "total">0</span></td>
+                                <td> <span id="total_mileage">0</span><input type="hidden" name="total" id="total_mileage_input"></td>
+
                             </tr>
 
                         </tbody>
@@ -51,7 +52,7 @@ include 'sidebar.php';
                         var beginMileage = parseFloat(document.getElementById('begin_mileage_1').value) || 0;
                         var totalMileage = endMileage - beginMileage;
                         document.getElementById('total_mileage').textContent = totalMileage;
-
+                        document.getElementById('total_mileage_input').value = totalMileage; // Set the value of the hidden input
                     }
                 </script>
 
@@ -107,19 +108,14 @@ include 'sidebar.php';
                             <tr>
                                 <th colspan="14">Response Type:
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="response_type"
-                                            value="Standby"> Standby
+                                        <input type="checkbox" class="form-check-input" name="response_type[]" value="Standby"> Standby
                                     </label>
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="response_type"
-                                            value="Response"> Response to Scene
+                                        <input type="checkbox" class="form-check-input" name="response_type[]" value="Response"> Response to Scene
                                     </label>
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="response_type"
-                                            value="Others"> Others:
-                                    </label>
-                                    <input type="text" name="response_type" value=""
-                                        style="border: none; background-color: transparent; border-bottom: 1px solid black;">
+                                    Others:
+
+                                    <input type="text" name="response_type_other" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
                                 </th>
 
                                 <th>Enroute:
@@ -131,23 +127,21 @@ include 'sidebar.php';
                             <tr>
                                 <th colspan="14">Location Type:
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="loc_type" value="airport">
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="airport">
                                         Airport
-                                        <input type="checkbox" class="form-check-input" name="loc_type"
-                                            value="Hospital"> Hospital
-                                        <input type="checkbox" class="form-check-input" name="loc_type" value="nursing">
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="Hospital"> Hospital
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="nursing">
                                         Nursing Home
-                                        <input type="checkbox" class="form-check-input" name="loc_type"
-                                            value="residence"> Home/Residence
-                                        <input type="checkbox" class="form-check-input" name="loc_type" value="bridge">
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="residence"> Home/Residence
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="bridge">
                                         Bridge
-                                        <input type="checkbox" class="form-check-input" name="loc_type" value="bar">
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="bar">
                                         Restuarant/Bar
-                                        <input type="checkbox" class="form-check-input" name="loc_type" value="farm">
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="farm">
                                         Farm
-                                        <input type="checkbox" class="form-check-input" name="loc_type" value="school">
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="school">
                                         School
-                                        <input type="checkbox" class="form-check-input" name="loc_type" value="clinic">
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="clinic">
                                         Clinic/RHU
                                     </label>
 
@@ -161,14 +155,13 @@ include 'sidebar.php';
                             <tr>
                                 <th colspan="14">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="loc_type" value="street">
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="street">
                                         Highway/Street
-                                        <input type="checkbox" class="form-check-input" name="loc_type" value="bldg">
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="bldg">
                                         Public Building
-                                        <input type="checkbox" class="form-check-input" name="loc_type" value="">
+
                                         Others:
-                                        <input type="text" name="loc_type" value=""
-                                            style="border: none; background-color: transparent; border-bottom: 1px solid black;">
+                                        <input type="text" name="loc_type_other" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
 
                                     </label>
                                 </th>
@@ -184,19 +177,14 @@ include 'sidebar.php';
                                 <th colspan="14">Type of Call:
 
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="call_type" value="fire">
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="fire">
                                         Fire
-                                        <input type="checkbox" class="form-check-input" name="call_type"
-                                            value="vehicular"> Vehicular Accident
-                                        <input type="checkbox" class="form-check-input" name="call_type"
-                                            value="earthquake"> Earthquake
-                                        <input type="checkbox" class="form-check-input" name="call_type"
-                                            value="collapse"> Collapse
-                                        <input type="checkbox" class="form-check-input" name="call_type"
-                                            value="suicide"> Suicide
-                                        <input type="checkbox" class="form-check-input" name="call_type"
-                                            value="drowning"> Drowning
-                                        <input type="checkbox" class="form-check-input" name="call_type" value="storm">
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="vehicular"> Vehicular Accident
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="earthquake"> Earthquake
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="collapse"> Collapse
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="suicide"> Suicide
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="drowning"> Drowning
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="storm">
                                         Storm Surge
 
                                     </label>
@@ -211,17 +199,16 @@ include 'sidebar.php';
 
                                     <label class="form-check-label">
 
-                                        <input type="checkbox" class="form-check-input" name="call_type"
-                                            value="flooding"> Flooding
-                                        <input type="checkbox" class="form-check-input" name="call_type" value="roving">
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="flooding"> Flooding
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="roving">
                                         Roving/Inspection
-                                        <input type="checkbox" class="form-check-input" name="call_type" value="">
+
                                         Others:
-                                        <input type="text" name="optm" value="">
+                                        <input type="text" name="call_type_other" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
 
                                     </label>
                                 </th>
-                                <th>Operation Team: <input type="number" name="othersLocation" value=""></th>
+                                <th>Operation Team: <input type="text" name="optm" value=""></th>
 
                             </tr>
 
@@ -358,48 +345,32 @@ include 'sidebar.php';
                                         <th colspan="5">Weather</th>
                                         <td>
                                             <label class="form-check-label">
-                                                <ui style="list-style-type: none; padding-left: 0;">
+                                                <ul style="list-style-type: none; padding-left: 0;">
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather"
-                                                            value="normal"> Normal
+                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="normal"> Normal
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather"
-                                                            value="hot"> Hot/Humid
+                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="hot"> Hot/Humid
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather"
-                                                            value="cold"> Cold
+                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="cold"> Cold
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather"
-                                                            value="light"> Light Rain
+                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="light"> Light Rain
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather"
-                                                            value="heavy"> Heavy Rain
+                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="heavy"> Heavy Rain
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather"
-                                                            value="hail"> Hail
+                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="hail"> Hail
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather"
-                                                            value="windy"> Windy
+                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="windy"> Windy
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather"
-                                                            value="thunder"> Thunderstorm
+                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="thunder"> Thunderstorm
                                                     </li>
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather"
-                                                            value="windy"> Windy
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather"
-                                                            value="thunder"> Thunderstorm
-                                                    </li>
-                                                </ui>
+                                                </ul>
                                             </label>
 
 
@@ -409,41 +380,34 @@ include 'sidebar.php';
                                         <td>
                                             <br>
                                             <label class="form-check-label">
-                                                <ui style="list-style-type: none; padding-left: 0;">
+                                                <ul style="list-style-type: none; padding-left: 0;">
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain"
-                                                            value="concrete"> Concrete
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="concrete"> Concrete
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain"
-                                                            value="dirt"> Dirt
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="dirt"> Dirt
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain"
-                                                            value="mud"> Mud
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="mud"> Mud
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain"
-                                                            value="sand"> Sand
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="sand"> Sand
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain"
-                                                            value="rock"> Gravel/Rock
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="rock"> Gravel/Rock
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain"
-                                                            value="inclined"> Inclined
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="inclined"> Inclined
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain"
-                                                            value="swamp"> Swamp
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="swamp"> Swamp
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain"
-                                                            value="unstable"> Unstable
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="unstable"> Unstable
                                                     </li>
-                                                </ui>
+                                                </ul>
                                             </label>
+
                                         </td>
 
 
@@ -473,13 +437,10 @@ include 'sidebar.php';
 
                                             <label class="form-check-label">
 
-                                                <input type="checkbox" class="form-check-input" name="casualty"
-                                                    value="yes"> Yes
-                                                <input type="checkbox" class="form-check-input" name="casualty"
-                                                    value="no"> No
+                                                <input type="checkbox" class="form-check-input" name="casualty" value="yes"> Yes
+                                                <input type="checkbox" class="form-check-input" name="casualty" value="no"> No
                                                 <br>
-                                                No. of Cas: <input type="number" name="no_cas" value=""
-                                                    style="border: none; background-color: transparent; border-bottom: 1px solid black;">
+                                                No. of Cas: <input type="number" name="no_cas" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
                                             </label>
 
                                         </th>
@@ -488,8 +449,7 @@ include 'sidebar.php';
                                         <th colspan="6">AED/Defib:
                                             <label class="form-check-label">
 
-                                                <input type="checkbox" class="form-check-input" name="defib"
-                                                    value="yes"> Yes
+                                                <input type="checkbox" class="form-check-input" name="defib" value="yes"> Yes
                                                 <input type="checkbox" class="form-check-input" name="defib" value="no">
                                                 No
 
@@ -499,13 +459,10 @@ include 'sidebar.php';
                                         <th colspan="6">Ambulance req:
                                             <label class="form-check-label">
 
-                                                <input type="checkbox" class="form-check-input" name="ambulance_req"
-                                                    value="yes"> Yes
-                                                <input type="checkbox" class="form-check-input" name="ambulance_req"
-                                                    value="no"> No
+                                                <input type="checkbox" class="form-check-input" name="ambulance_req" value="yes"> Yes
+                                                <input type="checkbox" class="form-check-input" name="ambulance_req" value="no"> No
                                                 <br>
-                                                specify: <input type="text" name="amb_spec" value=""
-                                                    style="border: none; background-color: transparent; border-bottom: 1px solid black;">
+                                                specify: <input type="text" name="amb_spec" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
 
 
                                             </label>
@@ -518,9 +475,7 @@ include 'sidebar.php';
 
                                     <tr>
                                         <th colspan="12" style="height: 670px;">
-                                            <textarea name="narrative"
-                                                style="height: 670px; width: 100%; overflow-wrap: break-word; border: none; resize: none;"
-                                                placeholder="Enter your text here"></textarea>
+                                            <textarea name="narrative" style="height: 670px; width: 100%; overflow-wrap: break-word; border: none; resize: none;" placeholder="Enter your text here"></textarea>
                                         </th>
                                     </tr>
 
@@ -540,7 +495,16 @@ include 'sidebar.php';
                                     <th>Checked</th>
                                     <th>Missing</th>
                                     <tr>
-                                        <td name="equip">Self-Contained Breathing Apparatus</td>
+                                        <td name="equip_name">Self-Contained Breathing Apparatus</td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="">
+                                        </td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="">
+                                        </td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td name="equip_name">Electric Spreader</td>
                                         <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
                                         <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
@@ -549,7 +513,7 @@ include 'sidebar.php';
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td name="equip">Electric Spreader</td>
+                                        <td name="equip_name">Electric Cutter</td>
                                         <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
                                         <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
@@ -558,7 +522,7 @@ include 'sidebar.php';
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td name="equip">Electric Cutter</td>
+                                        <td name="equip_name">Electric Ram</td>
                                         <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
                                         <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
@@ -567,7 +531,7 @@ include 'sidebar.php';
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td name="equip">Electric Ram</td>
+                                        <td name="equip_name">Hydraulic Hand Pump</td>
                                         <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
                                         <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
@@ -576,111 +540,102 @@ include 'sidebar.php';
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td name="equip">Hydraulic Hand Pump</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td name="equip_name">Hydraulic Combi-tool</td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td name="equip">Hydraulic Combi-tool</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td name="equip">Hydraulic Ram</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td name="equip_name">Hydraulic Ram</td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td name="equip">Chainsaw</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td name="equip">Cutters Edge</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td name="equip_name">Chainsaw</td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td name="equip">High Pressure Lift Bag</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td name="equip">High Lift Jack</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td name="equip_name">Cutters Edge</td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td name="equip">Remote Area Lighting System RALS</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td name="equip">Ventilation Blower</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td name="equip_name">High Pressure Lift Bag</td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td name="equip">Tripod and Winch</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td name="equip">Rope Rescue Equipment</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td name="equip_name">High Lift Jack</td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td name="equip">Other</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td name="equip_name">Remote Area Lighting System RALS</td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td name="equip_name">Ventilation Blower</td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
+                                        </td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
+                                        </td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td name="equip_name">Tripod and Winch</td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
+                                        </td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
+                                        </td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td name="equip_name">Rope Rescue Equipment</td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
+                                        </td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
+                                        </td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td name="equip_name">Other</td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
+                                        </td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
+                                        </td>
+                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
                                         </td>
                                     </tr>
                                     <tr>
@@ -703,59 +658,37 @@ include 'sidebar.php';
                                         <td colspan="6" class="checkbox-group">
                                             <label class="form-check-label">
                                                 <div>
-                                                    <input type="checkbox" class="form-check-input" name="interventions"
-                                                        value="colstruct"> Collapse Structure
-                                                    Rescue
-                                                    <input type="checkbox" class="form-check-input" name="interventions"
-                                                        value="boom"> Boom
-                                                    <input type="checkbox" class="form-check-input" name="interventions"
-                                                        value="barricade"> Barricade
+                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="colstruct"> Collapse Structure Rescue
+                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="boom"> Boom
+                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="barricade"> Barricade
                                                 </div>
 
                                                 <div>
-                                                    <input type="checkbox" class="form-check-input" name="interventions"
-                                                        value="confined"> Confined Space
-                                                    Rescue
-                                                    <input type="checkbox" class="form-check-input" name="interventions"
-                                                        value="outrigger"> Outrigger
-                                                    <input type="checkbox" class="form-check-input" name="interventions"
-                                                        value="structural"> Structural
-                                                    Extrication
+                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="confined"> Confined Space Rescue
+                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="outrigger"> Outrigger
+                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="structural"> Structural Extrication
                                                 </div>
 
                                                 <div>
-                                                    <input type="checkbox" class="form-check-input" name="interventions"
-                                                        value="water"> Water Rescue
-                                                    <input type="checkbox" class="form-check-input" name="interventions"
-                                                        value="tower"> Tower Light
-                                                    <input type="checkbox" class="form-check-input" name="interventions"
-                                                        value="vehi_extri"> Vehicular
-                                                    Extrication
+                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="water"> Water Rescue
+                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="tower"> Tower Light
+                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="vehi_extri"> Vehicular Extrication
                                                 </div>
 
                                                 <div>
-
-                                                    <input type="checkbox" class="form-check-input" name="interventions"
-                                                        value="patient"> Patient Retrieval
-                                                    <input type="checkbox" class="form-check-input" name="interventions"
-                                                        value="winch"> Winch
-                                                    <input type="checkbox" class="form-check-input" name="interventions"
-                                                        value="wildlife"> Wildlife Rescue
+                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="patient"> Patient Retrieval
+                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="winch"> Winch
+                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="wildlife"> Wildlife Rescue
                                                 </div>
 
                                                 <div>
-                                                    <input type="checkbox" class="form-check-input" name="interventions"
-                                                        value="angel"> High Angel Rescue
-                                                    <input type="checkbox" class="form-check-input" name="interventions"
-                                                        value="hazmat"> HazMat
-                                                    <input type="checkbox" class="form-check-input" name="interventions"
-                                                        value="generator"> Generator
+                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="angel"> High Angle Rescue
+                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="hazmat"> HazMat
+                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="generator"> Generator
                                                 </div>
-
-
                                             </label>
-
                                         </td>
+
                                     </tr>
                                     <tr>
                                         <th colspan="6" class="text-center">Endorsement</th>
@@ -765,45 +698,46 @@ include 'sidebar.php';
                                         <th>Designation</th>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="othersLocation" value=""></td>
-                                        <td><input type="text" name="othersLocation" value=""></td>
+                                        <td><input type="text" name="" value=""></td>
+                                        <td><input type="text" name="" value=""></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="othersLocation" value=""></td>
-                                        <td><input type="text" name="othersLocation" value=""></td>
+                                        <td><input type="text" name="" value=""></td>
+                                        <td><input type="text" name="" value=""></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="othersLocation" value=""></td>
-                                        <td><input type="text" name="othersLocation" value=""></td>
+                                        <td><input type="text" name="" value=""></td>
+                                        <td><input type="text" name="" value=""></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="othersLocation" value=""></td>
-                                        <td><input type="text" name="othersLocation" value=""></td>
+                                        <td><input type="text" name="" value=""></td>
+                                        <td><input type="text" name="" value=""></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="othersLocation" value=""></td>
-                                        <td><input type="text" name="othersLocation" value=""></td>
+                                        <td><input type="text" name="" value=""></td>
+                                        <td><input type="text" name="" value=""></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="othersLocation" value=""></td>
-                                        <td><input type="text" name="othersLocation" value=""></td>
+                                        <td><input type="text" name="" value=""></td>
+                                        <td><input type="text" name="" value=""></td>
                                     </tr>
                                     <tr>
                                         <th colspan="6">Prepared by:
-                                            <input type="text" name="othersLocation" value="">
+                                            <input type="text" name="prep_by" value="">
                                         </th>
                                     </tr>
                                     <tr>
                                         <th colspan="6">Endorsed to/by:
-                                            <input type="text" name="othersLocation" value="">
+                                            <input type="text" name="endorsed_by" value="">
                                         </th>
                                     </tr>
                                     <tr>
                                         <th colspan="6">Witness/es:
-                                            <input type="text" name="othersLocation" value="">
+                                            <input type="text" name="witness" value="">
                                         </th>
                                     </tr>
                                     <tr>
+
                                         <td colspan="6" class="text-center">Complete Name and Signature</td>
                                     </tr>
                                 </tbody>
@@ -828,8 +762,7 @@ include 'sidebar.php';
             <input type="file" id="image-input" name="images" accept="image/*" onchange="previewImage(this)">
             <br>
             <br>
-            <div class="imageform"
-                style="height: 300px; width: 100%; display: flex; justify-content: center; border: 1px solid #ccc;">
+            <div class="imageform" style="height: 300px; width: 100%; display: flex; justify-content: center; border: 1px solid #ccc;">
                 <img id="image-preview" src="#" alt="Image Preview">
             </div>
 
@@ -841,7 +774,7 @@ include 'sidebar.php';
                     if (file) {
                         var reader = new FileReader();
 
-                        reader.onload = function (e) {
+                        reader.onload = function(e) {
                             preview.src = e.target.result;
                         }
 
@@ -860,24 +793,26 @@ include 'sidebar.php';
                     </tr>
                     <tr>
                         <th colspan="7">Location:
-                        <input type="text" name="map_loc" value="">
- 
+                            <input type="text" name="map_loc" value="">
+
                         </th>
                     </tr>
                     <tr>
                         <th>GPS</th>
                         <th>Longitude</th>
-                        <td colspan="3">                                    
-                            <input type="number" name="longitude" value=""></td>
+                        <td colspan="3">
+                            <input type="number" name="longitude" value="">
+                        </td>
                         <th>Latitude</th>
-                        <td colspan="3"> 
-                        <input type="number" name="latitude" value=""></td>
+                        <td colspan="3">
+                            <input type="number" name="latitude" value="">
+                        </td>
                         </td>
                     </tr>
                     <tr>
                         <th colspan="7">DOT Distance Ratio:
-                        <input type="number" name="dist_ratio" value=""></td>                        
-            </th>
+                            <input type="number" name="dist_ratio" value=""></td>
+                        </th>
                     </tr>
                 </tbody>
             </table>
@@ -982,12 +917,10 @@ include 'sidebar.php';
                             <th colspan="5" class="text-center">Recommendations</th>
                         </tr>
                         <tr>
-                                        <th colspan="12" style="height: 300px;">
-                                            <textarea name="recommendation"
-                                                style="height: 670px; width: 100%; overflow-wrap: break-word; border: none; resize: none;"
-                                                placeholder="Enter your text here"></textarea>
-                                        </th>
-                                    </tr>
+                            <th colspan="12" style="height: 300px;">
+                                <textarea name="recommendation" style="height: 670px; width: 100%; overflow-wrap: break-word; border: none; resize: none;" placeholder="Enter your text here"></textarea>
+                            </th>
+                        </tr>
 
                     </tbody>
                 </table>

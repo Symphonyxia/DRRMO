@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 15, 2024 at 01:22 AM
+-- Generation Time: Feb 15, 2024 at 06:15 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,19 @@ SET time_zone = "+00:00";
 --
 -- Database: `drrmo`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `equipments`
+--
+
+CREATE TABLE `equipments` (
+  `equip_id` int(11) NOT NULL,
+  `id` int(11) DEFAULT NULL,
+  `equip_name` varchar(255) DEFAULT NULL,
+  `equip_status` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -67,10 +80,13 @@ CREATE TABLE `usar` (
   `atscn` int(11) NOT NULL,
   `descn` int(11) NOT NULL,
   `insvc` int(11) NOT NULL,
-  `optm` int(11) NOT NULL,
+  `optm` varchar(25) NOT NULL,
   `end` int(11) NOT NULL,
   `begin` int(11) NOT NULL DEFAULT 0,
-  `total` int(11) NOT NULL
+  `total` int(11) NOT NULL,
+  `prep_by` varchar(50) NOT NULL,
+  `endorsed_by` varchar(50) NOT NULL,
+  `witness` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -103,6 +119,13 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `regi
 --
 
 --
+-- Indexes for table `equipments`
+--
+ALTER TABLE `equipments`
+  ADD PRIMARY KEY (`equip_id`),
+  ADD KEY `id` (`id`);
+
+--
 -- Indexes for table `usar`
 --
 ALTER TABLE `usar`
@@ -119,16 +142,32 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `equipments`
+--
+ALTER TABLE `equipments`
+  MODIFY `equip_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `usar`
 --
 ALTER TABLE `usar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `equipments`
+--
+ALTER TABLE `equipments`
+  ADD CONSTRAINT `equipments_ibfk_1` FOREIGN KEY (`id`) REFERENCES `usar` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
