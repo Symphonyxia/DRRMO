@@ -25,8 +25,7 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="resources/css/edit.css">
     <link rel="stylesheet" href="resources/css/view.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous">
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -40,29 +39,30 @@ if (!isset($_SESSION['user_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
-  
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous">
-  
-        <style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+
+    <style>
         @media print {
             body {
-                padding-top: 0; 
-                padding-left:0;
+                position: relative;
+                top: 0;
+
             }
 
-            nav, button {
+            nav,
+            button {
                 display: none !important;
             }
+
             #print-button {
-      background-color: white;
-      color: #007bff;
-      border: none;
-      cursor: pointer;
-      position: relative;
-      float: left;
-    }
+                background-color: white;
+                color: #007bff;
+                border: none;
+                cursor: pointer;
+                position: relative;
+            }
         }
     </style>
 
@@ -98,14 +98,6 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </nav>
 </header>
-<button class="print-button" class="btn btn-primary" onclick="printPage()">
-        <i class="fas fa-print"></i> Print Page
-    </button><script>
-        function printPage() {
-            window.print();
-        }
-    </script>
-
 <body>
 
     <?php

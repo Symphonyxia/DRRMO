@@ -56,6 +56,13 @@ include 'header.php';
 
 <div class="container">
 
+<ul class="navbar-nav ml-auto">
+    <!-- Other navbar items -->
+    <li class="nav-item">
+        <a class="nav-link" id="print-button" style="color: blue; float: right;" href="#"
+            onclick="window.print(); return false;">Print</a>
+    </li>
+</ul>
     <br>
     <div id="print-content">
         <div class="row d-flex justify-content-between align-items-center">
