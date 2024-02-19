@@ -1,6 +1,5 @@
 <?php
 include 'header.php';
-include 'sidebar.php';
 ?>
 
 <br>
@@ -14,9 +13,9 @@ include 'sidebar.php';
         <div id="print-content">
             <div class="row d-flex justify-content-between align-items-center">
                 <div class="col-md-4">
-                    <img src="resources/img/iloilo.png" alt="" height="60">
-                    <img src="resources/img/disaster.jpg" alt="" height="90">
-                    <img src="resources/img/USAR.jpg" alt="" height="60">
+                    <img src="resources/img/iloilo.png" alt="" height="65">
+                    <img src="resources/img/disaster.jpg" alt="" height="80">
+                    <img src="resources/img/USAR.jpg" alt="" height="63">
                 </div>
                 <div class="col-md-4 text-center">
                     <h4>Republic of the Philippines</h4>
