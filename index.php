@@ -766,6 +766,38 @@ include 'header.php';
             </div>
 
             <script>
+
+           // Check if the file was uploaded without errors
+if ($_FILES['images']['error'] == UPLOAD_ERR_OK) {
+    // Specify the directory to save the image
+    $targetDirectory = 'resources/gallery/';
+
+    // Generate a unique name for the image to avoid overwriting
+    $targetFile = $targetDirectory . uniqid() . '_' . basename($_FILES['images']['name']);
+
+    // Move the uploaded file to the target directory
+    if (move_uploaded_file($_FILES['images']['tmp_name'], $targetFile)) {
+        // Update the database with the path to the uploaded image
+        $imagePath = $targetFile;
+        
+    
+        $sql = "UPDATE usar SET images = :imagePath WHERE id = :recordId";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':imagePath', $imagePath);
+        $stmt->bindParam(':recordId', $recordId);
+
+        if ($stmt->execute()) {
+            echo 'Image uploaded successfully and database updated.';
+        } else {
+            echo 'Error updating the database.';
+        }
+    } else {
+        echo 'Failed to move the file.';
+    }
+} else {
+    echo 'Error uploading image.';
+}
+
                 function previewImage(input) {
                     var preview = document.getElementById('image-preview');
                     var file = input.files[0];
