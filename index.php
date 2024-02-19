@@ -756,65 +756,35 @@ include 'header.php';
                     <h5>URBAN SEARCH AND RESCUE</h5>
                 </div>
             </div>
-
             <label for="image-input">Select Image:</label>
-            <input type="file" id="image-input" name="images" accept="image/*" onchange="previewImage(this)">
-            <br>
-            <br>
-            <div class="imageform" style="height: 300px; width: 100%; display: flex; justify-content: center; border: 1px solid #ccc;">
-                <img id="image-preview" src="#" alt="Image Preview">
-            </div>
+<input type="file" id="image-input" name="images" accept="image/*" onchange="previewImage(this)">
+<br>
+<br>
 
-            <script>
+<!-- Image Preview Section for Selected Image -->
+<div class="imageform" style="height: 300px; width: 100%; display: flex; justify-content: center; border: 1px solid #ccc;">
+    <img id="selected-image-preview" src="#" alt="Image Preview" style="max-width: 100%; max-height: 100%;">
+</div>
 
-           // Check if the file was uploaded without errors
-if ($_FILES['images']['error'] == UPLOAD_ERR_OK) {
-    // Specify the directory to save the image
-    $targetDirectory = 'resources/gallery/';
+<script>
+    function previewImage(input) {
+        var preview = document.getElementById('selected-image-preview');
+        var file = input.files[0];
 
-    // Generate a unique name for the image to avoid overwriting
-    $targetFile = $targetDirectory . uniqid() . '_' . basename($_FILES['images']['name']);
+        if (file) {
+            var reader = new FileReader();
 
-    // Move the uploaded file to the target directory
-    if (move_uploaded_file($_FILES['images']['tmp_name'], $targetFile)) {
-        // Update the database with the path to the uploaded image
-        $imagePath = $targetFile;
-        
-    
-        $sql = "UPDATE usar SET images = :imagePath WHERE id = :recordId";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':imagePath', $imagePath);
-        $stmt->bindParam(':recordId', $recordId);
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+            };
 
-        if ($stmt->execute()) {
-            echo 'Image uploaded successfully and database updated.';
+            reader.readAsDataURL(file);
         } else {
-            echo 'Error updating the database.';
+            preview.src = '#';
         }
-    } else {
-        echo 'Failed to move the file.';
     }
-} else {
-    echo 'Error uploading image.';
-}
+</script>
 
-                function previewImage(input) {
-                    var preview = document.getElementById('image-preview');
-                    var file = input.files[0];
-
-                    if (file) {
-                        var reader = new FileReader();
-
-                        reader.onload = function(e) {
-                            preview.src = e.target.result;
-                        }
-
-                        reader.readAsDataURL(file);
-                    } else {
-                        preview.src = '#';
-                    }
-                }
-            </script>
 
 
             <table class="table table-bordered">
@@ -973,3 +943,4 @@ if ($_FILES['images']['error'] == UPLOAD_ERR_OK) {
         window.print();
     }
 </script>
+

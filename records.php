@@ -50,13 +50,8 @@ include 'header.php';
         font-family: "Lucida Console", "Courier New", monospace;
     }
 </style>
-
-
-
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
 
 <?php
 // Assuming you have a database connection
@@ -72,32 +67,72 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Assuming you have a variable $usarId containing the ID of the record you want to fetch
-$usarId = 1; // Change this ID according to your requirement
-
-// Fetch data from the database
-$sql = "SELECT * FROM usar WHERE id = $usarId";
+// Fetch all data from the usar table
+$sql = "SELECT * FROM usar";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
+    // Fetch all records into an array
+    $rows = $result->fetch_all(MYSQLI_ASSOC);
 
-    // Assign fetched data to variables
-    $end = $row['end'];
-    $begin = $row['begin'];
-    $total = $row['total'];
-    $unit = $row['unit'];
-    $irf_no = $row['irf_no'];
-    $incident_loc = $row['incident_loc'];
-    // ... other fields ...
+    // Loop through each record
+    foreach ($rows as $row) {
+        // Assign fetched data to variables
+        $end = $row['end'];
+        $begin = $row['begin'];
+        $total = $row['total'];
+        $unit = $row['unit'];
+        $irf_no = $row['irf_no'];
+        $incident_loc = $row['incident_loc'];
+        $response_type = $row['response_type'];
+        $loc_type = $row['loc_type'];
+        $call_type = $row['call_type'];
+        $srr_services = $row['srr_services'];
+        $incident_comm = $row['incident_comm'];
+        $agency = $row['agency'];
+        $position = $row['position'];
+        $address = $row['address'];
+        $contact_no = $row['contact_no'];
+        $incident = $row['incident'];
+        $weather = $row['weather'];
+        $cpr = $row['cpr'];
+        $defib = $row['defib'];
+        $terrain = $row['terrain'];
+        $casualty = $row['casualty'];
+        $ambulance_req = $row['ambulance_req'];
+        $interventions = $row['interventions'];
+        $map_loc = $row['map_loc'];
+        $latitude = $row['latitude'];
+        $longitude = $row['longitude'];
+        $dist_ratio = $row['dist_ratio'];
+        $recommendation = $row['recommendation'];
+        $narrative = $row['narrative'];
+        $images = $row['images'];
+        $date = $row['date'];
+        $no_cas = $row['no_cas'];
+        $amb_spec = $row['amb_spec'];
+        $time_start = $row['time_start'];
+        $time_end = $row['time_end'];
+        $cycle = $row['cycle'];
+        $cr = $row['cr'];
+        $enr = $row['enr'];
+        $atscn = $row['atscn'];
+        $descn = $row['descn'];
+        $insvc = $row['insvc'];
+        $optm = $row['optm'];
+        $prep_by = $row['prep_by'];
+        $endorsed_by = $row['endorsed_by'];
+        $witness = $row['witness'];
 
-    // Close the database connection
-    $conn->close();
+    }
 } else {
     echo "No data found";
-    $conn->close();
 }
+
+// Close the database connection
+$conn->close();
 ?>
+
 <div class="container">
 
     <ul class="navbar-nav ml-auto">
@@ -879,9 +914,8 @@ if ($result->num_rows > 0) {
 <label for="image-input">Image:</label>
 <br>
 <br>
-<div class="imageform"
-    style="height: 300px; width: 100%; display: flex; justify-content: center; border: 1px solid #ccc;">
-    <img id="image-preview" src="<?php echo isset($row['images']) ? $row['images'] : '#'; ?>" alt="Image Preview">
+<div class="imageform" style="height: 300px; width: 100%; display: flex; justify-content: center; border: 1px solid #ccc;">
+    <img id="image-preview" src="<?php echo isset($row['images']) ? $row['images'] : 'path/to/placeholder-image.jpg'; ?>" alt="Image Preview">
 </div>
 
 

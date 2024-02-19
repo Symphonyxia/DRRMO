@@ -33,6 +33,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         $terrain = isset($_POST['terrain']) ? serialize($_POST['terrain']) : '';
         $interventions = isset($_POST['interventions']) ? serialize($_POST['interventions']) : '';
 
+
+          // Handle image upload
+          $uploadDirectory = 'resources/gallery/';
+          $uploadedFile = $uploadDirectory . basename($_FILES['images']['name']);
+          
+          // Move the uploaded file to the specified directory
+          move_uploaded_file($_FILES['images']['tmp_name'], $uploadedFile);
+  
+          // Update the image path in the usar table
+          $usarStmt->bindParam(':images', $uploadedFile);
+
         // Prepare statement for usar table insertion
         $usarStmt = $pdo->prepare("INSERT INTO usar (unit, irf_no, date, incident_loc, incident_comm, agency, position, address, contact_no, incident, recommendation, narrative, map_loc, latitude, longitude, dist_ratio, images, defib, no_cas, amb_spec, time_start, time_end, cycle, cr, enr, atscn, descn, insvc, optm, end, begin, total, cpr, casualty, ambulance_req, response_type, loc_type, call_type, srr_services, weather, terrain, interventions, prep_by, endorsed_by, witness) 
         VALUES (:unit, :irf_no, :date, :incident_loc, :incident_comm, :agency, :position, :address, :contact_no, :incident, :recommendation, :narrative, :map_loc, :latitude, :longitude, :dist_ratio, :images, :defib, :no_cas, :amb_spec, :time_start, :time_end, :cycle, :cr, :enr, :atscn, :descn, :insvc, :optm, :end, :begin, :total, :cpr, :casualty, :ambulance_req, :response_type, :loc_type, :call_type, :srr_services, :weather, :terrain, :interventions, :prep_by, :endorsed_by, :witness)");
@@ -113,3 +124,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         echo "Error: " . $e->getMessage();
     }
 }
+
+
