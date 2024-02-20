@@ -33,30 +33,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         $terrain = isset($_POST['terrain']) ? serialize($_POST['terrain']) : '';
         $interventions = isset($_POST['interventions']) ? serialize($_POST['interventions']) : '';
 
+        if (isset($_FILES["image"])) {
+            $uploadDir = "resources/gallery/";
+            $uploadPath = $uploadDir . basename($_FILES["image"]["name"]);
+            move_uploaded_file($_FILES["image"]["tmp_name"], $uploadPath);
 
-      
-            if (isset($_FILES["image"])) {
-                $uploadDir = "resources/gallery/";
-                $uploadPath = $uploadDir . basename($_FILES["image"]["name"]);
-                move_uploaded_file($_FILES["image"]["tmp_name"], $uploadPath);
-        
-                // Save the unique image path in the database
-                $imagePath = $uploadPath;
-                $pdo = new PDO("mysql:host=localhost;dbname=drrmo", "root", "");
-                
-                // Check if the image already exists in the database
-                $stmt = $pdo->prepare("SELECT COUNT(*) FROM usar WHERE images = ?");
+            // Save the unique image path in the database
+            $imagePath = $uploadPath;
+            $pdo = new PDO("mysql:host=localhost;dbname=drrmo", "root", "");
+
+            // Check if the image already exists in the database
+            $stmt = $pdo->prepare("SELECT COUNT(*) FROM usar WHERE images = ?");
+            $stmt->bindParam(1, $imagePath);
+            $stmt->execute();
+
+            if ($stmt->fetchColumn() == 0) {
+                // Image doesn't exist, insert it into the database
+                $stmt = $pdo->prepare("INSERT INTO usar (images) VALUES (?)");
                 $stmt->bindParam(1, $imagePath);
                 $stmt->execute();
-        
-                if ($stmt->fetchColumn() == 0) {
-                    // Image doesn't exist, insert it into the database
-                    $stmt = $pdo->prepare("INSERT INTO usar (images) VALUES (?)");
-                    $stmt->bindParam(1, $imagePath);
-                    $stmt->execute();
-                }
             }
-        
+        }
 
         // Prepare statement for usar table insertion
         $usarStmt = $pdo->prepare("INSERT INTO usar (unit, irf_no, date, incident_loc, incident_comm, agency, position, address, contact_no, incident, recommendation, narrative, map_loc, latitude, longitude, dist_ratio, defib, no_cas, amb_spec, time_start, time_end, cycle, cr, enr, atscn, descn, insvc, optm, end, begin, total, cpr, casualty, ambulance_req, response_type, loc_type, call_type, srr_services, weather, terrain, interventions, prep_by, endorsed_by, witness) 
@@ -111,11 +108,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         // Execute the statement for usar table
         $usarStmt->execute();
 
-        // Get the last inserted ID (assuming usar_id is the primary key of usar table)
+        // Get the last inserted ID (assuming id is the primary key of usar table)
         $usarId = $pdo->lastInsertId();
 
         // Prepare the SQL statement for inserting into equipments table
-        $equipStmt = $pdo->prepare("INSERT INTO equipments (equip_id, id, equip_name, equip_status) VALUES (:equip_id, :usar_id, :equip_name, :status)");
+        $equipStmt = $pdo->prepare("INSERT INTO equipments (id, equip_name, equip_status) VALUES (:usar_id, :equip_name, :status)");
 
         // Iterate over each equipment status and insert into equipments table
         foreach ($_POST['equip_status'] as $equip) {
@@ -123,7 +120,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
             $status = $equip['status'];
 
             // Bind parameters and execute the statement for equipments table
-            $equipStmt->bindParam(':equip_id', $equip['equip_id']); // Assuming 'equip_id' is available in the $_POST array
             $equipStmt->bindParam(':usar_id', $usarId);
             $equipStmt->bindParam(':equip_name', $equipName);
             $equipStmt->bindParam(':status', $status);
@@ -137,5 +133,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         echo "Error: " . $e->getMessage();
     }
 }
-
-

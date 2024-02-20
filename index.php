@@ -369,11 +369,22 @@ include 'header.php';
                                                     <li>
                                                         <input type="checkbox" class="form-check-input" name="weather[]" value="thunder"> Thunderstorm
                                                     </li>
+
+                                                    <li>
+                                                        <input type="checkbox" class="form-check-input" name="weather[]" value=""> <label>Signal:
+                                                            <select name="signal">
+                                                                <option value="signal1">No Warning</option>
+                                                                <option value="signal1">Signal 1</option>
+                                                                <option value="signal2">Signal 2</option>
+                                                                <!-- Add more options if needed -->
+                                                            </select>
+                                                        </label>
+                                                    </li>
                                                 </ul>
                                             </label>
 
-
                                         </td>
+
 
                                         <th>Terrain:</th>
                                         <td>
@@ -495,147 +506,99 @@ include 'header.php';
                                     <th>Missing</th>
                                     <tr>
                                         <td name="equip_name">Self-Contained Breathing Apparatus</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="">
-                                        </td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td name="equip_name">Electric Spreader</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td name="equip_name">Electric Cutter</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td name="equip_name">Electric Ram</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td name="equip_name">Hydraulic Hand Pump</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td name="equip_name">Hydraulic Combi-tool</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td name="equip_name">Hydraulic Ram</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td name="equip_name">Chainsaw</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td name="equip_name">Cutters Edge</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td name="equip_name">High Pressure Lift Bag</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td name="equip_name">High Lift Jack</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td name="equip_name">Remote Area Lighting System RALS</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td name="equip_name">Ventilation Blower</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td name="equip_name">Tripod and Winch</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td name="equip_name">Rope Rescue Equipment</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td name="equip_name">Other</td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
-                                        <td> <input type="checkbox" class="form-check-input" name="status" value="yes">
-                                        </td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="status[]" value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td> </td>
@@ -757,14 +720,14 @@ include 'header.php';
                 </div>
             </div>
             <label for="image-input">Select Image:</label>
-<input type="file" id="image-input" name="images" accept="image/*" onchange="previewImage(this)">
-<br>
-<br>
+            <input type="file" id="image-input" name="images" accept="image/*" onchange="previewImage(this)">
+            <br>
+            <br>
 
-<!-- Image Preview Section for Selected Image -->
-<div class="imageform" style="height: 300px; width: 100%; display: flex; justify-content: center; border: 1px solid #ccc;">
-    <img id="selected-image-preview" src="#" alt="Image Preview" style="max-width: 100%; max-height: 100%;">
-</div>
+            <!-- Image Preview Section for Selected Image -->
+            <div class="imageform" style="height: 300px; width: 100%; display: flex; justify-content: center; border: 1px solid #ccc;">
+                <img id="selected-image-preview" src="#" alt="Image Preview" style="max-width: 100%; max-height: 100%;">
+            </div>
 
 
             <table class="table table-bordered">
@@ -923,4 +886,3 @@ include 'header.php';
         window.print();
     }
 </script>
-
