@@ -34,19 +34,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         $interventions = isset($_POST['interventions']) ? serialize($_POST['interventions']) : '';
 
 
-          // Handle image upload
-          $uploadDirectory = 'resources/gallery/';
-          $uploadedFile = $uploadDirectory . basename($_FILES['images']['name']);
-          
-          // Move the uploaded file to the specified directory
-          move_uploaded_file($_FILES['images']['tmp_name'], $uploadedFile);
-  
-          // Update the image path in the usar table
-          $usarStmt->bindParam(':images', $uploadedFile);
+      
+            if (isset($_FILES["image"])) {
+                $uploadDir = "resources/gallery/";
+                $uploadPath = $uploadDir . basename($_FILES["image"]["name"]);
+                move_uploaded_file($_FILES["image"]["tmp_name"], $uploadPath);
+        
+                // Save the unique image path in the database
+                $imagePath = $uploadPath;
+                $pdo = new PDO("mysql:host=localhost;dbname=drrmo", "root", "");
+                
+                // Check if the image already exists in the database
+                $stmt = $pdo->prepare("SELECT COUNT(*) FROM usar WHERE images = ?");
+                $stmt->bindParam(1, $imagePath);
+                $stmt->execute();
+        
+                if ($stmt->fetchColumn() == 0) {
+                    // Image doesn't exist, insert it into the database
+                    $stmt = $pdo->prepare("INSERT INTO usar (images) VALUES (?)");
+                    $stmt->bindParam(1, $imagePath);
+                    $stmt->execute();
+                }
+            }
+        
 
         // Prepare statement for usar table insertion
-        $usarStmt = $pdo->prepare("INSERT INTO usar (unit, irf_no, date, incident_loc, incident_comm, agency, position, address, contact_no, incident, recommendation, narrative, map_loc, latitude, longitude, dist_ratio, images, defib, no_cas, amb_spec, time_start, time_end, cycle, cr, enr, atscn, descn, insvc, optm, end, begin, total, cpr, casualty, ambulance_req, response_type, loc_type, call_type, srr_services, weather, terrain, interventions, prep_by, endorsed_by, witness) 
-        VALUES (:unit, :irf_no, :date, :incident_loc, :incident_comm, :agency, :position, :address, :contact_no, :incident, :recommendation, :narrative, :map_loc, :latitude, :longitude, :dist_ratio, :images, :defib, :no_cas, :amb_spec, :time_start, :time_end, :cycle, :cr, :enr, :atscn, :descn, :insvc, :optm, :end, :begin, :total, :cpr, :casualty, :ambulance_req, :response_type, :loc_type, :call_type, :srr_services, :weather, :terrain, :interventions, :prep_by, :endorsed_by, :witness)");
+        $usarStmt = $pdo->prepare("INSERT INTO usar (unit, irf_no, date, incident_loc, incident_comm, agency, position, address, contact_no, incident, recommendation, narrative, map_loc, latitude, longitude, dist_ratio, defib, no_cas, amb_spec, time_start, time_end, cycle, cr, enr, atscn, descn, insvc, optm, end, begin, total, cpr, casualty, ambulance_req, response_type, loc_type, call_type, srr_services, weather, terrain, interventions, prep_by, endorsed_by, witness) 
+        VALUES (:unit, :irf_no, :date, :incident_loc, :incident_comm, :agency, :position, :address, :contact_no, :incident, :recommendation, :narrative, :map_loc, :latitude, :longitude, :dist_ratio, :defib, :no_cas, :amb_spec, :time_start, :time_end, :cycle, :cr, :enr, :atscn, :descn, :insvc, :optm, :end, :begin, :total, :cpr, :casualty, :ambulance_req, :response_type, :loc_type, :call_type, :srr_services, :weather, :terrain, :interventions, :prep_by, :endorsed_by, :witness)");
 
         // Bind parameters for usar table
         $usarStmt->bindParam(':unit', $_POST['unit']);
@@ -65,7 +79,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         $usarStmt->bindParam(':latitude', $_POST['latitude']);
         $usarStmt->bindParam(':longitude', $_POST['longitude']);
         $usarStmt->bindParam(':dist_ratio', $_POST['dist_ratio']);
-        $usarStmt->bindParam(':images', $_POST['images']);
         $usarStmt->bindParam(':defib', $_POST['defib']);
         $usarStmt->bindParam(':no_cas', $_POST['no_cas']);
         $usarStmt->bindParam(':amb_spec', $_POST['amb_spec']);

@@ -67,8 +67,18 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch all data from the usar table
-$sql = "SELECT * FROM usar";
+
+
+$entriesPerPage = 1;
+
+// Get the current page number from the URL, default to 1 if not set
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+
+// Calculate the offset for the SQL query
+$offset = ($page - 1) * $entriesPerPage;
+
+// Fetch data from usar table with pagination
+$sql = "SELECT * FROM usar LIMIT $offset, $entriesPerPage";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -128,6 +138,29 @@ if ($result->num_rows > 0) {
 } else {
     echo "No data found";
 }
+
+
+// Fetch the total number of entries for pagination
+$totalEntries = $conn->query("SELECT COUNT(*) FROM usar")->fetch_row()[0];
+
+// Display pagination links
+echo "<div class='container'>";
+echo "<div class='row mt-3'>";
+echo "<div class='col-md-6 offset-md-3 text-center'>";
+
+// Calculate total number of pages
+$totalPages = ceil($totalEntries / $entriesPerPage);
+
+// Display pagination links
+for ($i = 1; $i <= $totalPages; $i++) {
+    echo "<a href='records.php?page={$i}' class='btn btn-secondary'>{$i}</a> ";
+}
+
+echo "</div>";
+echo "</div>";
+echo "</div>";
+
+
 
 // Close the database connection
 $conn->close();
@@ -576,24 +609,28 @@ $conn->close();
                                         <th colspan="6">AED/Defib:
                                             <label class="form-check-label">
 
-                                            <label class="form-check-label">
-        <input type="checkbox" class="form-check-input" name="defib" value="yes" <?php echo isset($row['defib']) && $row['defib'] === 'yes' ? 'checked' : ''; ?>> Yes
-    </label>
-    <label class="form-check-label">
-        <input type="checkbox" class="form-check-input" name="defib" value="no" <?php echo isset($row['defib']) && $row['defib'] === 'no' ? 'checked' : ''; ?>> No
-    </label>
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="defib"
+                                                        value="yes" <?php echo isset($row['defib']) && $row['defib'] === 'yes' ? 'checked' : ''; ?>> Yes
+                                                </label>
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="defib"
+                                                        value="no" <?php echo isset($row['defib']) && $row['defib'] === 'no' ? 'checked' : ''; ?>> No
+                                                </label>
 
 
                                             </label>
                                         </th>
                                         <th colspan="6">Ambulance req:
                                             <label class="form-check-label">
-                                            <label class="form-check-label">
-        <input type="checkbox" class="form-check-input" name="ambulance_req" value="yes" <?php echo isset($row['ambulance_req']) && $row['ambulance_req'] === 'yes' ? 'checked' : ''; ?>> Yes
-    </label>
-    <label class="form-check-label">
-        <input type="checkbox" class="form-check-input" name="ambulance_req" value="no" <?php echo isset($row['ambulance_req']) && $row['ambulance_req'] === 'no' ? 'checked' : ''; ?>> No
-    </label>
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="ambulance_req"
+                                                        value="yes" <?php echo isset($row['ambulance_req']) && $row['ambulance_req'] === 'yes' ? 'checked' : ''; ?>> Yes
+                                                </label>
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" name="ambulance_req"
+                                                        value="no" <?php echo isset($row['ambulance_req']) && $row['ambulance_req'] === 'no' ? 'checked' : ''; ?>> No
+                                                </label>
                                                 <br>
                                                 specify:
                                                 <?php echo $row['amb_spec']; ?>
@@ -908,16 +945,26 @@ $conn->close();
                 </div>
             </div>
 
-            <label for="image-input">Select Image:</label>
-<br>
-<br>
-<label for="image-input">Image:</label>
-<br>
-<br>
-<div class="imageform" style="height: 300px; width: 100%; display: flex; justify-content: center; border: 1px solid #ccc;">
-    <img id="image-preview" src="<?php echo isset($row['images']) ? $row['images'] : 'path/to/placeholder-image.jpg'; ?>" alt="Image Preview">
-</div>
+            <?php
+            if ($result->num_rows > 0) {
+                foreach ($rows as $row) {
 
+                    // Loop through each field and display data, handling empty fields
+                    foreach ($row as $field => $value) {
+                        echo "<tr>";
+
+                        // Check if the field is 'images' and format it as an image
+                        if ($field === 'images') {
+                            echo "<td colspan='6'><img src='{$value}' alt='Uploaded Image' style='max-width: 100%; height: auto;'></td>";
+                        } else {
+                        }
+
+                        echo "</tr>";
+                    }
+
+                }
+            }
+            ?>
 
             <table class="table table-bordered">
                 <tbody>
@@ -1061,8 +1108,6 @@ $conn->close();
             </div>
         </div>
 </div>
-
-<button type="submit" class="btn btn-success btn-sm" style="float: right;" name="addform">Submit</button>
 
 </form>
 

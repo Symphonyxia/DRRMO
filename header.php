@@ -76,6 +76,8 @@ if (!isset($_SESSION['user_id'])) {
             <a href="index.php"><img src="resources/img/iloilo.png" alt="" height="80"></a>
             <a class="navbar-brand" href="index.php" style="color: green;">Create Record</a>
             <a class="navbar-brand" href="records.php" style="color: green;">Print Record</a>
+            <a class="navbar-brand" href="default.php" style="color: green;">Default</a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
