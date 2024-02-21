@@ -3,32 +3,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
     try {
         include '../../boot.php';
 
-        // Handle response_type
         $responseType = isset($_POST['response_type']) ? implode(', ', $_POST['response_type']) : '';
         $responseTypeOther = isset($_POST['response_type_other']) ? $_POST['response_type_other'] : '';
         if (!empty($responseTypeOther)) {
             $responseType .= ' - ' . $responseTypeOther;
         }
 
-        // Handle loc_type
         $locType = isset($_POST['loc_type']) && is_array($_POST['loc_type']) ? implode(', ', $_POST['loc_type']) : '';
         $locTypeOther = isset($_POST['loc_type_other']) ? $_POST['loc_type_other'] : '';
         if (!empty($locTypeOther)) {
             $locType .= ' - ' . $locTypeOther;
         }
 
-        // Handle call_type
         $callType = isset($_POST['call_type']) ? implode(', ', $_POST['call_type']) : '';
         $callTypeOther = isset($_POST['call_type_other']) ? $_POST['call_type_other'] : '';
         if (!empty($callTypeOther)) {
             $callType .= !empty($callType) ? ', ' . $callTypeOther : $callTypeOther;
         }
 
-        // Get other form data
         $srrServices = isset($_POST['srr_services']) ? $_POST['srr_services'] : '';
         $total = isset($_POST['total']) ? $_POST['total'] : 0;
 
-        // Serialize arrays before storing
         $weather = isset($_POST['weather']) ? serialize($_POST['weather']) : '';
         $terrain = isset($_POST['terrain']) ? serialize($_POST['terrain']) : '';
         $interventions = isset($_POST['interventions']) ? serialize($_POST['interventions']) : '';
@@ -38,28 +33,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
             $uploadPath = $uploadDir . basename($_FILES["image"]["name"]);
             move_uploaded_file($_FILES["image"]["tmp_name"], $uploadPath);
 
-            // Save the unique image path in the database
             $imagePath = $uploadPath;
             $pdo = new PDO("mysql:host=localhost;dbname=drrmo", "root", "");
 
-            // Check if the image already exists in the database
             $stmt = $pdo->prepare("SELECT COUNT(*) FROM usar WHERE images = ?");
             $stmt->bindParam(1, $imagePath);
             $stmt->execute();
 
             if ($stmt->fetchColumn() == 0) {
-                // Image doesn't exist, insert it into the database
                 $stmt = $pdo->prepare("INSERT INTO usar (images) VALUES (?)");
                 $stmt->bindParam(1, $imagePath);
                 $stmt->execute();
             }
         }
 
-        // Prepare statement for usar table insertion
         $usarStmt = $pdo->prepare("INSERT INTO usar (unit, irf_no, date, incident_loc, incident_comm, agency, position, address, contact_no, incident, recommendation, narrative, map_loc, latitude, longitude, dist_ratio, defib, no_cas, amb_spec, time_start, time_end, cycle, cr, enr, atscn, descn, insvc, optm, end, begin, total, cpr, casualty, ambulance_req, response_type, loc_type, call_type, srr_services, weather, terrain, interventions, prep_by, endorsed_by, witness) 
         VALUES (:unit, :irf_no, :date, :incident_loc, :incident_comm, :agency, :position, :address, :contact_no, :incident, :recommendation, :narrative, :map_loc, :latitude, :longitude, :dist_ratio, :defib, :no_cas, :amb_spec, :time_start, :time_end, :cycle, :cr, :enr, :atscn, :descn, :insvc, :optm, :end, :begin, :total, :cpr, :casualty, :ambulance_req, :response_type, :loc_type, :call_type, :srr_services, :weather, :terrain, :interventions, :prep_by, :endorsed_by, :witness)");
 
-        // Bind parameters for usar table
         $usarStmt->bindParam(':unit', $_POST['unit']);
         $usarStmt->bindParam(':irf_no', $_POST['irf_no']);
         $usarStmt->bindParam(':date', $_POST['date']);
@@ -105,25 +95,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         $usarStmt->bindParam(':endorsed_by', $_POST['endorsed_by']);
         $usarStmt->bindParam(':witness', $_POST['witness']);
 
-        // Execute the statement for usar table
         $usarStmt->execute();
 
-        // Get the last inserted ID (assuming id is the primary key of usar table)
         $usarId = $pdo->lastInsertId();
 
-        // Prepare the SQL statement for inserting into equipments table
-        $equipStmt = $pdo->prepare("INSERT INTO equipments (id, equip_name, equip_status) VALUES (:usar_id, :equip_name, :status)");
+        $equipStmt = $pdo->prepare("INSERT INTO equipments (equip_name) VALUES (:equip_name)");
 
-        // Iterate over each equipment status and insert into equipments table
-        foreach ($_POST['equip_status'] as $equip) {
-            $equipName = $equip['equip_name'];
-            $status = $equip['status'];
+        $equipRecordStmt = $pdo->prepare("INSERT INTO equipment_record (id, equip_id, equip_status) VALUES (:id, :equip_id, :equip_status)");
 
-            // Bind parameters and execute the statement for equipments table
-            $equipStmt->bindParam(':usar_id', $usarId);
-            $equipStmt->bindParam(':equip_name', $equipName);
-            $equipStmt->bindParam(':status', $status);
+        foreach ($_POST['equip_name'] as $key => $equip_name) {
+            $equipStmt->bindParam(':equip_name', $equip_name);
             $equipStmt->execute();
+
+            $equipId = $pdo->lastInsertId();
+
+            $equipRecordStmt->bindParam(':id', $usarId);
+            $equipRecordStmt->bindParam(':equip_id', $equipId);
+            $equipRecordStmt->bindParam(':equip_status', $_POST['equip_status'][$key]); // Assuming the status is already set in the form
+            $equipRecordStmt->execute();
         }
 
         $_SESSION['success'] = "Record inserted successfully";
@@ -133,3 +122,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         echo "Error: " . $e->getMessage();
     }
 }
+
+
