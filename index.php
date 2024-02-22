@@ -185,10 +185,12 @@ include 'header.php';
                             </tr>
 
 
+                            <!-- Include jQuery library -->
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+                            <!-- Your HTML code -->
                             <tr>
                                 <th colspan="14">Type of Call:
-
                                     <label class="form-check-label">
                                         <input type="checkbox" class="form-check-input" name="call_type[]" value="fire">
                                         Fire
@@ -203,115 +205,213 @@ include 'header.php';
                                         <input type="checkbox" class="form-check-input" name="call_type[]"
                                             value="drowning"> Drowning
                                         <input type="checkbox" class="form-check-input" name="call_type[]"
-                                            value="storm">
-                                        Storm Surge
+                                            value="storm"> Storm Surge
+                                    </label>
+                                </th>
+                                <th>Operation Team:
+                                    <input type="number" name="insvc" value="">
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="14">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" name="call_type[]"
+                                            value="flooding"> Flooding
+                                        <input type="checkbox" class="form-check-input" name="call_type[]"
+                                            value="roving"> Roving/Inspection
+                                        <input type="checkbox" class="form-check-input" name="call_type[]"
+                                            value="others"> Others:___________________
 
                                     </label>
                                 </th>
                                 <th>In service:
-                                    <input type="number" name="insvc" value="">
+                                    <input type="text" name="optm" value="">
                                 </th>
-
                             </tr>
-                            <tr>
-                                <th colspan="14">
-
-                                    <label class="form-check-label">
-
-                                        <input type="checkbox" class="form-check-input" name="call_type[]"
-                                            value="flooding"> Flooding
-                                        <input type="checkbox" class="form-check-input" name="call_type[]"
-                                            value="roving">
-                                        Roving/Inspection
-
-                                        Others:
-                                        <input type="text" name="call_type_other" value=""
-                                            style="border: none; background-color: transparent; border-bottom: 1px solid black;">
-
-                                    </label>
-                                </th>
-                                <th>Operation Team: <input type="text" name="optm" value=""></th>
-
-                            </tr>
-
                             <tr>
                                 <th colspan="14">
                                     SRR Services:
-                                    <select name="srr_services">
-                                        <!-- Fire Emergencies -->
-                                        <option disabled="disabled" style="font-weight:bold;">Fire Emergencies
-                                        </option>
-                                        <option value="aerial">Aerial Footage</option>
-                                        <option value="firefight">Support in FireFighting Operations</option>
-                                        <option value="fire">Fire Rescue</option>
-                                        <option value="illumination">Illumination</option>
-                                        <option value="machinery">Machinery</option>
-
-                                        <!-- Water Emergencies -->
-                                        <option disabled="disabled" style="font-weight:bold;">Water Emergencies
-                                        </option>
-                                        <option value="technical">Technical Search</option>
-                                        <option value="physical">Physical Search</option>
-                                        <option value="boat">Boat Operation</option>
-                                        <option value="drowning">Active Drowning Response</option>
-                                        <option value="illumination2">Illumination</option>
-                                        <option value="machinery2">Machinery Response</option>
-                                        <option value="marpol">Marpol</option>
-                                        <option value="icp">ICP Activation</option>
-
-                                        <!-- Urban Emergencies -->
-                                        <option disabled="disabled" style="font-weight:bold;">Urban Emergencies
-                                        </option>
-                                        <option value="vehicle">Vehicle Extrication</option>
-                                        <option value="recovery">Vehicle Recovery</option>
-                                        <option value="illumination3">Illumination</option>
-                                        <option value="emr">EMR Truck Response</option>
-                                        <option value="down">Down Structure</option>
-                                        <option value="marpol2">Marpol</option>
-                                        <option value="natural">Natural Disaster Response</option>
-                                        <option value="icp2">ICP Activation</option>
-                                        <option value="ems">Support To EMS Response</option>
-
-                                        <!-- Technical Emergencies -->
-                                        <option disabled="disabled" style="font-weight:bold;">Technical Emergencies
-                                        </option>
-                                        <option value="hazmat">Hazmat Response</option>
-                                        <option value="cssr">CSSR Response</option>
-                                        <option value="space">Confined Space Response</option>
-                                        <option value="rope">Rope Rescue Response</option>
-                                        <option value="suicide">Active Suicide Response</option>
-                                        <option value="terrorism">Acts of Terrorism</option>
-                                        <option value="hostage">Hostage Taking</option>
-                                        <option value="mountain">Mountain Search and Rescue</option>
-                                        <option value="ground">Ground Search and Rescue</option>
-                                        <option value="icp3">ICP Activation</option>
-
-                                        <!-- Operation and Trainings -->
-                                        <option disabled="disabled" style="font-weight:bold;">Operation and
-                                            Trainings</option>
-                                        <option value="srr">SRR Training</option>
-                                        <option value="mutual">Mutual Aid Response</option>
-                                        <option value="survey">Aerial Survey and Search</option>
-                                        <option value="clearing">Clearing Operation</option>
-                                        <option value="public">Public Safety Response</option>
-                                        <option value="ev">EV Standby</option>
-                                        <option value="hazard">Hazard Assessment</option>
-                                        <option value="drill">Earthquake Drill and Orientation</option>
-                                        <option value="elsaroc">ELSAROC and CBDRRM</option>
-                                        <option value="dissemination">Dissemination of Safety Information Via
-                                            Rekurida</option>
-                                        <option value="others">Other Emergencies</option>
-
-                                        <!-- Add more options as needed -->
+                                    <select name="srr_services" id="srrServicesSelect">
+                                        <!-- Default options -->
+                                        <option value="default" selected disabled>Please select a type of call</option>
                                     </select>
                                 </th>
-
-
-
-                                </select>
-                                </th>
-                                <th></th>
                             </tr>
+
+                            <!-- Your JavaScript code -->
+                            <script>
+                                $(document).ready(function () {
+                                    // Define the options for each type of call
+                                    const srrOptions = {
+                                        fire: [
+                                            { value: "aerial", label: "Aerial Footage" },
+                                            { value: "firefight", label: "Support in FireFighting Operations" },
+                                            { value: "fire", label: "Fire Rescue" },
+                                            { value: "illumination", label: "Illumination" },
+                                            { value: "machinery", label: "Machinery" }
+                                        ],
+                                        drowning: [
+                                            { value: "technical", label: "Technical Search" },
+                                            { value: "physical", label: "Physical Search" },
+                                            { value: "boat", label: "Boat Operation" },
+                                            { value: "drowning", label: "Active Drowning Response" },
+                                            { value: "illumination", label: "Illumination" },
+                                            { value: "machinery", label: "Machinery" },
+                                            { value: "marpol", label: "Marpol" },
+                                            { value: "icp_activation", label: "ICP Activation" }
+                                        ],
+                                        storm: [
+                                            { value: "technical", label: "Technical Search" },
+                                            { value: "physical", label: "Physical Search" },
+                                            { value: "boat", label: "Boat Operation" },
+                                            { value: "drowning", label: "Active Drowning Response" },
+                                            { value: "illumination", label: "Illumination" },
+                                            { value: "machinery", label: "Machinery" },
+                                            { value: "marpol", label: "Marpol" },
+                                            { value: "icp_activation", label: "ICP Activation" }
+                                        ],
+                                        flooding: [
+                                            { value: "technical", label: "Technical Search" },
+                                            { value: "physical", label: "Physical Search" },
+                                            { value: "boat", label: "Boat Operation" },
+                                            { value: "drowning", label: "Active Drowning Response" },
+                                            { value: "illumination", label: "Illumination" },
+                                            { value: "machinery", label: "Machinery" },
+                                            { value: "marpol", label: "Marpol" },
+                                            { value: "icp_activation", label: "ICP Activation" }
+                                        ],
+                                        earthquake: [
+                                            { value: "srr_training", label: "SRR Training" },
+                                            { value: "mutual_response", label: "Mutual Aid Response" },
+                                            { value: "aerial_search", label: "Aerial Survey and Search" },
+                                            { value: "clearing_operation", label: "Clearing Operation" },
+                                            { value: "public_response", label: "Public Safety Response" },
+                                            { value: "ev_standby", label: "EV Standby" },
+                                            { value: "hazard_assessment", label: "Hazard Assessment" },
+                                            { value: "earthquake_drill", label: "Earthquake Drill and Orientation" },
+                                            { value: "elsaroc", label: "ELSAROC and CBDRRM" },
+                                            { value: "safety_information", label: "Dissemination of Safety Information Via Rekurida" },
+                                            { value: "others", label: "Other Dissemination" }
+
+                                        ],
+                                        collapse: [
+                                            { label: "Operation and Trainings" },
+                                            { value: "srr_training", label: "SRR Training" },
+                                            { value: "mutual_response", label: "Mutual Aid Response" },
+                                            { value: "aerial_search", label: "Aerial Survey and Search" },
+                                            { value: "clearing_operation", label: "Clearing Operation" },
+                                            { value: "public_response", label: "Public Safety Response" },
+                                            { value: "ev_standby", label: "EV Standby" },
+                                            { value: "hazard_assessment", label: "Hazard Assessment" },
+                                            { value: "earthquake_drill", label: "Earthquake Drill and Orientation" },
+                                            { value: "elsaroc", label: "ELSAROC and CBDRRM" },
+                                            { value: "safety_information", label: "Dissemination of Safety Information Via Rekurida" },
+                                            { value: "others", label: "Other Dissemination" }
+                                        ],
+                                        suicide: [
+                                            { value: "hazmat", label: "Hazmat Response" },
+                                            { value: "cssr_response", label: "CSSR Response" },
+                                            { value: "space_response", label: "Confined Space Response" },
+                                            { value: "rescue_response", label: "Rope Rescue Response" },
+                                            { value: "active_suicide", label: "Active Suicide Response" },
+                                            { value: "terrorism", label: "Acts of Terrorism" },
+                                            { value: "hostage_taking", label: "Hostage Taking" },
+                                            { value: "mountain_rescue", label: "Mountain Search and Rescue" },
+                                            { value: "ground_rescue", label: "Ground Search and Rescue" },
+                                            { value: "icp_activation", label: "ICP Activation" }
+
+                                        ],
+                                        vehicular: [
+                                            { value: "vehicle", label: "Vehicle Extrication" },
+                                            { value: "recovery", label: "Vehicle Recovery" },
+                                            { value: "illumination", label: "Illumination" },
+                                            { value: "emr_truck_response", label: "EMR Truck Response" },
+                                            { value: "down_structure", label: "Down Structure" },
+                                            { value: "marpol", label: "Marpol" },
+                                            { value: "natural_disaster_response", label: "Natural Disaster Response" },
+                                            { value: "icp_activation", label: "ICP Activation" },
+                                            { value: "ems_response", label: "Support To EMS Response" }
+                                        ],
+                                        roving: [
+                                            { label: "Operation and Trainings" },
+                                            { value: "srr_training", label: "SRR Training" },
+                                            { value: "mutual_response", label: "Mutual Aid Response" },
+                                            { value: "aerial_search", label: "Aerial Survey and Search" },
+                                            { value: "clearing_operation", label: "Clearing Operation" },
+                                            { value: "public_response", label: "Public Safety Response" },
+                                            { value: "ev_standby", label: "EV Standby" },
+                                            { value: "hazard_assessment", label: "Hazard Assessment" },
+                                            { value: "earthquake_drill", label: "Earthquake Drill and Orientation" },
+                                            { value: "elsaroc", label: "ELSAROC and CBDRRM" },
+                                            { value: "safety_information", label: "Dissemination of Safety Information Via Rekurida" },
+                                            { value: "others", label: "Other Dissemination" }
+                                        ],
+                                        others: [
+                                            { label: "Operation and Trainings" },
+                                            { value: "srr_training", label: "SRR Training" },
+                                            { value: "mutual_response", label: "Mutual Aid Response" },
+                                            { value: "aerial_search", label: "Aerial Survey and Search" },
+                                            { value: "clearing_operation", label: "Clearing Operation" },
+                                            { value: "public_response", label: "Public Safety Response" },
+                                            { value: "ev_standby", label: "EV Standby" },
+                                            { value: "hazard_assessment", label: "Hazard Assessment" },
+                                            { value: "earthquake_drill", label: "Earthquake Drill and Orientation" },
+                                            { value: "elsaroc", label: "ELSAROC and CBDRRM" },
+                                            { value: "safety_information", label: "Dissemination of Safety Information Via Rekurida" },
+                                            { value: "others", label: "Other Dissemination" }
+                                        ],
+                                    };
+
+                                    // Function to update SRR services dropdown based on selected type of call
+                                    // Function to update SRR services dropdown based on selected type of call
+                                    function updateSrrServicesDropdown(selectedTypes) {
+                                        const srrSelect = $("#srrServicesSelect");
+                                        srrSelect.empty(); // Clear existing options
+
+                                        if (selectedTypes.length === 0) {
+                                            // If no type of call is selected, show default option
+                                            srrSelect.append($('<option>', {
+                                                value: "default",
+                                                text: "Please select a type of call",
+                                                disabled: true,
+                                                selected: true
+                                            }));
+                                        } else {
+                                            // If type of call(s) are selected, populate the dropdown with options based on selected type(s)
+                                            let options = [];
+                                            selectedTypes.forEach(function (type) {
+                                                options = options.concat(srrOptions[type]);
+                                            });
+
+                                            options.forEach(function (option) {
+                                                srrSelect.append($('<option>', {
+                                                    value: option.value,
+                                                    text: option.label
+                                                }));
+                                            });
+                                        }
+                                    }
+
+                                    // Event listener for checkboxes of type of call
+                                    $("input[name='call_type[]']").change(function () {
+                                        const selectedTypes = [];
+                                        $("input[name='call_type[]']:checked").each(function () {
+                                            selectedTypes.push($(this).val());
+                                        });
+                                        updateSrrServicesDropdown(selectedTypes);
+                                    });
+
+                                    // Event listener for selecting a service
+                                    $("#srrServicesSelect").change(function () {
+                                        const selectedService = $(this).val();
+                                        // Save the selected value to a variable named srr_services
+                                        const srr_services = selectedService;
+                                        console.log("Selected SRR service:", srr_services);
+                                        // If you want to do something with the selected value, you can do it here
+                                    });
+                                });
+                            </script>
 
 
 
@@ -715,13 +815,6 @@ include 'header.php';
                                         <td><input type="checkbox" class="form-check-input" name="equip_status[]"
                                                 value="missing"></td>
                                     </tr>
-                                    <tr>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td> </td>
-                                        <td> </td>
-                                    </tr>
-
                                 </tbody>
                             </table>
 
@@ -851,8 +944,10 @@ include 'header.php';
                     <h5>URBAN SEARCH AND RESCUE</h5>
                 </div>
             </div>
+
+            
             <label for="image-input">Select Image:</label>
-            <input type="file" id="image-input" name="images" accept="image/*" onchange="previewImage(this)">
+            <input type="file"  name="images" accept="image/*" onchange="previewImage(this)">
             <br>
             <br>
 
@@ -862,6 +957,19 @@ include 'header.php';
                 <img id="selected-image-preview" src="#" alt="Image Preview" style="max-width: 100%; max-height: 100%;">
             </div>
 
+            <script>
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#selected-image-preview').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+    }
+</script>
 
             <table class="table table-bordered">
                 <tbody>

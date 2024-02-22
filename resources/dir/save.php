@@ -28,24 +28,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         $terrain = isset($_POST['terrain']) ? serialize($_POST['terrain']) : '';
         $interventions = isset($_POST['interventions']) ? serialize($_POST['interventions']) : '';
 
-        if (isset($_FILES["image"])) {
-            $uploadDir = "resources/gallery/";
-            $uploadPath = $uploadDir . basename($_FILES["image"]["name"]);
-            move_uploaded_file($_FILES["image"]["tmp_name"], $uploadPath);
 
-            $imagePath = $uploadPath;
-            $pdo = new PDO("mysql:host=localhost;dbname=drrmo", "root", "");
+        // Directory where the image will be saved
+        $uploadDirectory = 'resources/gallery/';
 
-            $stmt = $pdo->prepare("SELECT COUNT(*) FROM usar WHERE images = ?");
-            $stmt->bindParam(1, $imagePath);
-            $stmt->execute();
+        // Check if file was uploaded without errors
+        if ($_FILES['images']['error'] === UPLOAD_ERR_OK) {
+            $imageTmpName = $_FILES['images']['tmp_name'];
+            $imageName = $_FILES['images']['name'];
+            $imagePath = $uploadDirectory . $imageName;
 
-            if ($stmt->fetchColumn() == 0) {
-                $stmt = $pdo->prepare("INSERT INTO usar (images) VALUES (?)");
-                $stmt->bindParam(1, $imagePath);
-                $stmt->execute();
+            // Verify if the directory exists
+            if (!file_exists($uploadDirectory)) {
+                // Create the directory if it doesn't exist
+                mkdir($uploadDirectory, 0777, true);
+            }
+
+            // Move the uploaded file to the specified directory
+            if (move_uploaded_file($imageTmpName, $imagePath)) {
+                // Image saved successfully, now insert its path into the database
+                $stmt = $pdo->prepare("INSERT INTO user (images) VALUES (?)");
+                $stmt->execute([$imagePath]);
+
+                echo "Image uploaded and saved successfully.";
+            } else {
+                echo "Error moving uploaded image.";
             }
         }
+             
 
         $usarStmt = $pdo->prepare("INSERT INTO usar (unit, irf_no, date, incident_loc, incident_comm, agency, position, address, contact_no, incident, recommendation, narrative, map_loc, latitude, longitude, dist_ratio, defib, no_cas, amb_spec, time_start, time_end, cycle, cr, enr, atscn, descn, insvc, optm, end, begin, total, cpr, casualty, ambulance_req, response_type, loc_type, call_type, srr_services, weather, terrain, interventions, prep_by, endorsed_by, witness) 
         VALUES (:unit, :irf_no, :date, :incident_loc, :incident_comm, :agency, :position, :address, :contact_no, :incident, :recommendation, :narrative, :map_loc, :latitude, :longitude, :dist_ratio, :defib, :no_cas, :amb_spec, :time_start, :time_end, :cycle, :cr, :enr, :atscn, :descn, :insvc, :optm, :end, :begin, :total, :cpr, :casualty, :ambulance_req, :response_type, :loc_type, :call_type, :srr_services, :weather, :terrain, :interventions, :prep_by, :endorsed_by, :witness)");
