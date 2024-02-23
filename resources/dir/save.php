@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         $total = isset($_POST['total']) ? $_POST['total'] : 0;
 
         if (isset($_FILES['images']) && $_FILES['images']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = '../../resources/gallery/'; // Update the upload directory path
+            $uploadDir = '../../resources/gallery/'; 
 
             if (!is_dir($uploadDir) || !is_writable($uploadDir)) {
                 die("Error: Upload directory is not writable or does not exist.");
@@ -71,8 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
 
         $crew = isset($_POST['crew']) ? $_POST['crew'] : array();
         $designation = isset($_POST['designation']) ? $_POST['designation'] : array();
-
-        // Combine crew and designation arrays into comma-separated strings
         $crewStr = implode(', ', $crew);
         $designationStr = implode(', ', $designation);
 
@@ -146,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
 
             $equipRecordStmt->bindParam(':id', $usarId);
             $equipRecordStmt->bindParam(':equip_id', $equipId);
-            $equipRecordStmt->bindParam(':equip_status', $_POST['equip_status'][$key]); // Assuming the status is already set in the form
+            $equipRecordStmt->bindParam(':equip_status', $_POST['equip_status'][$key]); 
             $equipRecordStmt->execute();
         }
 

@@ -647,7 +647,6 @@ include 'header.php';
                                         <td><input type="checkbox" class="form-check-input" name="equip_status[]"
                                                 value="missing"></td>
                                     </tr>
-                                    <!-- Repeat similar structure for other equipment -->
 
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Electric Spreader">Electric
