@@ -1,56 +1,71 @@
-<form action="" method="post" enctype="multipart/form-data">
-  Select image to upload:
-  <input type="file" name="images" id="images">
-  <input type="submit" value="Upload Image" name="submit">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Upload and Preview</title>
+</head>
+<body>
+  <input type="file" id="imageInput" accept="image/*">
+  <button onclick="uploadImage()">Upload</button>
+  <div id="imagePreview"></div>
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    function uploadImage() {
+      let formData = new FormData();
+      let fileInput = document.getElementById('imageInput');
+      formData.append('images', fileInput.files[0]);
+
+      $.ajax({
+        url: '<?= $_SERVER['PHP_SELF'] ?>',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          $('#imagePreview').html('<img src="' + response + '" width="200">');
+        }
+      });
+    }
+  </script>
 
 <?php
-$target_dir = "resources/gallery/";
-$target_file = $target_dir . basename($_FILES["images"]["name"]);
-$uploadOk = 1;
-$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if ($_FILES['images']['error'] === UPLOAD_ERR_OK) {
+    $uploadDir = 'resources/gallery/';
+    $uploadFile = $uploadDir . basename($_FILES['images']['name']);
 
-// Check if image file is a actual image or fake image
-if(isset($_POST["submit"])) {
-  $check = getimagesize($_FILES["images"]["tmp_name"]);
-  if($check !== false) {
-    echo "File is an image - " . $check["mime"] . ".";
-    $uploadOk = 1;
+    if (move_uploaded_file($_FILES['images']['tmp_name'], $uploadFile)) {
+      // Save to database
+      $dbHost = 'localhost';
+      $dbUsername = 'root';
+      $dbPassword = '';
+      $dbName = 'drrmo';
+
+      $conn = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
+
+      if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+      }
+
+      $imagePath = mysqli_real_escape_string($conn, $uploadFile);
+      $sql = "INSERT INTO usar (images) VALUES ('$imagePath')";
+
+      if ($conn->query($sql) === TRUE) {
+        echo $uploadFile;
+      } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+
+      $conn->close();
+    } else {
+      echo "Failed to move uploaded file.";
+    }
   } else {
-    echo "File is not an image.";
-    $uploadOk = 0;
-  }
-}
-
-// Check if file already exists
-if (file_exists($target_file)) {
-  echo "Sorry, file already exists.";
-  $uploadOk = 0;
-}
-
-// Check file size
-if ($_FILES["images"]["size"] > 500000) {
-  echo "Sorry, your file is too large.";
-  $uploadOk = 0;
-}
-
-// Allow certain file formats
-if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-&& $imageFileType != "gif" ) {
-  echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-  $uploadOk = 0;
-}
-
-// Check if $uploadOk is set to 0 by an error
-if ($uploadOk == 0) {
-  echo "Sorry, your file was not uploaded.";
-// if everything is ok, try to upload file
-} else {
-  if (move_uploaded_file($_FILES["images"]["tmp_name"], $target_file)) {
-    echo "The file ". htmlspecialchars( basename( $_FILES["images"]["name"])). " has been uploaded.";
-  } else {
-    echo "Sorry, there was an error uploading your file.";
+    echo "File upload error.";
   }
 }
 ?>
+</body>
+</html>

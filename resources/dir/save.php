@@ -21,44 +21,64 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
             $callType .= !empty($callType) ? ', ' . $callTypeOther : $callTypeOther;
         }
 
+
+        $weather = isset($_POST['weather']) ? implode(', ', $_POST['weather']) : '';
+        $weatherOther = isset($_POST['weather']) ? $_POST['weather'] : '';
+
+        $signal = isset($_POST['signal']) ? $_POST['signal'] : '';
+
+        if (!empty($signal)) {
+            $weather .= ' - ' . $signal;
+        }
+
+        $terrain = isset($_POST['terrain']) ? implode(', ', $_POST['terrain']) : '';
+        $terrainOther = isset($_POST['terrain']) ? $_POST['terrain'] : '';
+
+
+        $interventions = isset($_POST['interventions']) ? implode(', ', $_POST['interventions']) : '';
+        $interventionsOther = isset($_POST['interventions']) ? $_POST['interventions'] : '';
+
+      
+
         $srrServices = isset($_POST['srr_services']) ? $_POST['srr_services'] : '';
         $total = isset($_POST['total']) ? $_POST['total'] : 0;
 
-        $weather = isset($_POST['weather']) ? serialize($_POST['weather']) : '';
-        $terrain = isset($_POST['terrain']) ? serialize($_POST['terrain']) : '';
-        $interventions = isset($_POST['interventions']) ? serialize($_POST['interventions']) : '';
+        if (isset($_FILES['images']) && $_FILES['images']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = '../../resources/gallery/'; // Update the upload directory path
 
-
-        // Directory where the image will be saved
-        $uploadDirectory = 'resources/gallery/';
-
-        // Check if file was uploaded without errors
-        if ($_FILES['images']['error'] === UPLOAD_ERR_OK) {
-            $imageTmpName = $_FILES['images']['tmp_name'];
-            $imageName = $_FILES['images']['name'];
-            $imagePath = $uploadDirectory . $imageName;
-
-            // Verify if the directory exists
-            if (!file_exists($uploadDirectory)) {
-                // Create the directory if it doesn't exist
-                mkdir($uploadDirectory, 0777, true);
+            if (!is_dir($uploadDir) || !is_writable($uploadDir)) {
+                die("Error: Upload directory is not writable or does not exist.");
             }
 
-            // Move the uploaded file to the specified directory
-            if (move_uploaded_file($imageTmpName, $imagePath)) {
-                // Image saved successfully, now insert its path into the database
-                $stmt = $pdo->prepare("INSERT INTO user (images) VALUES (?)");
-                $stmt->execute([$imagePath]);
+            $uploadFile = $uploadDir . basename($_FILES['images']['name']);
 
-                echo "Image uploaded and saved successfully.";
-            } else {
-                echo "Error moving uploaded image.";
+            if (move_uploaded_file($_FILES['images']['tmp_name'], $uploadFile)) {
+                $imagePath = $uploadFile;
+
+                $stmt = $pdo->prepare("SELECT COUNT(*) FROM usar WHERE images = :imagePath");
+                $stmt->bindParam(':imagePath', $imagePath);
+                $stmt->execute();
+                $count = $stmt->fetchColumn();
+
+                if ($count == 0) {
+                    $sql = "INSERT INTO usar (images) VALUES (:imagePath)";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->bindParam(':imagePath', $imagePath);
+                }
             }
         }
-             
 
-        $usarStmt = $pdo->prepare("INSERT INTO usar (unit, irf_no, date, incident_loc, incident_comm, agency, position, address, contact_no, incident, recommendation, narrative, map_loc, latitude, longitude, dist_ratio, defib, no_cas, amb_spec, time_start, time_end, cycle, cr, enr, atscn, descn, insvc, optm, end, begin, total, cpr, casualty, ambulance_req, response_type, loc_type, call_type, srr_services, weather, terrain, interventions, prep_by, endorsed_by, witness) 
-        VALUES (:unit, :irf_no, :date, :incident_loc, :incident_comm, :agency, :position, :address, :contact_no, :incident, :recommendation, :narrative, :map_loc, :latitude, :longitude, :dist_ratio, :defib, :no_cas, :amb_spec, :time_start, :time_end, :cycle, :cr, :enr, :atscn, :descn, :insvc, :optm, :end, :begin, :total, :cpr, :casualty, :ambulance_req, :response_type, :loc_type, :call_type, :srr_services, :weather, :terrain, :interventions, :prep_by, :endorsed_by, :witness)");
+
+        $crew = isset($_POST['crew']) ? $_POST['crew'] : array();
+        $designation = isset($_POST['designation']) ? $_POST['designation'] : array();
+
+        // Combine crew and designation arrays into comma-separated strings
+        $crewStr = implode(', ', $crew);
+        $designationStr = implode(', ', $designation);
+
+
+        $usarStmt = $pdo->prepare("INSERT INTO usar (unit, irf_no, date, incident_loc, incident_comm, agency, position, address, contact_no, incident, recommendation, narrative, map_loc, latitude, longitude, dist_ratio, defib, no_cas, amb_spec, time_start, time_end, cycle, cr, enr, atscn, descn, insvc, optm, end, begin, total, cpr, casualty, ambulance_req, response_type, loc_type, call_type, srr_services, weather, terrain, interventions, prep_by, endorsed_by, witness, images, crew, designation) 
+        VALUES (:unit, :irf_no, :date, :incident_loc, :incident_comm, :agency, :position, :address, :contact_no, :incident, :recommendation, :narrative, :map_loc, :latitude, :longitude, :dist_ratio, :defib, :no_cas, :amb_spec, :time_start, :time_end, :cycle, :cr, :enr, :atscn, :descn, :insvc, :optm, :end, :begin, :total, :cpr, :casualty, :ambulance_req, :response_type, :loc_type, :call_type, :srr_services, :weather, :terrain, :interventions, :prep_by, :endorsed_by, :witness, :images, :crew, :designation)");
 
         $usarStmt->bindParam(':unit', $_POST['unit']);
         $usarStmt->bindParam(':irf_no', $_POST['irf_no']);
@@ -104,6 +124,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         $usarStmt->bindParam(':prep_by', $_POST['prep_by']);
         $usarStmt->bindParam(':endorsed_by', $_POST['endorsed_by']);
         $usarStmt->bindParam(':witness', $_POST['witness']);
+        $usarStmt->bindParam(':images', $imagePath);
+       
+        $usarStmt->bindParam(':crew', $crewStr);
+        $usarStmt->bindParam(':designation', $designationStr);
+
 
         $usarStmt->execute();
 
@@ -133,4 +158,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
     }
 }
 
-
+?>

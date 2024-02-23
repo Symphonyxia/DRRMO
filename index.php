@@ -7,7 +7,7 @@ include 'header.php';
 <div class="container">
 
     <br>
-    <form action="resources/dir/save.php" method="POST">
+    <form action="resources/dir/save.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="CSRFkey" value="<?php echo $key ?>" id="CSRFkey">
         <input type="hidden" name="token" value="<?php echo $token ?>" id="CSRFtoken">
         <div id="print-content">
@@ -208,7 +208,7 @@ include 'header.php';
                                             value="storm"> Storm Surge
                                     </label>
                                 </th>
-                                <th>Operation Team:
+                                <th>In Service:
                                     <input type="number" name="insvc" value="">
                                 </th>
                             </tr>
@@ -225,7 +225,7 @@ include 'header.php';
 
                                     </label>
                                 </th>
-                                <th>In service:
+                                <th>Operation Team:
                                     <input type="text" name="optm" value="">
                                 </th>
                             </tr>
@@ -461,59 +461,42 @@ include 'header.php';
                     <div class="row">
                         <div class="col-md-6">
                             <table class="table table-bordered">
-
                                 <tbody>
                                     <tr>
                                         <th colspan="5">Weather</th>
                                         <td>
-                                            <label class="form-check-label">
-                                                <ul style="list-style-type: none; padding-left: 0;">
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather[]"
-                                                            value="normal"> Normal
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather[]"
-                                                            value="hot"> Hot/Humid
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather[]"
-                                                            value="cold"> Cold
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather[]"
-                                                            value="light"> Light Rain
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather[]"
-                                                            value="heavy"> Heavy Rain
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather[]"
-                                                            value="hail"> Hail
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather[]"
-                                                            value="windy"> Windy
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather[]"
-                                                            value="thunder"> Thunderstorm
-                                                    </li>
 
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather[]"
-                                                            value=""> <label>Signal:
-                                                            <select name="signal">
-                                                                <option value="signal1">No Warning</option>
-                                                                <option value="signal1">Signal 1</option>
-                                                                <option value="signal2">Signal 2</option>
-                                                                <!-- Add more options if needed -->
-                                                            </select>
-                                                        </label>
-                                                    </li>
-                                                </ul>
-                                            </label>
+                                            <label class="form-check-label">
+                                                <input type="checkbox" class="form-check-input" name="weather[]"
+                                                    value="normal">
+                                                Normal
+                                                <input type="checkbox" class="form-check-input" name="weather[]"
+                                                    value="hot"> Hot/Humid
+                                                <input type="checkbox" class="form-check-input" name="weather[]"
+                                                    value="cold"> Cold
+                                                <input type="checkbox" class="form-check-input" name="weather[]"
+                                                    value="light"> Light Rain
+                                                <input type="checkbox" class="form-check-input" name="weather[]"
+                                                    value="heavy"> Heavy Rain
+                                                <input type="checkbox" class="form-check-input" name="weather[]"
+                                                    value="hail"> Hail
+                                                <input type="checkbox" class="form-check-input" name="weather[]"
+                                                    value="windy"> Windy
+                                                <input type="checkbox" class="form-check-input" name="weather[]"
+                                                    value="thunder"> Thunderstorm
+
+                                                <input type="checkbox" class="form-check-input" name="weather[]"
+                                                    value=""> <label>Signal:
+                                                    <select name="signal">
+                                                        <option value="no_warning">No Warning</option>
+                                                        <option value="signal_1">Signal 1</option>
+                                                        <option value="signal_2">Signal 2</option>
+                                                        <option value="signal_3">Signal 3</option>
+                                                        <option value="signal_4">Signal 4</option>
+                                                        <option value="signal_5">Signal 5</option>
+                                                    </select>
+
+                                                </label>
 
                                         </td>
 
@@ -885,28 +868,28 @@ include 'header.php';
                                         <th>Designation</th>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="" value=""></td>
-                                        <td><input type="text" name="" value=""></td>
+                                        <td><input type="text" name="crew[]" value=""></td>
+                                        <td><input type="text" name="designation[]" value=""></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="" value=""></td>
-                                        <td><input type="text" name="" value=""></td>
+                                        <td><input type="text" name="crew[]" value=""></td>
+                                        <td><input type="text" name="designation[]" value=""></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="" value=""></td>
-                                        <td><input type="text" name="" value=""></td>
+                                    <td><input type="text" name="crew[]" value=""></td>
+                                        <td><input type="text" name="designation[]" value=""></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="" value=""></td>
-                                        <td><input type="text" name="" value=""></td>
+                                    <td><input type="text" name="crew[]" value=""></td>
+                                        <td><input type="text" name="designation[]" value=""></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="" value=""></td>
-                                        <td><input type="text" name="" value=""></td>
+                                    <td><input type="text" name="crew[]" value=""></td>
+                                        <td><input type="text" name="designation[]" value=""></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="" value=""></td>
-                                        <td><input type="text" name="" value=""></td>
+                                    <td><input type="text" name="crew[]" value=""></td>
+                                        <td><input type="text" name="designation[]" value=""></td>
                                     </tr>
                                     <tr>
                                         <th colspan="6">Prepared by:
@@ -945,32 +928,31 @@ include 'header.php';
                 </div>
             </div>
 
-            
-            <label for="image-input">Select Image:</label>
-            <input type="file"  name="images" accept="image/*" onchange="previewImage(this)">
-            <br>
-            <br>
 
-            <!-- Image Preview Section for Selected Image -->
-            <div class="imageform"
-                style="height: 300px; width: 100%; display: flex; justify-content: center; border: 1px solid #ccc;">
-                <img id="selected-image-preview" src="#" alt="Image Preview" style="max-width: 100%; max-height: 100%;">
-            </div>
+           
+    <label for="image-input">Select Image:</label>
+    <input type="file" name="images" accept="image/*" id="image-input" onchange="previewImage(this)">
+    <br>
+    <br>
 
-            <script>
-    function previewImage(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+    <!-- Image Preview Section for Selected Image -->
+    <div class="imageform"
+        style="height: 300px; width: 100%; display: flex; justify-content: center; border: 1px solid #ccc;">
+        <img id="selected-image-preview" src="#" alt="Image Preview" style="max-width: 100%; max-height: 100%;">
+    </div>
+    <script>
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
 
-            reader.onload = function (e) {
-                $('#selected-image-preview').attr('src', e.target.result);
+                reader.onload = function (e) {
+                    $('#selected-image-preview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
             }
-
-            reader.readAsDataURL(input.files[0]); // convert to base64 string
         }
-    }
-</script>
-
+    </script>
             <table class="table table-bordered">
                 <tbody>
                     <tr>
@@ -1116,7 +1098,8 @@ include 'header.php';
         </div>
 </div>
 
-<button type="submit" class="btn btn-success btn-sm" style="float: right;" name="addform">Submit</button>
+<button type="submit" class="btn btn-success btn-sm" onclick="uploadImage()" style="float: right;"
+    name="addform">Submit</button>
 
 </form>
 
@@ -1128,4 +1111,5 @@ include 'header.php';
     function printContent() {
         window.print();
     }
+
 </script>
