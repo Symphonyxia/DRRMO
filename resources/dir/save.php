@@ -38,13 +38,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         $interventions = isset($_POST['interventions']) ? implode(', ', $_POST['interventions']) : '';
         $interventionsOther = isset($_POST['interventions']) ? $_POST['interventions'] : '';
 
-      
+
 
         $srrServices = isset($_POST['srr_services']) ? $_POST['srr_services'] : '';
         $total = isset($_POST['total']) ? $_POST['total'] : 0;
 
         if (isset($_FILES['images']) && $_FILES['images']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = '../../resources/gallery/'; 
+            $uploadDir = '../../resources/gallery/';
 
             if (!is_dir($uploadDir) || !is_writable($uploadDir)) {
                 die("Error: Upload directory is not writable or does not exist.");
@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         $usarStmt->bindParam(':endorsed_by', $_POST['endorsed_by']);
         $usarStmt->bindParam(':witness', $_POST['witness']);
         $usarStmt->bindParam(':images', $imagePath);
-       
+
         $usarStmt->bindParam(':crew', $crewStr);
         $usarStmt->bindParam(':designation', $designationStr);
 
@@ -144,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
 
             $equipRecordStmt->bindParam(':id', $usarId);
             $equipRecordStmt->bindParam(':equip_id', $equipId);
-            $equipRecordStmt->bindParam(':equip_status', $_POST['equip_status'][$key]); 
+            $equipRecordStmt->bindParam(':equip_status', $_POST['equip_status'][$key]);
             $equipRecordStmt->execute();
         }
 
@@ -155,5 +155,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         echo "Error: " . $e->getMessage();
     }
 }
-
-?>
