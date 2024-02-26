@@ -33,14 +33,11 @@ include 'header.php';
                             </tr>
                             <tr>
                                 <th>BEGIN</th>
-                                <td><input type="number" name="begin" id="begin_mileage_1" oninput="calculateTotal();">
-                                </td>
+                                <td><input type="number" name="begin" id="begin_mileage_1" oninput="calculateTotal();"></td>
                             </tr>
                             <tr>
                                 <th>TOTAL</th>
-                                <td> <span id="total_mileage">0</span><input type="hidden" name="total"
-                                        id="total_mileage_input"></td>
-
+                                <td> <span id="total_mileage">0</span><input type="hidden" name="total" id="total_mileage_input"></td>
                             </tr>
 
                         </tbody>
@@ -75,51 +72,27 @@ include 'header.php';
 
                         <tbody>
                             <tr>
-                                <th colspan="10">UNIT/VEHICLE NAME:
-                                    <input type="text" name="unit" value="">
-
-                                </th>
-                                <th>IFR No.:
-                                    <input type="text" name="irf_no" value="">
-
-                                </th>
-
-                                <th>DATE: <input type="date" name="date" value="">
-
-                                </th>
+                                <th colspan="10">UNIT/VEHICLE NAME:<input type="text" name="unit" value=""></th>
+                                <th>IFR No.:<input type="text" name="irf_no" value=""></th>
+                                <th>DATE: <input type="date" name="date" value=""></th>
                                 <th colspan="6"></th>
-
-
-
                             </tr>
 
                             <tr>
-                                <th colspan="14">Incident Address/Location:
-                                    <input type="text" name="incident_loc" value="">
-
-                                </th>
-                                <th>Call Recieved:
-                                    <input type="number" name="cr" value="">
-                                </th>
-
-
-
+                                <th colspan="14">Incident Address/Location: <input type="text" name="incident_loc" value=""></th>
+                                <th>Call Recieved:<input type="number" name="cr" value=""></th>
                             </tr>
 
                             <tr>
                                 <th colspan="14">Response Type:
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="response_type[]"
-                                            value="Standby"> Standby
+                                        <input type="checkbox" class="form-check-input" name="response_type[]" value="Standby"> Standby
                                     </label>
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="response_type[]"
-                                            value="Response"> Response to Scene
+                                        <input type="checkbox" class="form-check-input" name="response_type[]" value="Response"> Response to Scene
                                     </label>
                                     Others:
-
-                                    <input type="text" name="response_type_other" value=""
-                                        style="border: none; background-color: transparent; border-bottom: 1px solid black;">
+                                    <input type="text" name="response_type_other" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
                                 </th>
 
                                 <th>Enroute:
@@ -131,118 +104,72 @@ include 'header.php';
                             <tr>
                                 <th colspan="14">Location Type:
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]"
-                                            value="airport">
-                                        Airport
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]"
-                                            value="Hospital"> Hospital
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]"
-                                            value="nursing">
-                                        Nursing Home
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]"
-                                            value="residence"> Home/Residence
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]"
-                                            value="bridge">
-                                        Bridge
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="bar">
-                                        Restuarant/Bar
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="farm">
-                                        Farm
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]"
-                                            value="school">
-                                        School
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]"
-                                            value="clinic">
-                                        Clinic/RHU
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="airport">Airport
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="Hospital">Hospital
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="nursing">Nursing Home
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="residence"> Home/Residence
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="bridge"> Bridge
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="bar">Restuarant/Bar
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="farm"> Farm
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="school">School
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="clinic"> Clinic/RHU
                                     </label>
 
                                 </th>
-                                <th>At scene:
-                                    <input type="number" name="atscn" value="">
-                                </th>
-
+                                <th>At scene:<input type="number" name="atscn" value=""></th>
                             </tr>
 
                             <tr>
                                 <th colspan="14">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]"
-                                            value="street">
-                                        Highway/Street
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="bldg">
-                                        Public Building
-
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="street"> Highway/Street
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="bldg"> Public Building
                                         Others:
-                                        <input type="text" name="loc_type_other" value=""
-                                            style="border: none; background-color: transparent; border-bottom: 1px solid black;">
-
+                                        <input type="text" name="loc_type_other" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
                                     </label>
                                 </th>
-                                <th>Depart scene:
-                                    <input type="number" name="descn" value="">
-                                </th>
-
+                                <th>Depart scene: <input type="number" name="descn" value=""></th>
                             </tr>
 
 
-                            <!-- Include jQuery library -->
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-                            <!-- Your HTML code -->
                             <tr>
                                 <th colspan="14">Type of Call:
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="fire">
-                                        Fire
-                                        <input type="checkbox" class="form-check-input" name="call_type[]"
-                                            value="vehicular"> Vehicular Accident
-                                        <input type="checkbox" class="form-check-input" name="call_type[]"
-                                            value="earthquake"> Earthquake
-                                        <input type="checkbox" class="form-check-input" name="call_type[]"
-                                            value="collapse"> Collapse
-                                        <input type="checkbox" class="form-check-input" name="call_type[]"
-                                            value="suicide"> Suicide
-                                        <input type="checkbox" class="form-check-input" name="call_type[]"
-                                            value="drowning"> Drowning
-                                        <input type="checkbox" class="form-check-input" name="call_type[]"
-                                            value="storm"> Storm Surge
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="fire">Fire
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="vehicular"> Vehicular Accident
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="earthquake"> Earthquake
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="collapse"> Collapse
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="suicide"> Suicide
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="drowning"> Drowning
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="storm"> Storm Surge
                                     </label>
                                 </th>
-                                <th>In Service:
-                                    <input type="number" name="insvc" value="">
-                                </th>
+                                <th>In Service: <input type="number" name="insvc" value=""></th>
                             </tr>
 
                             <tr>
                                 <th colspan="14">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="call_type[]"
-                                            value="flooding"> Flooding
-                                        <input type="checkbox" class="form-check-input" name="call_type[]"
-                                            value="roving"> Roving/Inspection
-                                        <input type="checkbox" class="form-check-input" name="call_type[]"
-                                            value="others"> Others:___________________
-
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="flooding"> Flooding
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="roving"> Roving/Inspection
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="others"> Others:___________________
                                     </label>
                                 </th>
-                                <th>Operation Team:
-                                    <input type="text" name="optm" value="">
-                                </th>
+                                <th>Operation Team: <input type="text" name="optm" value=""></th>
                             </tr>
                             <tr>
                                 <th colspan="14">
                                     SRR Services:
                                     <select name="srr_services" id="srrServicesSelect">
-                                        <!-- Default options -->
                                         <option value="default" selected disabled>Please select a type of call</option>
                                     </select>
                                 </th>
                             </tr>
 
-                            <!-- Your JavaScript code -->
                             <script>
                                 $(document).ready(function () {
-                                    // Define the options for each type of call
                                     const srrOptions = {
                                         fire: [
                                             { value: "aerial", label: "Aerial Footage" },
@@ -363,14 +290,12 @@ include 'header.php';
                                         ],
                                     };
 
-                                    // Function to update SRR services dropdown based on selected type of call
-                                    // Function to update SRR services dropdown based on selected type of call
+                                
                                     function updateSrrServicesDropdown(selectedTypes) {
                                         const srrSelect = $("#srrServicesSelect");
-                                        srrSelect.empty(); // Clear existing options
+                                        srrSelect.empty();
 
                                         if (selectedTypes.length === 0) {
-                                            // If no type of call is selected, show default option
                                             srrSelect.append($('<option>', {
                                                 value: "default",
                                                 text: "Please select a type of call",
@@ -378,7 +303,6 @@ include 'header.php';
                                                 selected: true
                                             }));
                                         } else {
-                                            // If type of call(s) are selected, populate the dropdown with options based on selected type(s)
                                             let options = [];
                                             selectedTypes.forEach(function (type) {
                                                 options = options.concat(srrOptions[type]);
@@ -393,7 +317,6 @@ include 'header.php';
                                         }
                                     }
 
-                                    // Event listener for checkboxes of type of call
                                     $("input[name='call_type[]']").change(function () {
                                         const selectedTypes = [];
                                         $("input[name='call_type[]']:checked").each(function () {
@@ -402,13 +325,10 @@ include 'header.php';
                                         updateSrrServicesDropdown(selectedTypes);
                                     });
 
-                                    // Event listener for selecting a service
                                     $("#srrServicesSelect").change(function () {
                                         const selectedService = $(this).val();
-                                        // Save the selected value to a variable named srr_services
                                         const srr_services = selectedService;
                                         console.log("Selected SRR service:", srr_services);
-                                        // If you want to do something with the selected value, you can do it here
                                     });
                                 });
                             </script>
@@ -418,25 +338,21 @@ include 'header.php';
                             <tr>
                                 <th colspan="20">Incident Commander:
                                     <input type="text" name="incident_comm" value="">
-
                                 </th>
                             </tr>
                             <tr>
                                 <th colspan="20">Agency/Office/Organization:
                                     <input type="text" name="agency" value="">
-
                                 </th>
                             </tr>
                             <tr>
                                 <th colspan="20">Position:
                                     <input type="text" name="position" value="">
-
                                 </th>
                             </tr>
                             <tr>
                                 <th colspan="14">Address:
                                     <input type="text" name="address" value="">
-
                                 </th>
                                 <th colspan="6">Contact No.:
                                     <input type="text" name="contact_no" value="">
@@ -446,7 +362,6 @@ include 'header.php';
                             <tr>
                                 <th colspan="20">Incident:
                                     <input type="text" name="incident" value="">
-
                                 </th>
                             </tr>
 
@@ -467,26 +382,15 @@ include 'header.php';
                                         <td>
 
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" name="weather[]"
-                                                    value="normal">
-                                                Normal
-                                                <input type="checkbox" class="form-check-input" name="weather[]"
-                                                    value="hot"> Hot/Humid
-                                                <input type="checkbox" class="form-check-input" name="weather[]"
-                                                    value="cold"> Cold
-                                                <input type="checkbox" class="form-check-input" name="weather[]"
-                                                    value="light"> Light Rain
-                                                <input type="checkbox" class="form-check-input" name="weather[]"
-                                                    value="heavy"> Heavy Rain
-                                                <input type="checkbox" class="form-check-input" name="weather[]"
-                                                    value="hail"> Hail
-                                                <input type="checkbox" class="form-check-input" name="weather[]"
-                                                    value="windy"> Windy
-                                                <input type="checkbox" class="form-check-input" name="weather[]"
-                                                    value="thunder"> Thunderstorm
-
-                                                <input type="checkbox" class="form-check-input" name="weather[]"
-                                                    value=""> <label>Signal:
+                                                <input type="checkbox" class="form-check-input" name="weather[]" value="normal"> Normal
+                                                <input type="checkbox" class="form-check-input" name="weather[]" value="hot"> Hot/Humid
+                                                <input type="checkbox" class="form-check-input" name="weather[]" value="cold"> Cold
+                                                <input type="checkbox" class="form-check-input" name="weather[]" value="light"> Light Rain
+                                                <input type="checkbox" class="form-check-input" name="weather[]" value="heavy"> Heavy Rain
+                                                <input type="checkbox" class="form-check-input" name="weather[]" value="hail"> Hail
+                                                <input type="checkbox" class="form-check-input" name="weather[]" value="windy"> Windy
+                                                <input type="checkbox" class="form-check-input" name="weather[]" value="thunder"> Thunderstorm
+                                                <input type="checkbox" class="form-check-input" name="weather[]" value=""> <label>Signal:
                                                     <select name="signal">
                                                         <option value="no_warning">No Warning</option>
                                                         <option value="signal_1">Signal 1</option>
@@ -495,9 +399,7 @@ include 'header.php';
                                                         <option value="signal_4">Signal 4</option>
                                                         <option value="signal_5">Signal 5</option>
                                                     </select>
-
-                                                </label>
-
+                                             </label>
                                         </td>
 
 
@@ -507,36 +409,28 @@ include 'header.php';
                                             <label class="form-check-label">
                                                 <ul style="list-style-type: none; padding-left: 0;">
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]"
-                                                            value="concrete"> Concrete
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="concrete"> Concrete
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]"
-                                                            value="dirt"> Dirt
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="dirt"> Dirt
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]"
-                                                            value="mud"> Mud
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="mud"> Mud
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]"
-                                                            value="sand"> Sand
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="sand"> Sand
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]"
-                                                            value="rock"> Gravel/Rock
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="rock"> Gravel/Rock
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]"
-                                                            value="inclined"> Inclined
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="inclined"> Inclined
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]"
-                                                            value="swamp"> Swamp
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="swamp"> Swamp
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]"
-                                                            value="unstable"> Unstable
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="unstable"> Unstable
                                                     </li>
                                                 </ul>
                                             </label>
@@ -547,11 +441,8 @@ include 'header.php';
                                     <tr>
                                         <th colspan="6">CPR:
                                             <label class="form-check-label">
-
-                                                <input type="checkbox" class="form-check-input" name="cpr" value="yes">
-                                                Yes
-                                                <input type="checkbox" class="form-check-input" name="cpr" value="no">
-                                                No
+                                                <input type="checkbox" class="form-check-input" name="cpr" value="yes"> Yes
+                                                <input type="checkbox" class="form-check-input" name="cpr" value="no"> No
                                                 <br>
                                                 Time Started:
                                                 <input type="time" name="time_start" value="">
@@ -570,13 +461,10 @@ include 'header.php';
 
                                             <label class="form-check-label">
 
-                                                <input type="checkbox" class="form-check-input" name="casualty"
-                                                    value="yes"> Yes
-                                                <input type="checkbox" class="form-check-input" name="casualty"
-                                                    value="no"> No
+                                                <input type="checkbox" class="form-check-input" name="casualty" value="yes"> Yes
+                                                <input type="checkbox" class="form-check-input" name="casualty" value="no"> No
                                                 <br>
-                                                No. of Cas: <input type="number" name="no_cas" value=""
-                                                    style="border: none; background-color: transparent; border-bottom: 1px solid black;">
+                                                No. of Cas: <input type="number" name="no_cas" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
                                             </label>
 
                                         </th>
@@ -585,10 +473,8 @@ include 'header.php';
                                         <th colspan="6">AED/Defib:
                                             <label class="form-check-label">
 
-                                                <input type="checkbox" class="form-check-input" name="defib"
-                                                    value="yes"> Yes
-                                                <input type="checkbox" class="form-check-input" name="defib" value="no">
-                                                No
+                                                <input type="checkbox" class="form-check-input" name="defib" value="yes"> Yes
+                                                <input type="checkbox" class="form-check-input" name="defib" value="no"> No
 
 
                                             </label>
@@ -596,15 +482,10 @@ include 'header.php';
                                         <th colspan="6">Ambulance req:
                                             <label class="form-check-label">
 
-                                                <input type="checkbox" class="form-check-input" name="ambulance_req"
-                                                    value="yes"> Yes
-                                                <input type="checkbox" class="form-check-input" name="ambulance_req"
-                                                    value="no"> No
+                                                <input type="checkbox" class="form-check-input" name="ambulance_req" value="yes"> Yes
+                                                <input type="checkbox" class="form-check-input" name="ambulance_req" value="no"> No
                                                 <br>
-                                                specify: <input type="text" name="amb_spec" value=""
-                                                    style="border: none; background-color: transparent; border-bottom: 1px solid black;">
-
-
+                                                specify: <input type="text" name="amb_spec" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
                                             </label>
                                         </th>
                                     </tr>
@@ -616,8 +497,8 @@ include 'header.php';
                                     <tr>
                                         <th colspan="12" style="height: 670px;">
                                             <textarea name="narrative"
-                                                style="height: 670px; width: 100%; overflow-wrap: break-word; border: none; resize: none;"
-                                                placeholder="Enter your text here"></textarea>
+                                                style="height: 670px; width: 100%; overflow-wrap: break-word; border: none; resize: none;" placeholder="Enter your text here">
+                                            </textarea>
                                         </th>
                                     </tr>
 
@@ -637,15 +518,14 @@ include 'header.php';
                                     <th>Checked</th>
                                     <th>Missing</th>
                                     <tr>
-                                        <td><input type="hidden" name="equip_name[]"
-                                                value="Self-Contained Breathing Apparatus">Self-Contained Breathing
-                                            Apparatus</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
-                                                value="used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
-                                                value="checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
-                                                value="missing"></td>
+                                        <td>
+                                            <input type="hidden" name="equip_name[]" value="Self-Contained Breathing Apparatus">Self-Contained Breathing Apparatus</td>
+                                        <td>
+                                            <input type="checkbox" class="form-check-input" name="equip_status[]" value="used"></td>
+                                        <td>
+                                            <input type="checkbox" class="form-check-input" name="equip_status[]"  value="checked"></td>
+                                        <td>
+                                            <input type="checkbox" class="form-check-input" name="equip_status[]" value="missing"></td>
                                     </tr>
 
                                     <tr>
