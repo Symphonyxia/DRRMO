@@ -41,7 +41,7 @@ include 'header.php';
                                 <th>TOTAL</th>
                                 <td> <span id="total_mileage">0</span><input type="hidden" name="total" id="total_mileage_input"></td>
 
-                                <td> <span id="total_mileage">0</span><input type="hidden" name="total" id="total_mileage_input"></td>
+
                             </tr>
 
                         </tbody>
@@ -103,7 +103,7 @@ include 'header.php';
                                     Others:
 
                                     <input type="text" name="response_type_other" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
-                                    <input type="text" name="response_type_other" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
+
                                 </th>
 
                                 <th>Enroute:
@@ -132,23 +132,13 @@ include 'header.php';
                                     <input type="checkbox" class="form-check-input" name="loc_type[]" value="school"> School
 
                                     <input type="checkbox" class="form-check-input" name="loc_type[]" value="clinic"> Clinic/RHU
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="airport">Airport
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="Hospital">Hospital
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="nursing">Nursing Home
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="residence"> Home/Residence
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="bridge"> Bridge
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="bar">Restuarant/Bar
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="farm"> Farm
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="school">School
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="clinic"> Clinic/RHU
-                                    </label>
+
 
                                 </th>
                                 <th>At scene:
                                     <input type="number" name="atscn" value="">
                                 </th>
-                                <th>At scene:<input type="number" name="atscn" value=""></th>
+
                             </tr>
 
                             <tr>
@@ -170,14 +160,9 @@ include 'header.php';
                                     <input type="number" name="descn" value="">
                                 </th>
 
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="street"> Highway/Street
-                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="bldg"> Public Building
-                                    Others:
-                                    <input type="text" name="loc_type_other" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
-                                </label>
-                                </th>
-                                <th>Depart scene: <input type="number" name="descn" value=""></th>
+
+
+
                             </tr>
 
 
@@ -204,15 +189,7 @@ include 'header.php';
                                     <input type="checkbox" class="form-check-input" name="call_type[]" value="storm"> Storm Surge
 
 
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="fire">Fire
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="vehicular"> Vehicular Accident
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="earthquake"> Earthquake
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="collapse"> Collapse
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="suicide"> Suicide
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="drowning"> Drowning
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="storm"> Storm Surge
-                                    </label>
+
                                 </th>
 
                                 <th>In Service:
@@ -222,7 +199,7 @@ include 'header.php';
 
 
                                 </th>
-                                <th>In Service: <input type="number" name="insvc" value=""></th>
+
                             </tr>
 
                             <tr>
@@ -235,11 +212,7 @@ include 'header.php';
                                     <input type="checkbox" class="form-check-input" name="call_type[]" value="others"> Others:___________________
 
 
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="flooding"> Flooding
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="roving"> Roving/Inspection
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="others"> Others:___________________
-                                    </label>
+
                                 </th>
                                 <th>Operation Team: <input type="text" name="optm" value=""></th>
                             </tr>
@@ -649,6 +622,8 @@ include 'header.php';
                                                         };
 
 
+
+
                                                         function updateSrrServicesDropdown(selectedTypes) {
                                                             const srrSelect = $("#srrServicesSelect");
                                                             srrSelect.empty();
@@ -694,6 +669,7 @@ include 'header.php';
                                                                             console.log("Selected SRR service:", srr_services);
                                                                         });
                                                                     });
+                                                                }
                             </script>
 
 
@@ -788,25 +764,7 @@ include 'header.php';
 
 
 
-                                            <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" name="weather[]" value="normal"> Normal
-                                                <input type="checkbox" class="form-check-input" name="weather[]" value="hot"> Hot/Humid
-                                                <input type="checkbox" class="form-check-input" name="weather[]" value="cold"> Cold
-                                                <input type="checkbox" class="form-check-input" name="weather[]" value="light"> Light Rain
-                                                <input type="checkbox" class="form-check-input" name="weather[]" value="heavy"> Heavy Rain
-                                                <input type="checkbox" class="form-check-input" name="weather[]" value="hail"> Hail
-                                                <input type="checkbox" class="form-check-input" name="weather[]" value="windy"> Windy
-                                                <input type="checkbox" class="form-check-input" name="weather[]" value="thunder"> Thunderstorm
-                                                <input type="checkbox" class="form-check-input" name="weather[]" value=""> <label>Signal:
-                                                    <select name="signal">
-                                                        <option value="no_warning">No Warning</option>
-                                                        <option value="signal_1">Signal 1</option>
-                                                        <option value="signal_2">Signal 2</option>
-                                                        <option value="signal_3">Signal 3</option>
-                                                        <option value="signal_4">Signal 4</option>
-                                                        <option value="signal_5">Signal 5</option>
-                                                    </select>
-                                                </label>
+
                                         </td>
 
 
@@ -842,34 +800,6 @@ include 'header.php';
                                             </ul>
 
                                             <br>
-                                            <label class="form-check-label">
-                                                <ul style="list-style-type: none; padding-left: 0;">
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="concrete"> Concrete
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="dirt"> Dirt
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="mud"> Mud
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="sand"> Sand
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="rock"> Gravel/Rock
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="inclined"> Inclined
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="swamp"> Swamp
-                                                    </li>
-                                                    <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="unstable"> Unstable
-                                                    </li>
-                                                </ul>
-                                            </label>
 
                                         </td>
 
@@ -890,20 +820,6 @@ include 'header.php';
                                             <br>
                                             Cycle:
                                             <input type="text" name="cycle" value="">
-                                            <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" name="cpr" value="yes"> Yes
-                                                <input type="checkbox" class="form-check-input" name="cpr" value="no"> No
-                                                <br>
-                                                Time Started:
-                                                <input type="time" name="time_start" value="">
-                                                <br>
-                                                Time End:
-                                                <input type="time" name="time_end" value="">
-                                                <br>
-                                                Cycle:
-                                                <input type="text" name="cycle" value="">
-
-
 
 
                                         </th>
@@ -916,13 +832,7 @@ include 'header.php';
                                             <br>
                                             No. of Cas: <input type="number" name="no_cas" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
 
-                                            <label class="form-check-label">
 
-                                                <input type="checkbox" class="form-check-input" name="casualty" value="yes"> Yes
-                                                <input type="checkbox" class="form-check-input" name="casualty" value="no"> No
-                                                <br>
-                                                No. of Cas: <input type="number" name="no_cas" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
-                                            </label>
 
                                         </th>
                                     </tr>
@@ -948,13 +858,7 @@ include 'header.php';
 
 
 
-                                            <label class="form-check-label">
 
-                                                <input type="checkbox" class="form-check-input" name="ambulance_req" value="yes"> Yes
-                                                <input type="checkbox" class="form-check-input" name="ambulance_req" value="no"> No
-                                                <br>
-                                                specify: <input type="text" name="amb_spec" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
-                                            </label>
                                         </th>
                                     </tr>
 
@@ -1249,27 +1153,21 @@ include 'header.php';
             </div>
 
 
-
             <label for="image-input">Select Image:</label>
             <input type="file" name="images" accept="image/*" id="image-input" onchange="previewImage(this)">
-            <br>
-            <br>
+            <br><br>
 
-            <!-- Image Preview Section for Selected Image -->
             <div class="imageform" style="height: 300px; width: 100%; display: flex; justify-content: center; border: 1px solid #ccc;">
                 <img id="selected-image-preview" src="#" alt="Image Preview" style="max-width: 100%; max-height: 100%;">
             </div>
+
             <script>
                 function previewImage(input) {
-                    if (input.files && input.files[0]) {
-                        var reader = new FileReader();
-
-                        reader.onload = function(e) {
-                            $('#selected-image-preview').attr('src', e.target.result);
-                        }
-
-                        reader.readAsDataURL(input.files[0]); // convert to base64 string
-                    }
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('selected-image-preview').src = e.target.result;
+                    };
+                    reader.readAsDataURL(input.files[0]);
                 }
             </script>
             <table class="table table-bordered">
