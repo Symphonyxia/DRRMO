@@ -646,7 +646,7 @@ include 'header.php';
                                                 selected: true
                                             }));
                                         } else {
-                                            // If type of call(s) are selected, populate the dropdown with options based on selected type(s)
+                                            // If wewew wewtype of call(s) are selected, populate the dropdown with options based on selected type(s)
                                             let options = [];
                                             selectedTypes.forEach(function(type) {
                                                 options = options.concat(srrOptions[type]);
@@ -881,7 +881,6 @@ include 'header.php';
                                             <textarea name="narrative" style="height: 670px; width: 100%; overflow-wrap: break-word; border: none; resize: none;" placeholder="Enter your text here"></textarea>
                                         </th>
                                     </tr>
-
 
 
 
