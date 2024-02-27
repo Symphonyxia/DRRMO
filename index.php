@@ -228,449 +228,441 @@ include 'header.php';
 
                             <script>
                                 $(document).ready(function() {
-                                            // Define the options for each type of call
-                                            $(document).ready(function() {
-                                                        const srrOptions = {
-                                                            fire: [{
-                                                                    value: "aerial",
-                                                                    label: "Aerial Footage"
-                                                                },
-                                                                {
-                                                                    value: "firefight",
-                                                                    label: "Support in FireFighting Operations"
-                                                                },
-                                                                {
-                                                                    value: "fire",
-                                                                    label: "Fire Rescue"
-                                                                },
-                                                                {
-                                                                    value: "illumination",
-                                                                    label: "Illumination"
-                                                                },
-                                                                {
-                                                                    value: "machinery",
-                                                                    label: "Machinery"
-                                                                }
-                                                            ],
-                                                            drowning: [{
-                                                                    value: "technical",
-                                                                    label: "Technical Search"
-                                                                },
-                                                                {
-                                                                    value: "physical",
-                                                                    label: "Physical Search"
-                                                                },
-                                                                {
-                                                                    value: "boat",
-                                                                    label: "Boat Operation"
-                                                                },
-                                                                {
-                                                                    value: "drowning",
-                                                                    label: "Active Drowning Response"
-                                                                },
-                                                                {
-                                                                    value: "illumination",
-                                                                    label: "Illumination"
-                                                                },
-                                                                {
-                                                                    value: "machinery",
-                                                                    label: "Machinery"
-                                                                },
-                                                                {
-                                                                    value: "marpol",
-                                                                    label: "Marpol"
-                                                                },
-                                                                {
-                                                                    value: "icp_activation",
-                                                                    label: "ICP Activation"
-                                                                }
-                                                            ],
-                                                            storm: [{
-                                                                    value: "technical",
-                                                                    label: "Technical Search"
-                                                                },
-                                                                {
-                                                                    value: "physical",
-                                                                    label: "Physical Search"
-                                                                },
-                                                                {
-                                                                    value: "boat",
-                                                                    label: "Boat Operation"
-                                                                },
-                                                                {
-                                                                    value: "drowning",
-                                                                    label: "Active Drowning Response"
-                                                                },
-                                                                {
-                                                                    value: "illumination",
-                                                                    label: "Illumination"
-                                                                },
-                                                                {
-                                                                    value: "machinery",
-                                                                    label: "Machinery"
-                                                                },
-                                                                {
-                                                                    value: "marpol",
-                                                                    label: "Marpol"
-                                                                },
-                                                                {
-                                                                    value: "icp_activation",
-                                                                    label: "ICP Activation"
-                                                                }
-                                                            ],
-                                                            flooding: [{
-                                                                    value: "technical",
-                                                                    label: "Technical Search"
-                                                                },
-                                                                {
-                                                                    value: "physical",
-                                                                    label: "Physical Search"
-                                                                },
-                                                                {
-                                                                    value: "boat",
-                                                                    label: "Boat Operation"
-                                                                },
-                                                                {
-                                                                    value: "drowning",
-                                                                    label: "Active Drowning Response"
-                                                                },
-                                                                {
-                                                                    value: "illumination",
-                                                                    label: "Illumination"
-                                                                },
-                                                                {
-                                                                    value: "machinery",
-                                                                    label: "Machinery"
-                                                                },
-                                                                {
-                                                                    value: "marpol",
-                                                                    label: "Marpol"
-                                                                },
-                                                                {
-                                                                    value: "icp_activation",
-                                                                    label: "ICP Activation"
-                                                                }
-                                                            ],
-                                                            earthquake: [{
-                                                                    value: "srr_training",
-                                                                    label: "SRR Training"
-                                                                },
-                                                                {
-                                                                    value: "mutual_response",
-                                                                    label: "Mutual Aid Response"
-                                                                },
-                                                                {
-                                                                    value: "aerial_search",
-                                                                    label: "Aerial Survey and Search"
-                                                                },
-                                                                {
-                                                                    value: "clearing_operation",
-                                                                    label: "Clearing Operation"
-                                                                },
-                                                                {
-                                                                    value: "public_response",
-                                                                    label: "Public Safety Response"
-                                                                },
-                                                                {
-                                                                    value: "ev_standby",
-                                                                    label: "EV Standby"
-                                                                },
-                                                                {
-                                                                    value: "hazard_assessment",
-                                                                    label: "Hazard Assessment"
-                                                                },
-                                                                {
-                                                                    value: "earthquake_drill",
-                                                                    label: "Earthquake Drill and Orientation"
-                                                                },
-                                                                {
-                                                                    value: "elsaroc",
-                                                                    label: "ELSAROC and CBDRRM"
-                                                                },
-                                                                {
-                                                                    value: "safety_information",
-                                                                    label: "Dissemination of Safety Information Via Rekurida"
-                                                                },
-                                                                {
-                                                                    value: "others",
-                                                                    label: "Other Dissemination"
-                                                                }
+                                    const srrOptions = {
+                                        fire: [{
+                                                value: "aerial",
+                                                label: "Aerial Footage"
+                                            },
+                                            {
+                                                value: "firefight",
+                                                label: "Support in FireFighting Operations"
+                                            },
+                                            {
+                                                value: "fire",
+                                                label: "Fire Rescue"
+                                            },
+                                            {
+                                                value: "illumination",
+                                                label: "Illumination"
+                                            },
+                                            {
+                                                value: "machinery",
+                                                label: "Machinery"
+                                            }
+                                        ],
+                                        drowning: [{
+                                                value: "technical",
+                                                label: "Technical Search"
+                                            },
+                                            {
+                                                value: "physical",
+                                                label: "Physical Search"
+                                            },
+                                            {
+                                                value: "boat",
+                                                label: "Boat Operation"
+                                            },
+                                            {
+                                                value: "drowning",
+                                                label: "Active Drowning Response"
+                                            },
+                                            {
+                                                value: "illumination",
+                                                label: "Illumination"
+                                            },
+                                            {
+                                                value: "machinery",
+                                                label: "Machinery"
+                                            },
+                                            {
+                                                value: "marpol",
+                                                label: "Marpol"
+                                            },
+                                            {
+                                                value: "icp_activation",
+                                                label: "ICP Activation"
+                                            }
+                                        ],
+                                        storm: [{
+                                                value: "technical",
+                                                label: "Technical Search"
+                                            },
+                                            {
+                                                value: "physical",
+                                                label: "Physical Search"
+                                            },
+                                            {
+                                                value: "boat",
+                                                label: "Boat Operation"
+                                            },
+                                            {
+                                                value: "drowning",
+                                                label: "Active Drowning Response"
+                                            },
+                                            {
+                                                value: "illumination",
+                                                label: "Illumination"
+                                            },
+                                            {
+                                                value: "machinery",
+                                                label: "Machinery"
+                                            },
+                                            {
+                                                value: "marpol",
+                                                label: "Marpol"
+                                            },
+                                            {
+                                                value: "icp_activation",
+                                                label: "ICP Activation"
+                                            }
+                                        ],
+                                        flooding: [{
+                                                value: "technical",
+                                                label: "Technical Search"
+                                            },
+                                            {
+                                                value: "physical",
+                                                label: "Physical Search"
+                                            },
+                                            {
+                                                value: "boat",
+                                                label: "Boat Operation"
+                                            },
+                                            {
+                                                value: "drowning",
+                                                label: "Active Drowning Response"
+                                            },
+                                            {
+                                                value: "illumination",
+                                                label: "Illumination"
+                                            },
+                                            {
+                                                value: "machinery",
+                                                label: "Machinery"
+                                            },
+                                            {
+                                                value: "marpol",
+                                                label: "Marpol"
+                                            },
+                                            {
+                                                value: "icp_activation",
+                                                label: "ICP Activation"
+                                            }
+                                        ],
+                                        earthquake: [{
+                                                value: "srr_training",
+                                                label: "SRR Training"
+                                            },
+                                            {
+                                                value: "mutual_response",
+                                                label: "Mutual Aid Response"
+                                            },
+                                            {
+                                                value: "aerial_search",
+                                                label: "Aerial Survey and Search"
+                                            },
+                                            {
+                                                value: "clearing_operation",
+                                                label: "Clearing Operation"
+                                            },
+                                            {
+                                                value: "public_response",
+                                                label: "Public Safety Response"
+                                            },
+                                            {
+                                                value: "ev_standby",
+                                                label: "EV Standby"
+                                            },
+                                            {
+                                                value: "hazard_assessment",
+                                                label: "Hazard Assessment"
+                                            },
+                                            {
+                                                value: "earthquake_drill",
+                                                label: "Earthquake Drill and Orientation"
+                                            },
+                                            {
+                                                value: "elsaroc",
+                                                label: "ELSAROC and CBDRRM"
+                                            },
+                                            {
+                                                value: "safety_information",
+                                                label: "Dissemination of Safety Information Via Rekurida"
+                                            },
+                                            {
+                                                value: "others",
+                                                label: "Other Dissemination"
+                                            }
 
-                                                            ],
-                                                            collapse: [{
-                                                                    label: "Operation and Trainings"
-                                                                },
-                                                                {
-                                                                    value: "srr_training",
-                                                                    label: "SRR Training"
-                                                                },
-                                                                {
-                                                                    value: "mutual_response",
-                                                                    label: "Mutual Aid Response"
-                                                                },
-                                                                {
-                                                                    value: "aerial_search",
-                                                                    label: "Aerial Survey and Search"
-                                                                },
-                                                                {
-                                                                    value: "clearing_operation",
-                                                                    label: "Clearing Operation"
-                                                                },
-                                                                {
-                                                                    value: "public_response",
-                                                                    label: "Public Safety Response"
-                                                                },
-                                                                {
-                                                                    value: "ev_standby",
-                                                                    label: "EV Standby"
-                                                                },
-                                                                {
-                                                                    value: "hazard_assessment",
-                                                                    label: "Hazard Assessment"
-                                                                },
-                                                                {
-                                                                    value: "earthquake_drill",
-                                                                    label: "Earthquake Drill and Orientation"
-                                                                },
-                                                                {
-                                                                    value: "elsaroc",
-                                                                    label: "ELSAROC and CBDRRM"
-                                                                },
-                                                                {
-                                                                    value: "safety_information",
-                                                                    label: "Dissemination of Safety Information Via Rekurida"
-                                                                },
-                                                                {
-                                                                    value: "others",
-                                                                    label: "Other Dissemination"
-                                                                }
-                                                            ],
-                                                            suicide: [{
-                                                                    value: "hazmat",
-                                                                    label: "Hazmat Response"
-                                                                },
-                                                                {
-                                                                    value: "cssr_response",
-                                                                    label: "CSSR Response"
-                                                                },
-                                                                {
-                                                                    value: "space_response",
-                                                                    label: "Confined Space Response"
-                                                                },
-                                                                {
-                                                                    value: "rescue_response",
-                                                                    label: "Rope Rescue Response"
-                                                                },
-                                                                {
-                                                                    value: "active_suicide",
-                                                                    label: "Active Suicide Response"
-                                                                },
-                                                                {
-                                                                    value: "terrorism",
-                                                                    label: "Acts of Terrorism"
-                                                                },
-                                                                {
-                                                                    value: "hostage_taking",
-                                                                    label: "Hostage Taking"
-                                                                },
-                                                                {
-                                                                    value: "mountain_rescue",
-                                                                    label: "Mountain Search and Rescue"
-                                                                },
-                                                                {
-                                                                    value: "ground_rescue",
-                                                                    label: "Ground Search and Rescue"
-                                                                },
-                                                                {
-                                                                    value: "icp_activation",
-                                                                    label: "ICP Activation"
-                                                                }
+                                        ],
+                                        collapse: [{
+                                                label: "Operation and Trainings"
+                                            },
+                                            {
+                                                value: "srr_training",
+                                                label: "SRR Training"
+                                            },
+                                            {
+                                                value: "mutual_response",
+                                                label: "Mutual Aid Response"
+                                            },
+                                            {
+                                                value: "aerial_search",
+                                                label: "Aerial Survey and Search"
+                                            },
+                                            {
+                                                value: "clearing_operation",
+                                                label: "Clearing Operation"
+                                            },
+                                            {
+                                                value: "public_response",
+                                                label: "Public Safety Response"
+                                            },
+                                            {
+                                                value: "ev_standby",
+                                                label: "EV Standby"
+                                            },
+                                            {
+                                                value: "hazard_assessment",
+                                                label: "Hazard Assessment"
+                                            },
+                                            {
+                                                value: "earthquake_drill",
+                                                label: "Earthquake Drill and Orientation"
+                                            },
+                                            {
+                                                value: "elsaroc",
+                                                label: "ELSAROC and CBDRRM"
+                                            },
+                                            {
+                                                value: "safety_information",
+                                                label: "Dissemination of Safety Information Via Rekurida"
+                                            },
+                                            {
+                                                value: "others",
+                                                label: "Other Dissemination"
+                                            }
+                                        ],
+                                        suicide: [{
+                                                value: "hazmat",
+                                                label: "Hazmat Response"
+                                            },
+                                            {
+                                                value: "cssr_response",
+                                                label: "CSSR Response"
+                                            },
+                                            {
+                                                value: "space_response",
+                                                label: "Confined Space Response"
+                                            },
+                                            {
+                                                value: "rescue_response",
+                                                label: "Rope Rescue Response"
+                                            },
+                                            {
+                                                value: "active_suicide",
+                                                label: "Active Suicide Response"
+                                            },
+                                            {
+                                                value: "terrorism",
+                                                label: "Acts of Terrorism"
+                                            },
+                                            {
+                                                value: "hostage_taking",
+                                                label: "Hostage Taking"
+                                            },
+                                            {
+                                                value: "mountain_rescue",
+                                                label: "Mountain Search and Rescue"
+                                            },
+                                            {
+                                                value: "ground_rescue",
+                                                label: "Ground Search and Rescue"
+                                            },
+                                            {
+                                                value: "icp_activation",
+                                                label: "ICP Activation"
+                                            }
 
-                                                            ],
-                                                            vehicular: [{
-                                                                    value: "vehicle",
-                                                                    label: "Vehicle Extrication"
-                                                                },
-                                                                {
-                                                                    value: "recovery",
-                                                                    label: "Vehicle Recovery"
-                                                                },
-                                                                {
-                                                                    value: "illumination",
-                                                                    label: "Illumination"
-                                                                },
-                                                                {
-                                                                    value: "emr_truck_response",
-                                                                    label: "EMR Truck Response"
-                                                                },
-                                                                {
-                                                                    value: "down_structure",
-                                                                    label: "Down Structure"
-                                                                },
-                                                                {
-                                                                    value: "marpol",
-                                                                    label: "Marpol"
-                                                                },
-                                                                {
-                                                                    value: "natural_disaster_response",
-                                                                    label: "Natural Disaster Response"
-                                                                },
-                                                                {
-                                                                    value: "icp_activation",
-                                                                    label: "ICP Activation"
-                                                                },
-                                                                {
-                                                                    value: "ems_response",
-                                                                    label: "Support To EMS Response"
-                                                                }
-                                                            ],
-                                                            roving: [{
-                                                                    label: "Operation and Trainings"
-                                                                },
-                                                                {
-                                                                    value: "srr_training",
-                                                                    label: "SRR Training"
-                                                                },
-                                                                {
-                                                                    value: "mutual_response",
-                                                                    label: "Mutual Aid Response"
-                                                                },
-                                                                {
-                                                                    value: "aerial_search",
-                                                                    label: "Aerial Survey and Search"
-                                                                },
-                                                                {
-                                                                    value: "clearing_operation",
-                                                                    label: "Clearing Operation"
-                                                                },
-                                                                {
-                                                                    value: "public_response",
-                                                                    label: "Public Safety Response"
-                                                                },
-                                                                {
-                                                                    value: "ev_standby",
-                                                                    label: "EV Standby"
-                                                                },
-                                                                {
-                                                                    value: "hazard_assessment",
-                                                                    label: "Hazard Assessment"
-                                                                },
-                                                                {
-                                                                    value: "earthquake_drill",
-                                                                    label: "Earthquake Drill and Orientation"
-                                                                },
-                                                                {
-                                                                    value: "elsaroc",
-                                                                    label: "ELSAROC and CBDRRM"
-                                                                },
-                                                                {
-                                                                    value: "safety_information",
-                                                                    label: "Dissemination of Safety Information Via Rekurida"
-                                                                },
-                                                                {
-                                                                    value: "others",
-                                                                    label: "Other Dissemination"
-                                                                }
-                                                            ],
-                                                            others: [{
-                                                                    label: "Operation and Trainings"
-                                                                },
-                                                                {
-                                                                    value: "srr_training",
-                                                                    label: "SRR Training"
-                                                                },
-                                                                {
-                                                                    value: "mutual_response",
-                                                                    label: "Mutual Aid Response"
-                                                                },
-                                                                {
-                                                                    value: "aerial_search",
-                                                                    label: "Aerial Survey and Search"
-                                                                },
-                                                                {
-                                                                    value: "clearing_operation",
-                                                                    label: "Clearing Operation"
-                                                                },
-                                                                {
-                                                                    value: "public_response",
-                                                                    label: "Public Safety Response"
-                                                                },
-                                                                {
-                                                                    value: "ev_standby",
-                                                                    label: "EV Standby"
-                                                                },
-                                                                {
-                                                                    value: "hazard_assessment",
-                                                                    label: "Hazard Assessment"
-                                                                },
-                                                                {
-                                                                    value: "earthquake_drill",
-                                                                    label: "Earthquake Drill and Orientation"
-                                                                },
-                                                                {
-                                                                    value: "elsaroc",
-                                                                    label: "ELSAROC and CBDRRM"
-                                                                },
-                                                                {
-                                                                    value: "safety_information",
-                                                                    label: "Dissemination of Safety Information Via Rekurida"
-                                                                },
-                                                                {
-                                                                    value: "others",
-                                                                    label: "Other Dissemination"
-                                                                }
-                                                            ],
-                                                        };
+                                        ],
+                                        vehicular: [{
+                                                value: "vehicle",
+                                                label: "Vehicle Extrication"
+                                            },
+                                            {
+                                                value: "recovery",
+                                                label: "Vehicle Recovery"
+                                            },
+                                            {
+                                                value: "illumination",
+                                                label: "Illumination"
+                                            },
+                                            {
+                                                value: "emr_truck_response",
+                                                label: "EMR Truck Response"
+                                            },
+                                            {
+                                                value: "down_structure",
+                                                label: "Down Structure"
+                                            },
+                                            {
+                                                value: "marpol",
+                                                label: "Marpol"
+                                            },
+                                            {
+                                                value: "natural_disaster_response",
+                                                label: "Natural Disaster Response"
+                                            },
+                                            {
+                                                value: "icp_activation",
+                                                label: "ICP Activation"
+                                            },
+                                            {
+                                                value: "ems_response",
+                                                label: "Support To EMS Response"
+                                            }
+                                        ],
+                                        roving: [{
+                                                label: "Operation and Trainings"
+                                            },
+                                            {
+                                                value: "srr_training",
+                                                label: "SRR Training"
+                                            },
+                                            {
+                                                value: "mutual_response",
+                                                label: "Mutual Aid Response"
+                                            },
+                                            {
+                                                value: "aerial_search",
+                                                label: "Aerial Survey and Search"
+                                            },
+                                            {
+                                                value: "clearing_operation",
+                                                label: "Clearing Operation"
+                                            },
+                                            {
+                                                value: "public_response",
+                                                label: "Public Safety Response"
+                                            },
+                                            {
+                                                value: "ev_standby",
+                                                label: "EV Standby"
+                                            },
+                                            {
+                                                value: "hazard_assessment",
+                                                label: "Hazard Assessment"
+                                            },
+                                            {
+                                                value: "earthquake_drill",
+                                                label: "Earthquake Drill and Orientation"
+                                            },
+                                            {
+                                                value: "elsaroc",
+                                                label: "ELSAROC and CBDRRM"
+                                            },
+                                            {
+                                                value: "safety_information",
+                                                label: "Dissemination of Safety Information Via Rekurida"
+                                            },
+                                            {
+                                                value: "others",
+                                                label: "Other Dissemination"
+                                            }
+                                        ],
+                                        others: [{
+                                                label: "Operation and Trainings"
+                                            },
+                                            {
+                                                value: "srr_training",
+                                                label: "SRR Training"
+                                            },
+                                            {
+                                                value: "mutual_response",
+                                                label: "Mutual Aid Response"
+                                            },
+                                            {
+                                                value: "aerial_search",
+                                                label: "Aerial Survey and Search"
+                                            },
+                                            {
+                                                value: "clearing_operation",
+                                                label: "Clearing Operation"
+                                            },
+                                            {
+                                                value: "public_response",
+                                                label: "Public Safety Response"
+                                            },
+                                            {
+                                                value: "ev_standby",
+                                                label: "EV Standby"
+                                            },
+                                            {
+                                                value: "hazard_assessment",
+                                                label: "Hazard Assessment"
+                                            },
+                                            {
+                                                value: "earthquake_drill",
+                                                label: "Earthquake Drill and Orientation"
+                                            },
+                                            {
+                                                value: "elsaroc",
+                                                label: "ELSAROC and CBDRRM"
+                                            },
+                                            {
+                                                value: "safety_information",
+                                                label: "Dissemination of Safety Information Via Rekurida"
+                                            },
+                                            {
+                                                value: "others",
+                                                label: "Other Dissemination"
+                                            }
+                                        ],
 
+                                    };
 
 
+                                    function updateSrrServicesDropdown(selectedTypes) {
+                                        const srrSelect = $("#srrServicesSelect");
+                                        srrSelect.empty(); // Clear existing options
 
-                                                        function updateSrrServicesDropdown(selectedTypes) {
-                                                            const srrSelect = $("#srrServicesSelect");
-                                                            srrSelect.empty();
-
-                                                            if (selectedTypes.length === 0) {
-                                                                srrSelect.append($('<option>', {
-                                                                    value: "default",
-                                                                    text: "Please select a type of call",
-                                                                    disabled: true,
-                                                                    selected: true
-                                                                }));
-                                                            } else {
-                                                                // If wewew wewtype of call(s) are selected, populate the dropdown with options based on selected type(s)
-                                                                let options = [];
-                                                                selectedTypes.forEach(function(type) {
-                                                                    options = options.concat(srrOptions[type]);
-                                                                });
-
-                                                                options.forEach(function(option) {
-                                                                    srrSelect.append($('<option>', {
-                                                                        value: option.value,
-                                                                        text: option.label
-                                                                    }));
-                                                                });
-                                                            }
-                                                        }
-
-                                                        // Event listener for checkboxes of type of call
-                                                        $("input[name='call_type[]']").change(function() {
-                                                                    $("input[name='call_type[]']").change(function() {
-                                                                        const selectedTypes = [];
-                                                                        $("input[name='call_type[]']:checked").each(function() {
-                                                                            selectedTypes.push($(this).val());
-                                                                        });
-                                                                        updateSrrServicesDropdown(selectedTypes);
-                                                                    });
-
-                                                                    // Event listener for selecting a service
-                                                                    $("#srrServicesSelect").change(function() {
-                                                                        $("#srrServicesSelect").change(function() {
-                                                                            const selectedService = $(this).val();
-                                                                            const srr_services = selectedService;
-                                                                            console.log("Selected SRR service:", srr_services);
-                                                                        });
-                                                                    });
-                                                                }
+                                        if (selectedTypes.length === 0) {
+                                            // If no type of call is selected, show default option
+                                            srrSelect.append($('<option>', {
+                                                value: "default",
+                                                text: "Please select a type of call",
+                                                disabled: true,
+                                                selected: true
+                                            }));
+                                        } else {
+                                            // If type of call(s) are selected, populate the dropdown with options based on selected type(s)
+                                            let options = [];
+                                            selectedTypes.forEach(function(type) {
+                                                options = options.concat(srrOptions[type]);
+                                            });
+                                            options.forEach(function(option) {
+                                                srrSelect.append($('<option>', {
+                                                    value: option.value,
+                                                    text: option.label
+                                                }));
+                                            });
+                                        }
+                                    }
+                                    $("input[name='call_type[]']").change(function() {
+                                        const selectedTypes = [];
+                                        $("input[name='call_type[]']:checked").each(function() {
+                                            selectedTypes.push($(this).val());
+                                        });
+                                        updateSrrServicesDropdown(selectedTypes);
+                                    });
+                                    $("#srrServicesSelect").change(function() {
+                                        const selectedService = $(this).val();
+                                        // Save the selected value to a variable named srr_services
+                                        const srr_services = selectedService;
+                                        console.log("Selected SRR service:", srr_services);
+                                        // If you want to do something with the selected value, you can do it here
+                                    });
+                                });
                             </script>
 
 
@@ -844,9 +836,6 @@ include 'header.php';
                                             <input type="checkbox" class="form-check-input" name="defib" value="yes"> Yes
                                             <input type="checkbox" class="form-check-input" name="defib" value="no">
                                             No
-                                            <input type="checkbox" class="form-check-input" name="defib" value="yes"> Yes
-                                            <input type="checkbox" class="form-check-input" name="defib" value="no"> No
-
 
                                         </th>
                                         <th colspan="6">Ambulance req:
@@ -1171,6 +1160,9 @@ include 'header.php';
                     reader.readAsDataURL(input.files[0]);
                 }
             </script>
+
+
+
             <table class="table table-bordered">
                 <tbody>
                     <tr>
@@ -1322,8 +1314,3 @@ include 'header.php';
 
 <br>
 <?php include 'footer.php'; ?>
-<script>
-    function printContent() {
-        window.print();
-    }
-</script>
