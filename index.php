@@ -94,12 +94,7 @@ include 'header.php';
 
                                     <input type="checkbox" class="form-check-input" name="response_type[]" value="Response"> Response to Scene
 
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="response_type[]" value="Standby"> Standby
-                                    </label>
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="response_type[]" value="Response"> Response to Scene
-                                    </label>
+
                                     Others:
 
                                     <input type="text" name="response_type_other" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
@@ -740,16 +735,14 @@ include 'header.php';
                                                     <input type="checkbox" class="form-check-input" name="weather[]" value="thunder"> Thunderstorm
                                                 </li>
                                                 <li>
-
-                                                    <input type="checkbox" class="form-check-input" name="weather[]" value="">
                                                     <label>Signal:
-                                                        <select name="signal">
-                                                            <option value="no_warning">No Warning</option>
-                                                            <option value="signal_1">Signal 1</option>
-                                                            <option value="signal_2">Signal 2</option>
-                                                            <option value="signal_3">Signal 3</option>
-                                                            <option value="signal_4">Signal 4</option>
-                                                            <option value="signal_5">Signal 5</option>
+                                                        <select name="warning">
+                                                            <option value="No Warning">No Warning</option>
+                                                            <option value="Signal no. 1">Signal 1</option>
+                                                            <option value="Signal no. 2">Signal 2</option>
+                                                            <option value="Signal no. 3">Signal 3</option>
+                                                            <option value="Signal no. 4">Signal 4</option>
+                                                            <option value="Signal no. 5">Signal 5</option>
                                                         </select>
                                                     </label>
                                                 </li>
@@ -884,18 +877,7 @@ include 'header.php';
                                         <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="used"></td>
                                         <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="checked"></td>
                                         <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="missing"></td>
-                                        <td>
-                                            <input type="hidden" name="equip_name[]" value="Self-Contained Breathing Apparatus">Self-Contained Breathing Apparatus
-                                        </td>
-                                        <td>
-                                            <input type="checkbox" class="form-check-input" name="equip_status[]" value="used">
-                                        </td>
-                                        <td>
-                                            <input type="checkbox" class="form-check-input" name="equip_status[]" value="checked">
-                                        </td>
-                                        <td>
-                                            <input type="checkbox" class="form-check-input" name="equip_status[]" value="missing">
-                                        </td>
+
                                     </tr>
 
                                     <tr>
