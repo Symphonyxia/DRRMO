@@ -11,7 +11,6 @@ if($conn->connect_error){
 $select = "SELECT * FROM `usar` ORDER BY id";
 $result = $conn->query($select);
 
-
 $pdf = new FPDF('P','mm','legal');
 $pdf->AddPage();
 
@@ -69,19 +68,6 @@ while($row = $result->fetch_object()){
   }
 
  
-function checkbox( $pdf, $checked = TRUE, $checkbox_size = 2 , $ori_font_family = 'Arial', $ori_font_size = '8', $ori_font_style = '' )
-{
-if($checked == TRUE)
-$check = "2";
-else
-$check = "";
-
-$pdf->SetFont('ZapfDingbats','', $ori_font_size);
-$pdf->Cell($checkbox_size, $checkbox_size, $check, 1, 0);
-$pdf->SetFont( $ori_font_family, $ori_font_style, $ori_font_size);
-}
-
-
 
 $pdf->Image('resources/img/iloilo.png',9,7,20,20,'PNG'); 
 $pdf->Image('resources/img/disaster.jpg',29,4,25,25,'JPG'); 
@@ -118,6 +104,7 @@ $pdf->Ln();
 
 
 
+
 $pdf->SetFont('Arial','',8); 
 $pdf->Cell(1); 
 $pdf->Cell(0,10,'City Disaster Risk Reduction and Management Office',0,0,'L');
@@ -138,6 +125,7 @@ $pdf->Cell(50, 10, '', 0);
 $pdf->Cell(0, 10, '', 0); 
 $pdf->Ln();
 
+
 $pdf->Cell(1); 
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(80, 5, 'Unit/Vehicle Name: ' .$unit, 1);
@@ -156,7 +144,28 @@ $pdf->Ln();
 
 $pdf->Cell(1); 
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(150, 5, 'Response Type: ' .$response_type, 1);
+$pdf->Cell(150, 5, 'Response Type: ', 1);
+// Rectangle positions
+$rect1_x = 35;
+$rect2_x = 55;
+$rect3_x = 80;
+$rect_y = 61;
+$rect_size = 3;
+
+// Draw rectangles
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle 1
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle 2
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); // Rectangle 3
+
+// Labels for rectangles
+$pdf->Cell(10); // Offset for alignment
+$pdf->Cell(0, 5, 'Standby', 0, 0); // Label for Rectangle 1
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); // Empty space for layout
+$pdf->Cell(0, 5, 'Response on ', 0, 0); // Label for Rectangle 2
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); // Empty space for layout
+$pdf->Cell(0, 5, 'Rect 3', 0, 0); // Label for Rectangle 3
+
+$pdf->Ln(); // Mo
 $pdf->Cell(30, 5, 'At Scene ', 1); 
 $pdf->Cell(20, 5, $atscn, 1); 
 $pdf->Ln();
@@ -233,8 +242,6 @@ $pdf->Cell(15, 55, '', 0);
 
 $pdf->Cell(30, 5, 'Normal', 0);
 $pdf->Cell(30, 5, 'Conrete', 1);
-
-
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
@@ -372,10 +379,16 @@ $pdf->Cell(20, 5, '', 1);
 $pdf->Cell(20, 5, '', 1);
 $pdf->Ln();
 
+
+
+
 $pdf->Cell(1); 
 $pdf->SetFont('Arial', '', 8);
+
+
 $pdf->Cell(40, 5, 'CPR:', 1);
 $pdf->Cell(35, 5, 'Casualty:', 1);
+
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
@@ -384,6 +397,8 @@ $pdf->Cell(20, 5, '', 1);
 $pdf->Cell(20, 5, '', 1);
 $pdf->Cell(20, 5, '', 1);
 $pdf->Ln();
+
+
 
 $pdf->Cell(1); 
 $pdf->SetFont('Arial', '', 8);
@@ -451,16 +466,31 @@ $pdf->Cell(20, 5, '', 1);
 $pdf->Cell(20, 5, '', 1);
 $pdf->Ln();
 
-$pdf->Cell(1); 
-$pdf->SetFont('Arial', '', 8);
-$pdf->Cell(75, 120, $narrative, 1);
+
+// Check the length of the text
+$textLength = strlen($narrative);
+
+// Set the font size based on the text length
+if ($textLength <= 50) {
+    $pdf->SetFont('Arial', '', 10);
+} else {
+    $pdf->SetFont('Arial', '', 8);
+}
+
+// Output the text
+$pdf->Cell(1);
+$pdf->SetFont('Arial', '', 10); // Set font to regular
+$pdf->MultiCell(75, 5, $narrative, 0, 'L', 0); // Set height to 50 and align text to the top
+$pdf->Rect(11, 190, 75, 130); // X,Y,W,H
+$pdf->Ln();
+
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(60, 5, '', 0);
-$pdf->Cell(20, 5, '', 0);
-$pdf->Cell(20, 5, '', 0);
-$pdf->Cell(20, 5, '', 0);
+$pdf->Cell(60, -30, '', 0);
+$pdf->Cell(20, -30, '', 0);
+$pdf->Cell(20, -30, '', 0);
+$pdf->Cell(20, -30, '', 0);
 $pdf->Ln();
 
 $pdf->Cell(80);
@@ -589,7 +619,7 @@ $pdf->Ln();
 
 $pdf->Cell(1); 
 $pdf->Image('resources/gallery/hope.png',10,50,150,150,'PNG', 'C'); 
-$pdf->Cell(200, 150, 'resources/gallery/hope.png', 1);
+$pdf->Cell(200, 150, '', 1);
 $pdf->Ln();
 
 $pdf->Cell(1); 
@@ -627,11 +657,30 @@ $pdf->Ln();
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(40, 5, '', 1, 0, 'C');
+$x = $pdf->GetX();
+$y = $pdf->GetY();
+
+$pdf->Cell(40, 5, '', 1, 0, 'C'); 
+
+$imageWidth = 3; 
+$imageX = $x + (40 - $imageWidth) / 2; 
+$imageY = $y + 1; 
+
+$pdf->Image('resources/img/triangle.jpg', $imageX, $imageY, $imageWidth, 0); 
+
 $pdf->Cell(40, 5, 'BARRIERS', 1, 0, 'C');
-$pdf->Cell(40, 5, '', 0, 0, 'C');
+$pdf->Cell(40, 5, '', 0, 0, 'C'); 
 $pdf->Cell(40, 5, 'RT', 1, 0, 'C');
-$pdf->Cell(40, 5, 'RESCUE TRUCK', 1, 0, 'C');
+$pdf->Cell(40, 5, 'RESCUE TRUCK', 1, 1, 'C'); 
+$pdf->Ln();
+
+$pdf->Cell(1);
+$pdf->SetFont('Arial', 'B', 8);
+$pdf->Cell(40, -5, '', 1, 0, 'C');
+$pdf->Cell(40, -5, '', 1, 0, 'C');
+$pdf->Cell(40, -5, '', 0, 0, 'C');
+$pdf->Cell(40, -5, '', 1, 0, 'C');
+$pdf->Cell(40, -5, '', 1, 0, 'C');
 $pdf->Ln();
 
 $pdf->Cell(1);
@@ -645,12 +694,23 @@ $pdf->Ln();
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(40, 5, '', 1, 0, 'C');
+
+$x = $pdf->GetX();
+$y = $pdf->GetY();
+
+$pdf->Cell(40, 20, '', 1, 0, 'C');
+
+$imageWidth = 3; 
+$imageX = $x + (40 - $imageWidth) / 2; 
+$imageY = $y + 2 - $imageWidth / 2; 
+
+$pdf->Image('resources/img/not_equal.png', $imageX, $imageY, $imageWidth, 0); 
 $pdf->Cell(40, 5, 'CUT', 1, 0, 'C');
-$pdf->Cell(40, 5, '', 0, 0, 'C');
+$pdf->Cell(40, 5, '', 0, 0, 'C'); 
 $pdf->Cell(40, 5, 'TL', 1, 0, 'C');
 $pdf->Cell(40, 5, 'TEAM LEADER', 1, 0, 'C');
 $pdf->Ln();
+
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', 'B', 8);
@@ -720,15 +780,33 @@ $pdf->SetFont('Arial','B',8);
 $pdf->Cell(200, 5, '', 0);
 $pdf->Ln();
 
-$pdf->Cell(1); 
-$pdf->SetFont('Arial','B',8); 
-$pdf->Cell(200, 5, 'RECOMMENDATION', 1,0,'C');
+
+$pdf->Cell(1);
+$pdf->SetFont('Arial', 'B', 8);
+
+// Cell for the recommendation title
+$pdf->Cell(200, 5, 'RECOMMENDATION', 1, 0, 'C');
+
 $pdf->Ln();
 
-$pdf->Cell(1); 
-$pdf->SetFont('Arial','B',8); 
-$pdf->Cell(200, 50, $recommendation, 1,0,);
+
+// Check the length of the text
+$textLength = strlen($recommendation);
+
+// Set the font size based on the text length
+if ($textLength <= 50) {
+    $pdf->SetFont('Arial', '', 10);
+} else {
+    $pdf->SetFont('Arial', '', 8);
+}
+
+// Output the text
+$pdf->Cell(1);
+$pdf->SetFont('Arial', '', 10); // Set font to regular
+$pdf->MultiCell(200, 5, $recommendation, 0, 'L', 0); // Set height to 50 and align text to the top
+$pdf->Rect(11, 290, 200, 50); // X,Y,W,H
 $pdf->Ln();
+
 
 $pdf->Output();
 ?>
