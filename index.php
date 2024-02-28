@@ -87,7 +87,7 @@ include 'header.php';
                                 <th>Call Recieved:<input type="number" name="cr" value=""></th>
                             </tr>
                             <tr>
-                                <th colspan="14">Response Type:
+                                <td colspan="14"> <strong> Response Type: </strong>
 
                                     <input type="checkbox" class="form-check-input" name="response_type[]" value="Standby"> Standby
 
@@ -99,7 +99,7 @@ include 'header.php';
 
                                     <input type="text" name="response_type_other" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
 
-                                </th>
+                                </td>
 
                                 <th>Enroute:
                                     <input type="number" name="enr" value="">
@@ -108,7 +108,7 @@ include 'header.php';
 
 
                             <tr>
-                                <th colspan="14">Location Type:
+                                <td colspan="14"> <strong> Location Type: </strong>
                                     <input type="checkbox" class="form-check-input" name="loc_type[]" value="airport"> Airport
 
 
@@ -129,7 +129,7 @@ include 'header.php';
                                     <input type="checkbox" class="form-check-input" name="loc_type[]" value="clinic"> Clinic/RHU
 
 
-                                </th>
+                                </td>
                                 <th>At scene:
                                     <input type="number" name="atscn" value="">
                                 </th>
@@ -138,7 +138,7 @@ include 'header.php';
                             </tr>
 
                             <tr>
-                                <th colspan="14">
+                                <td colspan="14">
 
                                     <input type="checkbox" class="form-check-input" name="loc_type[]" value="street">
                                     Highway/Street
@@ -150,11 +150,12 @@ include 'header.php';
                                     Others:
 
                                     <input type="text" name="loc_type_other" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
-
+                                </td>
 
                                 <th>Depart scene:
                                     <input type="number" name="descn" value="">
                                 </th>
+
 
 
 
@@ -165,7 +166,7 @@ include 'header.php';
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
                             <tr>
-                                <th colspan="14">Type of Call:
+                                <td colspan="14"> <strong> Type of Call:</strong>
 
                                     <input type="checkbox" class="form-check-input" name="call_type[]" value="fire">
                                     Fire
@@ -186,7 +187,7 @@ include 'header.php';
 
 
 
-                                </th>
+                                </td>
 
                                 <th>In Service:
 
@@ -199,21 +200,23 @@ include 'header.php';
                             </tr>
 
                             <tr>
-                                <th colspan="14">
+                                <td colspan="14">
 
                                     <input type="checkbox" class="form-check-input" name="call_type[]" value="flooding"> Flooding
 
                                     <input type="checkbox" class="form-check-input" name="call_type[]" value="roving"> Roving/Inspection
 
-                                    <input type="checkbox" class="form-check-input" name="call_type[]" value="others"> Others:___________________
+                                    Others:
+
+                                    <input type="text" name="call_type_other" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
 
 
 
-                                </th>
+                                </td>
                                 <th>Operation Team: <input type="text" name="optm" value=""></th>
                             </tr>
                             <tr>
-                                <th colspan="14">
+                                <th colspan="15">
                                     SRR Services:
                                     <select name="srr_services" id="srrServicesSelect">
                                         <option value="default" selected disabled>Please select a type of call</option>
@@ -791,25 +794,25 @@ include 'header.php';
 
 
                                     <tr>
-                                        <th colspan="6">CPR:
+                                        <td colspan="6"> <strong> CPR: </strong>
 
                                             <input type="checkbox" class="form-check-input" name="cpr" value="yes">
                                             Yes
                                             <input type="checkbox" class="form-check-input" name="cpr" value="no">
                                             No
                                             <br>
-                                            Time Started:
+                                            <strong> Time Started:</strong>
                                             <input type="time" name="time_start" value="">
                                             <br>
-                                            Time End:
+                                            <strong>Time End:</strong>
                                             <input type="time" name="time_end" value="">
                                             <br>
-                                            Cycle:
+                                            <strong> Cycle:</strong>
                                             <input type="text" name="cycle" value="">
 
 
-                                        </th>
-                                        <th colspan="6">Casualty:
+                                        </td>
+                                        <td colspan="6"> <strong> Casualty: </strong>
 
 
 
@@ -820,18 +823,18 @@ include 'header.php';
 
 
 
-                                        </th>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <th colspan="6">AED/Defib:
+                                        <td colspan="6"> <strong> AED/Defib: </strong>
 
 
                                             <input type="checkbox" class="form-check-input" name="defib" value="yes"> Yes
                                             <input type="checkbox" class="form-check-input" name="defib" value="no">
                                             No
 
-                                        </th>
-                                        <th colspan="6">Ambulance req:
+                                        </td>
+                                        <td colspan="6"> <strong> Ambulance req: </strong>
 
 
                                             <input type="checkbox" class="form-check-input" name="ambulance_req" value="yes"> Yes
@@ -842,7 +845,7 @@ include 'header.php';
 
 
 
-                                        </th>
+                                        </td>
                                     </tr>
 
                                     <tr>
@@ -852,7 +855,7 @@ include 'header.php';
                                     <tr>
                                         <th colspan="12" style="height: 670px;">
                                             <textarea name="narrative" style="height: 670px; width: 100%; overflow-wrap: break-word; border: none; resize: none;" placeholder="Enter your text here"></textarea>
-                                            <textarea name="narrative" style="height: 670px; width: 100%; overflow-wrap: break-word; border: none; resize: none;" placeholder="Enter your text here">
+
                                             </textarea>
                                         </th>
                                     </tr>

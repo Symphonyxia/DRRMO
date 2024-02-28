@@ -49,13 +49,22 @@ if (isset($_GET['id'])) {
 
 <div class="container">
 
-    <ul class="navbar-nav ml-auto">
-        <!-- Other navbar items -->
-        <li class="nav-item">
-            <a class="nav-link" id="print-button" style="color: blue; float: right;" href="#" onclick="window.print(); return false;">Print</a>
 
-        </li>
-    </ul>
+    <button onclick="printPage()">Print</button>
+
+    <script>
+        // JavaScript function to print the current page
+        function printPage() {
+            // Get the current page URL
+            var currentPageUrl = window.location.href;
+            // Append the page ID to the URL
+            var pageId = currentPageUrl.split('?')[1]; // Assuming the page ID is passed as a query parameter
+            var urlWithId = 'default.php?' + pageId;
+            // Open the new URL in a new tab for printing
+            window.open(urlWithId, '_blank');
+        }
+    </script>
+
     <br>
     <form action="resources/dir/save.php" method="POST">
         <input type="hidden" name="CSRFkey" value="<?php echo $key ?>" id="CSRFkey">
@@ -132,25 +141,27 @@ if (isset($_GET['id'])) {
 
                             <tr>
                                 <td colspan="14">Response Type:
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="response_type[]" value="Standby" <?php echo isset($row['response_type']) && in_array('Standby', explode(',', $row['response_type'])) ? 'checked' : ''; ?>> Standby
-                                    </label>
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="response_type[]" value="Response" <?php echo isset($row['response_type']) && in_array('Response', explode(',', $row['response_type'])) ? 'checked' : ''; ?>> Response to Scene
-                                    </label>
+
+                                    <input type="checkbox" class="form-check-input" name="response_type[]" value="Standby" <?php echo isset($row['response_type']) && in_array('Standby', explode(',', $row['response_type'])) ? 'checked disabled' : 'disabled'; ?>> Standby
+
+                                    <input type="checkbox" class="form-check-input" name="response_type[]" value="Response" <?php echo isset($row['response_type']) && in_array('Response', explode(',', $row['response_type'])) ? 'checked disabled' : 'disabled'; ?>> Response to Scene
+
                                     Others:
-                                    <input type="text" name="response_type_other" value="<?php echo isset($row['response_type']) && !in_array('Standby', explode(',', $row['response_type'])) && !in_array('Response', explode(',', $row['response_type'])) ? $row['response_type'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" <?php echo isset($row['response_type']) && (in_array('Standby', explode(',', $row['response_type'])) || in_array('Response', explode(',', $row['response_type']))) ? 'disabled' : ''; ?>>
+
+                                    <input type="text" name="response_type_other" value="<?php echo isset($row['response_type']) && !in_array('Standby', explode(',', $row['response_type'])) && !in_array('Response', explode(',', $row['response_type'])) ? $row['response_type'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" <?php echo isset($row['response_type']) && (in_array('Standby', explode(',', $row['response_type'])) || in_array('Response', explode(',', $row['response_type']))) ? 'disabled' : ''; ?> disabled>
+
+                                </td>
+
+
+
+
+
+                                <td>Enroute:
+                                    <strong><?php echo $row['enr']; ?></strong>
                                 </td>
                             </tr>
 
 
-
-
-                            <td>Enroute:
-                                <strong><?php echo $row['enr']; ?></strong>
-                            </td>
-
-                            </tr>
 
 
                             <tr>
@@ -199,14 +210,15 @@ if (isset($_GET['id'])) {
                                         <input type="checkbox" class="form-check-input" name="loc_type[]" value="bldg" <?php echo isset($row['loc_type']) && in_array('bldg', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>> Public Building
                                     </label>
                                     Others:
-                                    <input type="text" name="loc_type_other" value="<?php echo isset($row['loc_type_other']) ? $row['loc_type_other'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" disabled>
+                                    <input type="text" name="loc_type_other" value="<?php echo isset($row['loc_type']) && !in_array('street', explode(',', $row['loc_type'])) && !in_array('bldg', explode(',', $row['loc_type'])) ? $row['loc_type'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" <?php echo isset($row['loc_type']) && (in_array('street', explode(',', $row['loc_type'])) || in_array('bldg', explode(',', $row['loc_type']))) ? 'disabled' : ''; ?> disabled>
                                 </td>
                                 <td>Depart scene:
                                     <strong><?php echo $row['descn']; ?></strong>
                                 </td>
                             </tr>
+
                             <tr>
-                                <td colspan="14">
+                                <td colspan="14">Type of Call :
                                     <label class="form-check-label">
                                         <input type="checkbox" class="form-check-input" name="call_type[]" value="fire" <?php echo isset($row['call_type']) && in_array('fire', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>> Fire
                                     </label>
@@ -242,8 +254,8 @@ if (isset($_GET['id'])) {
                                     <label class="form-check-label">
                                         <input type="checkbox" class="form-check-input" name="call_type[]" value="roving" <?php echo isset($row['call_type']) && in_array('roving', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>> Roving/Inspection
                                     </label>
-                                    Others: <strong>
-                                        <input type="text" name="call_type_other" value="<?php echo isset($row['call_type_other']) ? $row['call_type_other'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" disabled>
+                                    Others:
+                                    <input type="text" name="call_type_other" value="<?php echo isset($row['call_type_other']) ? $row['call_type_other'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" <?php echo isset($row['call_type']) && !empty($row['call_type_other']) ? 'disabled' : ''; ?> disabled>
                                     </strong>
                                 </td>
                                 <td>Operation Team:
@@ -458,24 +470,22 @@ if (isset($_GET['id'])) {
                                     <tr>
                                         <?php
                                         if (isset($_GET['id'])) {
-                                            // Sanitize the input to prevent SQL injection
+
                                             $record_id = $conn->real_escape_string($_GET['id']);
 
-                                            // Fetch the data including images from usar table for the specified ID
-                                            // Query to fetch equipment records based on id and join with equipments table to get equipment names
+
                                             $sql = "SELECT e.equip_name, er.equip_status 
             FROM equipment_record er 
             JOIN equipments e ON er.equip_id = e.equip_id 
             WHERE er.id = :id";
 
-                                            // Prepare and execute the query
-                                            $stmt = $pdo->prepare($sql);
-                                            $stmt->execute(['id' => $record_id]); // Change $id to $record_id
 
-                                            // Fetch all equipment records as associative arrays
+                                            $stmt = $pdo->prepare($sql);
+                                            $stmt->execute(['id' => $record_id]);
+
                                             $equipment_records = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                                            // Loop through each equipment record and display the checkboxes
+
                                             foreach ($equipment_records as $record) {
                                                 $equip_name = $record['equip_name'];
                                                 $equip_status = $record['equip_status'];
@@ -496,62 +506,69 @@ if (isset($_GET['id'])) {
                                     </tr>
                                     <table class="table table-bordered">
                                         <tbody>
-                                            <?php
-
-                                            echo "Interventions string: " . $row['interventions'] . "<br>";
-
-                                            // Assuming $row['interventions'] contains the comma-separated list of checked interventions
-                                            $checkedInterventions = [];
-
-                                            if (!empty($row['interventions'])) {
-                                                // Explode the comma-separated string into an array
-                                                $checkedInterventions = explode(',', $row['interventions']);
-                                            }
-
-                                            // Define the list of interventions with their keys and labels
-                                            $interventions = [
-                                                'colstruct' => 'Collapse Structure Rescue',
-                                                'boom' => 'Boom',
-                                                'barricade' => 'Barricade',
-                                                'confined' => 'Confined Space Rescue',
-                                                'outrigger' => 'Outrigger',
-                                                'structural' => 'Structural Extrication',
-                                                'water' => 'Water Rescue',
-                                                'tower' => 'Tower Light',
-                                                'vehi_extri' => 'Vehicular Extrication',
-                                                'patient' => 'Patient Retrieval',
-                                                'winch' => 'Winch',
-                                                'wildlife' => 'Wildlife Rescue',
-                                                'angel' => 'High Angle Rescue',
-                                                'hazmat' => 'HazMat',
-                                                'generator' => 'Generator'
-                                            ];
-                                            // echo "<pre>";
-                                            // print_r($interventions);
-
-
-                                            echo '<div style="display: flex; flex-wrap: wrap;">';
-                                            $o = 1;
-                                            foreach ($interventions as $key => $value) {
-                                                echo '<div style="flex: 20%; padding-right: 10px;">';
-                                                echo '<input type="checkbox" class="form-check-input" id="' . $o++ . '" name="interventions[]" value="' . $key . '"';
-                                                // Check if the intervention key exists in the $checkedInterventions array
-                                                if (in_array($key, $checkedInterventions)) {
-                                                    echo ' checked';
-                                                }
-                                                echo '> ' . $value;
-                                                echo '<br>Key: <label for="' . $o++ . '">' . $key . '</label><br>';
-                                                echo 'Checked interventions: ';
-                                                // print_r($checkedInterventions);
-                                                echo '</div>';
-                                            }
-                                            echo '</div>';
-                                            ?>
+                                            <tr>
+                                                <th colspan="6">Interventions:</th>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="6" class="checkbox-group">
+                                                    <?php
 
 
 
 
-                                            </td>
+                                                    $checkedInterventions = [];
+
+                                                    if (!empty($row['interventions'])) {
+
+                                                        $checkedInterventions = explode(',', $row['interventions']);
+                                                    }
+
+
+                                                    $interventions = [
+                                                        'colstruct' => 'Collapse Structure Rescue',
+                                                        'boom' => 'Boom',
+                                                        'barricade' => 'Barricade',
+                                                        'confined' => 'Confined Space Rescue',
+                                                        'outrigger' => 'Outrigger',
+                                                        'structural' => 'Structural Extrication',
+                                                        'water' => 'Water Rescue',
+                                                        'tower' => 'Tower Light',
+                                                        'vehi_extri' => 'Vehicular Extrication',
+                                                        'patient' => 'Patient Retrieval',
+                                                        'winch' => 'Winch',
+                                                        'wildlife' => 'Wildlife Rescue',
+                                                        'angel' => 'High Angle Rescue',
+                                                        'hazmat' => 'HazMat',
+                                                        'generator' => 'Generator'
+                                                    ];
+                                                    // echo "<pre>";
+                                                    // print_r($interventions);
+
+
+                                                    echo '<div style="display: flex; flex-wrap: wrap;">';
+
+                                                    foreach ($interventions as $key => $value) {
+                                                        echo '<div style="flex: 34%; padding-right: 10px;">';
+                                                        echo '<input type="checkbox" class="form-check-input" id="' . $key . '" name="interventions[]" value="' . $key . '"disabled';
+                                                        // Check if the intervention key exists in the $checkedInterventions array
+                                                        if (in_array($key, $checkedInterventions)) {
+                                                            echo ' checked';
+                                                        }
+                                                        echo '> ' . $value;
+                                                        // echo '<br>Key: <label for="' . $key . '">' . $key . '</label><br>';
+                                                        // echo 'Checked interventions: ';
+
+                                                        // print_r($checkedInterventions);
+                                                        echo '</div>';
+                                                    }
+                                                    echo '</div>';
+                                                    ?>
+
+
+
+
+
+                                                </td>
                                             </tr>
 
 
@@ -603,8 +620,24 @@ if (isset($_GET['id'])) {
                                             }
                                             ?>
 
+                                            <tr>
+                                                <td colspan="6">Prepared by:
+                                                    <input type="text" name="prep_by" value="<?php echo $prep_by; ?>" style="font-weight: bold; border: none;">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="6">Endorsed to/by:
+                                                    <input type="text" name="endorsed_by" value="<?php echo $endorsed_by; ?>" readonly style="font-weight: bold; border: none;">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="6">Witness/es:
+                                                    <input type="text" name="witness" value="<?php echo $witness; ?>" readonly style="font-weight: bold; border: none;">
+                                                </td>
+                                            </tr>
 
                                             <tr>
+
                                                 <td colspan="6" class="text-center">Complete Name and Signature</td>
                                             </tr>
                                         </tbody>

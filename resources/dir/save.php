@@ -6,13 +6,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         $responseType = isset($_POST['response_type']) ? implode(', ', $_POST['response_type']) : '';
         $responseTypeOther = isset($_POST['response_type_other']) ? $_POST['response_type_other'] : '';
         if (!empty($responseTypeOther)) {
-            $responseType .= ' - ' . $responseTypeOther;
+            $responseType .= $responseTypeOther;
         }
 
         $locType = isset($_POST['loc_type']) && is_array($_POST['loc_type']) ? implode(', ', $_POST['loc_type']) : '';
         $locTypeOther = isset($_POST['loc_type_other']) ? $_POST['loc_type_other'] : '';
         if (!empty($locTypeOther)) {
-            $locType .= ' - ' . $locTypeOther;
+            $locType .=   $locTypeOther;
         }
 
         $callType = isset($_POST['call_type']) ? implode(', ', $_POST['call_type']) : '';
@@ -22,21 +22,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         }
 
 
-        $weather = isset($_POST['weather']) ? implode(', ', $_POST['weather']) : '';
+        $weather = isset($_POST['weather']) ? implode(',', $_POST['weather']) : '';
         $weatherOther = isset($_POST['weather']) ? $_POST['weather'] : '';
 
         $signal = isset($_POST['signal']) ? $_POST['signal'] : '';
 
         if (!empty($signal)) {
-            $weather .= ' - ' . $signal;
+            $weather .=  $signal;
         }
 
-        $terrain = isset($_POST['terrain']) ? implode(', ', $_POST['terrain']) : '';
+        $terrain = isset($_POST['terrain']) ? implode(',', $_POST['terrain']) : '';
         $terrainOther = isset($_POST['terrain']) ? $_POST['terrain'] : '';
 
 
-        $interventions = isset($_POST['interventions']) ? implode(', ', $_POST['interventions']) : '';
-        $interventionsOther = isset($_POST['interventions']) ? $_POST['interventions'] : '';
+        $interventions = isset($_POST['interventions']) ? implode(',', $_POST['interventions']) : '';
+        $interventionsOther = isset($_POST['interventions']) ? implode(',', $_POST['interventions']) : '';
+
 
 
 
@@ -118,7 +119,6 @@ VALUES (:unit, :irf_no, :date, :incident_loc, :incident_comm, :agency, :position
         $usarStmt->bindParam(':srr_services', $srrServices);
         $usarStmt->bindParam(':weather', $weather);
         $usarStmt->bindParam(':warning', $warning_signal);
-
         $usarStmt->bindParam(':terrain', $terrain);
         $usarStmt->bindParam(':interventions', $interventions);
         $usarStmt->bindParam(':prep_by', $_POST['prep_by']);
