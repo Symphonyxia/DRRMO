@@ -49,13 +49,22 @@ if (isset($_GET['id'])) {
 
 <div class="container">
 
-    <ul class="navbar-nav ml-auto">
-        <!-- Other navbar items -->
-        <li class="nav-item">
-            <a class="nav-link" id="print-button" style="color: blue; float: right;" href="#" onclick="window.print(); return false;">Print</a>
 
-        </li>
-    </ul>
+    <button onclick="printPage()">Print</button>
+
+    <script>
+        // JavaScript function to print the current page
+        function printPage() {
+            // Get the current page URL
+            var currentPageUrl = window.location.href;
+            // Append the page ID to the URL
+            var pageId = currentPageUrl.split('?')[1]; // Assuming the page ID is passed as a query parameter
+            var urlWithId = 'default.php?' + pageId;
+            // Open the new URL in a new tab for printing
+            window.open(urlWithId, '_blank');
+        }
+    </script>
+
     <br>
     <form action="resources/dir/save.php" method="POST">
         <input type="hidden" name="CSRFkey" value="<?php echo $key ?>" id="CSRFkey">
@@ -611,8 +620,24 @@ if (isset($_GET['id'])) {
                                             }
                                             ?>
 
+                                            <tr>
+                                                <td colspan="6">Prepared by:
+                                                    <input type="text" name="prep_by" value="<?php echo $prep_by; ?>" style="font-weight: bold; border: none;">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="6">Endorsed to/by:
+                                                    <input type="text" name="endorsed_by" value="<?php echo $endorsed_by; ?>" readonly style="font-weight: bold; border: none;">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="6">Witness/es:
+                                                    <input type="text" name="witness" value="<?php echo $witness; ?>" readonly style="font-weight: bold; border: none;">
+                                                </td>
+                                            </tr>
 
                                             <tr>
+
                                                 <td colspan="6" class="text-center">Complete Name and Signature</td>
                                             </tr>
                                         </tbody>
