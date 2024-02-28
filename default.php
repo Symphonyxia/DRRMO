@@ -3,17 +3,28 @@ require('pdf/fpdf.php');
 
 // Database Connection 
 $conn = new mysqli('localhost', 'root', '', 'drrmo');
-//Check for connection error
-if($conn->connect_error){
-  die("Error in DB connection: ".$conn->connect_errno." : ".$conn->connect_error);    
+// Check for connection error
+if ($conn->connect_error) {
+  die("Error in DB connection: " . $conn->connect_errno . " : " . $conn->connect_error);
 }
 
-$select = "SELECT * FROM `usar` ORDER BY id";
-$result = $conn->query($select);
+// Assuming the page ID is passed through the URL as 'id'
+$pageId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-$pdf = new FPDF('P','mm','legal');
+// Prepare and bind the SELECT statement with a parameter for pageId
+$select = $conn->prepare("SELECT * FROM usar WHERE id = ?");
+
+// Bind parameters
+$select->bind_param("i", $pageId);
+
+// Execute the query
+$select->execute();
+
+// Get the result
+$result = $select->get_result();
+
+$pdf = new FPDF('P', 'mm', 'legal');
 $pdf->AddPage();
-
 
 while($row = $result->fetch_object()){
     $id = $row->id;
@@ -145,37 +156,119 @@ $pdf->Ln();
 $pdf->Cell(1); 
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(150, 5, 'Response Type: ', 1);
-// Rectangle positions
 $rect1_x = 35;
 $rect2_x = 55;
-$rect3_x = 80;
+$rect3_x = 90;
 $rect_y = 61;
 $rect_size = 3;
 
-// Draw rectangles
-$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle 1
-$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle 2
-$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); // Rectangle 3
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
 
-// Labels for rectangles
-$pdf->Cell(10); // Offset for alignment
-$pdf->Cell(0, 5, 'Standby', 0, 0); // Label for Rectangle 1
-$pdf->Cell($rect2_x - $rect1_x - $rect_size); // Empty space for layout
-$pdf->Cell(0, 5, 'Response on ', 0, 0); // Label for Rectangle 2
-$pdf->Cell($rect3_x - $rect2_x - $rect_size); // Empty space for layout
-$pdf->Cell(0, 5, 'Rect 3', 0, 0); // Label for Rectangle 3
-
-$pdf->Ln(); // Mo
+$pdf->Cell(1); 
+$pdf->Cell(-123, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Standby', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-164, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Response to Scene ', 0, 0); 
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-144, 5, '', 0, 0); 
+$pdf->Cell(0,5, 'Others:_______', 0, 0); 
+$pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Cell(30, 5, 'At Scene ', 1); 
 $pdf->Cell(20, 5, $atscn, 1); 
 $pdf->Ln();
 
 $pdf->Cell(1); 
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(150, 5, 'Location Type: ' .$loc_type, 1);
+$pdf->Cell(150, 5, 'Location Type: ', 1);
+
+// Draw rectangles for location types
+$rect1_x = 35;
+$rect2_x = 50;
+$rect3_x = 68;
+$rect4_x = 93;
+$rect5_x = 120;
+$rect6_x = 135;
+$rect_y = 66;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect4_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect5_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect6_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(-123, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Airport', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-164, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Hospital ', 0, 0); 
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-150, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Nursing Home', 0, 0); 
+$pdf->Cell($rect4_x - $rect3_x - $rect_size); 
+$pdf->Cell(-132, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Home/Residence', 0, 0); 
+$pdf->Cell($rect5_x - $rect4_x - $rect_size); 
+$pdf->Cell(-106, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Bridge', 0, 0); 
+$pdf->Cell(-80, 5, '', 0, 0); 
+$pdf->Cell($rect6_x - $rect5_x - $rect_size); // Empty space for layout
+$pdf->Cell(0, 5, 'Restaurant/Bar', 0, 0); // Label for Restaurant/Bar
+
+$pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Cell(30, 5, 'Depart Scene', 1); 
 $pdf->Cell(20, 5, $descn, 1); 
 $pdf->Ln();
+
+$pdf->Cell(1); 
+$pdf->SetFont('Arial', '', 8);
+$pdf->Cell(150, 5, '', 1);
+
+// Draw rectangles for location types
+$rect1_x = 15;
+$rect2_x = 30;
+$rect3_x = 45;
+$rect4_x = 65;
+$rect5_x = 90;
+$rect6_x = 110;
+$rect_y = 71;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle for Hospital
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); // Rectangle for Nursing Home
+$pdf->Rect($rect4_x, $rect_y, $rect_size, $rect_size); // Rectangle for Home/Residence
+$pdf->Rect($rect5_x, $rect_y, $rect_size, $rect_size); // Rectangle for Bridge
+$pdf->Rect($rect6_x, $rect_y, $rect_size, $rect_size); // Rectangle for Restaurant/Bar
+
+// Output labels for location types
+$pdf->Cell(-143, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Farm', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-185, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'School ', 0, 0); 
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); // Empty space for layout
+$pdf->Cell(-170, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Clinic/RHU', 0, 0); // Label for Nursing Home
+$pdf->Cell($rect4_x - $rect3_x - $rect_size); // Empty space for layout
+$pdf->Cell(-155, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Highway/Street', 0, 0); // Label for Home/Residence
+$pdf->Cell($rect5_x - $rect4_x - $rect_size); // Empty space for layout
+$pdf->Cell(-135, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Public Bldg.', 0, 0); // Label for Bridge
+$pdf->Cell(-110, 5, '', 0, 0); 
+$pdf->Cell($rect6_x - $rect5_x - $rect_size); // Empty space for layout
+$pdf->Cell(0, 5, 'Others:_______', 0, 0); // Label for Restaurant/Bar
+
+$pdf->Cell(-45, 5, '', 0, 0);
+$pdf->Cell(30, 5, 'Depart Scene', 1); 
+$pdf->Cell(20, 5, $descn, 1); 
+$pdf->Ln();
+
 
 $pdf->Cell(1); 
 $pdf->SetFont('Arial', '', 8);
@@ -484,14 +577,6 @@ $pdf->MultiCell(75, 5, $narrative, 0, 'L', 0); // Set height to 50 and align tex
 $pdf->Rect(11, 190, 75, 130); // X,Y,W,H
 $pdf->Ln();
 
-
-$pdf->Cell(5);
-$pdf->SetFont('Arial', '', 8);
-$pdf->Cell(60, -30, '', 0);
-$pdf->Cell(20, -30, '', 0);
-$pdf->Cell(20, -30, '', 0);
-$pdf->Cell(20, -30, '', 0);
-$pdf->Ln();
 
 $pdf->Cell(80);
 $pdf->SetFont('Arial', 'B', 8);
