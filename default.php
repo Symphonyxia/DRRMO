@@ -79,6 +79,7 @@ while($row = $result->fetch_object()){
   }
 
 
+  
 
 $pdf->Image('resources/img/iloilo.png', 9, 7, 20, 20, 'PNG');
 $pdf->Image('resources/img/disaster.jpg', 29, 4, 25, 25, 'JPG');
