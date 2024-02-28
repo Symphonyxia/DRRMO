@@ -132,12 +132,11 @@ if (isset($_GET['id'])) {
 
                             <tr>
                                 <td colspan="14">Response Type:
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="response_type[]" value="Standby" <?php echo isset($row['response_type']) && in_array('Standby', explode(',', $row['response_type'])) ? 'checked' : ''; ?>> Standby
-                                    </label>
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="response_type[]" value="Response" <?php echo isset($row['response_type']) && in_array('Response', explode(',', $row['response_type'])) ? 'checked' : ''; ?>> Response to Scene
-                                    </label>
+
+                                    <input type="checkbox" class="form-check-input" name="response_type[]" value="Standby" <?php echo isset($row['response_type']) && in_array('Standby', explode(',', $row['response_type'])) ? 'checked disabled' : 'disabled'; ?>> Standby
+
+                                    <input type="checkbox" class="form-check-input" name="response_type[]" value="Response" <?php echo isset($row['response_type']) && in_array('Response', explode(',', $row['response_type'])) ? 'checked disabled' : 'disabled'; ?>> Response to Scene
+
                                     Others:
 
                                     <input type="text" name="response_type_other" value="<?php echo isset($row['response_type']) && !in_array('Standby', explode(',', $row['response_type'])) && !in_array('Response', explode(',', $row['response_type'])) ? $row['response_type'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" <?php echo isset($row['response_type']) && (in_array('Standby', explode(',', $row['response_type'])) || in_array('Response', explode(',', $row['response_type']))) ? 'disabled' : ''; ?> disabled>
