@@ -125,20 +125,13 @@ include 'header.php';
 
                                     <input type="checkbox" class="form-check-input" name="loc_type[]" value="Hospital"> Hospital
 
+                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="nursing"> Nursing Home
 
-
-
+                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="home"> Home/Residence
 
                                     <input type="checkbox" class="form-check-input" name="loc_type[]" value="bridge"> Bridge
 
                                     <input type="checkbox" class="form-check-input" name="loc_type[]" value="bar"> Restaurant/Bar
-
-                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="farm"> Farm
-
-                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="school"> School
-
-                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="clinic"> Clinic/RHU
-
 
                                 </td>
                                 <th>At scene:
@@ -150,6 +143,14 @@ include 'header.php';
 
                             <tr>
                                 <td colspan="14">
+
+                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="farm"> Farm
+
+                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="school"> School
+
+                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="clinic"> Clinic/RHU
+
+
 
                                     <input type="checkbox" class="form-check-input" name="loc_type[]" value="street">
                                     Highway/Street
