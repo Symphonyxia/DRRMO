@@ -79,7 +79,7 @@ while($row = $result->fetch_object()){
   }
 
 
-  
+
 
 $pdf->Image('resources/img/iloilo.png', 9, 7, 20, 20, 'PNG');
 $pdf->Image('resources/img/disaster.jpg', 29, 4, 25, 25, 'JPG');
@@ -185,7 +185,6 @@ $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(150, 5, 'Location Type: ', 1);
 
-// Draw rectangles for location types
 $rect1_x = 35;
 $rect2_x = 50;
 $rect3_x = 68;
@@ -217,8 +216,8 @@ $pdf->Cell($rect5_x - $rect4_x - $rect_size);
 $pdf->Cell(-106, 5, '', 0, 0); 
 $pdf->Cell(0, 5, 'Bridge', 0, 0); 
 $pdf->Cell(-80, 5, '', 0, 0); 
-$pdf->Cell($rect6_x - $rect5_x - $rect_size); // Empty space for layout
-$pdf->Cell(0, 5, 'Restaurant/Bar', 0, 0); // Label for Restaurant/Bar
+$pdf->Cell($rect6_x - $rect5_x - $rect_size); 
+$pdf->Cell(0, 5, 'Restaurant/Bar', 0, 0); 
 
 $pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Cell(30, 5, 'Depart Scene', 1); 
@@ -229,7 +228,6 @@ $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(150, 5, '', 1);
 
-// Draw rectangles for location types
 $rect1_x = 15;
 $rect2_x = 30;
 $rect3_x = 45;
@@ -266,23 +264,98 @@ $pdf->Cell($rect6_x - $rect5_x - $rect_size); // Empty space for layout
 $pdf->Cell(0, 5, 'Others:_______', 0, 0); // Label for Restaurant/Bar
 
 $pdf->Cell(-45, 5, '', 0, 0);
-$pdf->Cell(30, 5, 'Depart Scene', 1); 
-$pdf->Cell(20, 5, $descn, 1); 
+$pdf->Cell(30, 5, 'In Service', 1); 
+$pdf->Cell(20, 5, $insvc, 1); 
 $pdf->Ln();
 
 
 $pdf->Cell(1); 
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(150, 5, 'Type of Call: ' .$call_type, 1);
-$pdf->Cell(30, 5, 'in Service', 1); 
-$pdf->Cell(20, 5, $insvc, 1); 
+$pdf->Cell(150, 5, 'Type of Call: ', 1);
+
+$rect1_x = 30;
+$rect2_x = 43;
+$rect3_x = 73;
+$rect4_x = 95;
+$rect5_x = 115;
+$rect6_x = 135;
+$rect_y = 76;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect4_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect5_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect6_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(-127, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Fire', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-170, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Vehicular Accident ', 0, 0); 
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-156, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Earthquake', 0, 0); 
+$pdf->Cell($rect4_x - $rect3_x - $rect_size); 
+$pdf->Cell(-127, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Collapse', 0, 0); 
+$pdf->Cell($rect5_x - $rect4_x - $rect_size); 
+$pdf->Cell(-105, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Suicide', 0, 0); 
+$pdf->Cell(-85, 5, '', 0, 0); 
+$pdf->Cell($rect6_x - $rect5_x - $rect_size); 
+$pdf->Cell(0, 5, 'Drowning', 0, 0); 
+
+$pdf->Cell(-45, 5, '', 0, 0);
+
+
+$pdf->Cell(30, 5, 'Operation Team', 1); 
+$pdf->Cell(20, 5, $optm, 1); 
 $pdf->Ln();
+
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(150, 5, 'SRR Services: ' . $srr_services, 1);
-$pdf->Cell(30, 5, 'Operation Team', 1);
-$pdf->Cell(20, 5, $optm, 1);
+$pdf->Cell(150, 5, '', 1);
+
+$rect1_x = 15;
+$rect2_x = 40;
+$rect3_x = 65;
+$rect4_x = 95;
+
+$rect_y = 81;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle for Hospital
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); // Rectangle for Nursing Home
+$pdf->Rect($rect4_x, $rect_y, $rect_size, $rect_size); // Rectangle for Home/Residence
+
+// Output labels for location types
+$pdf->Cell(-143, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Storm Surge', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-185, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Flooding ', 0, 0); 
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); // Empty space for layout
+$pdf->Cell(-160, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Roving/Inspection', 0, 0); // Label for Nursing Home
+$pdf->Cell($rect4_x - $rect3_x - $rect_size); // Empty space for layout
+$pdf->Cell(-135, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Others:_______', 0, 0); // Label for Home/Residence
+
+$pdf->Cell(-45, 5, '', 0, 0);
+$pdf->Cell(30, 5, '', 1); 
+$pdf->Cell(20, 5, '', 1); 
+$pdf->Ln();
+
+
+
+
+$pdf->Cell(1);
+$pdf->SetFont('Arial', '', 8);
+$pdf->Cell(200, 5, 'SRR Services: ' . $srr_services, 1);
 $pdf->Ln();
 
 $pdf->Cell(1);
@@ -319,8 +392,9 @@ $pdf->Ln();
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(15, 55, 'Weather:', 1);
-$pdf->Cell(30, 55, '', 1);
-$pdf->Cell(30, 5, 'Terrain:', 1);
+$pdf->Cell(35, 55, '', 1);
+$pdf->Rect(61, 120, 25, 55); // X,Y,W,H
+$pdf->Cell(25, 5, 'Terrain:', 0);
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', 'B', 8);
@@ -333,359 +407,923 @@ $pdf->Ln();
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(15, 55, '', 0);
+$pdf->Cell(150, 5, '', 0);
 
-$pdf->Cell(30, 5, 'Normal', 0);
-$pdf->Cell(30, 5, 'Conrete', 1);
+$rect1_x = 30;
+$rect2_x = 65;
+$rect_y = 126;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(-143, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Normal', 0, 0); 
+$pdf->Cell(-170, 5, '', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(18, 5, 'Conrete', 0);
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(60, 5, 'Self-Contained Breathing Apparatus', 1);
+$rect1_x = 160;
+$rect2_x = 180;
+$rect3_x = 200;
+$rect_y = 126;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(-1, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(15, 55, '', 0);
-$pdf->Cell(30, 5, 'Hot/Humid', 0);
-$pdf->Cell(30, 5, 'Dirt', 1);
+$pdf->Cell(150, 5, '', 0);
+
+$rect1_x = 30;
+$rect2_x = 65;
+$rect_y = 131;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(-143, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Hot/Humid', 0, 0); 
+$pdf->Cell(-170, 5, '', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(18, 5, 'Dirt', 0);
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(60, 5, 'Electric Spreader', 1);
+$rect1_x = 160;
+$rect2_x = 180;
+$rect3_x = 200;
+$rect_y = 131;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(-1, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(15, 55, '', 0);
-$pdf->Cell(30, 5, 'Cold', 0);
-$pdf->Cell(30, 5, 'Mud', 1);
+$pdf->Cell(150, 5, '', 0);
+
+$rect1_x = 30;
+$rect2_x = 65;
+$rect_y = 136;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+
+$pdf->Cell(-143, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Cold', 0, 0); 
+$pdf->Cell(-170, 5, '', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(18, 5, 'Mud', 0);
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(60, 5, 'Electric Cutter', 1);
+$rect1_x = 160;
+$rect2_x = 180;
+$rect3_x = 200;
+$rect_y = 136;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(-1, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(15, 55, '', 0);
-$pdf->Cell(30, 5, 'Light Rain', 0);
-$pdf->Cell(30, 5, 'Sand', 1);
+$pdf->Cell(150, 5, '', 0);
+
+$rect1_x = 30;
+$rect2_x = 65;
+$rect_y = 141;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+
+$pdf->Cell(-143, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Light Rain', 0, 0); 
+$pdf->Cell(-170, 5, '', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(18, 5, 'Sand', 0);
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(60, 5, 'Electric Ram', 1);
+$rect1_x = 160;
+$rect2_x = 180;
+$rect3_x = 200;
+$rect_y = 141;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(-1, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(15, 35, '', 0);
-$pdf->Cell(30, 5, 'Heavy Rain', 0);
-$pdf->Cell(30, 5, 'Gravel/Rock', 1);
+$pdf->Cell(15, 55, '', 0);
+$pdf->Cell(150, 5, '', 0);
+
+$rect1_x = 30;
+$rect2_x = 65;
+$rect_y = 146;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+
+$pdf->Cell(-143, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Heavy Rain', 0, 0); 
+$pdf->Cell(-170, 5, '', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(18, 5, 'Gravel/Rock', 0);
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(60, 5, 'Hydraulic Hand Pump', 1);
+$rect1_x = 160;
+$rect2_x = 180;
+$rect3_x = 200;
+$rect_y = 146;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(-1, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(15, 55, '', 0);
-$pdf->Cell(30, 5, 'Hail', 0);
-$pdf->Cell(30, 5, 'Inclined', 1);
+$pdf->Cell(150, 5, '', 0);
+
+$rect1_x = 30;
+$rect2_x = 65;
+$rect_y = 151;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+
+$pdf->Cell(-143, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Hail', 0, 0); 
+$pdf->Cell(-170, 5, '', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(18, 5, 'Inclined', 0);
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(60, 5, 'Hydraulic Combi-tool', 1);
+$rect1_x = 160;
+$rect2_x = 180;
+$rect3_x = 200;
+$rect_y = 151;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(-1, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(15, 55, '', 0);
-$pdf->Cell(30, 5, 'Windy', 0);
-$pdf->Cell(30, 5, 'Swamp', 1);
+$pdf->Cell(150, 5, '', 0);
+
+$rect1_x = 30;
+$rect2_x = 65;
+$rect_y = 156;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+
+$pdf->Cell(-143, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Windy', 0, 0); 
+$pdf->Cell(-170, 5, '', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(18, 5, 'Swamp', 0);
 
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(60, 5, 'Hydraulic Ram', 1);
+$rect1_x = 160;
+$rect2_x = 180;
+$rect3_x = 200;
+$rect_y = 156;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(-1, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(15, 55, '', 0);
-$pdf->Cell(30, 5, 'Thunderstorm', 0);
-$pdf->Cell(30, 5, 'Unstable', 1);
+$pdf->Cell(150, 5, '', 0);
+
+$rect1_x = 30;
+$rect2_x = 65;
+$rect_y = 161;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+
+$pdf->Cell(-143, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Thunderstorm', 0, 0); 
+$pdf->Cell(-170, 5, '', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(18, 5, 'Unstable', 0);
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(60, 5, 'Chainsaw', 1);
+$rect1_x = 160;
+$rect2_x = 180;
+$rect3_x = 200;
+$rect_y = 161;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(-1, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(15, 55, '', 0);
-$pdf->Cell(30, 5, 'Sun and Rain', 0);
-$pdf->Cell(30, 5, '', 1);
+$pdf->Cell(150, 5, '', 0);
+
+$rect1_x = 30;
+$rect_y = 166;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+
+$pdf->Cell(-143, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Sun and rain', 0, 0); 
+$pdf->Cell(-170, 5, '', 0, 0); 
+$pdf->Cell(50, 5, '', 0);
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(60, 5, 'Cutters Edge', 1);
+$rect1_x = 160;
+$rect2_x = 180;
+$rect3_x = 200;
+$rect_y = 166;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(-1, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(15, 55, '', 0);
-$pdf->Cell(30, 5, 'Signal # 1, 2, 3, 4, 5', 0);
-$pdf->Cell(30, 5, '', 1);
+$pdf->Cell(150, 5, '', 0);
+
+$rect1_x = 30;
+$rect_y = 171;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+
+$pdf->Cell(-143, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Signal # 1, 2, 3, 4, 5', 0, 0); 
+$pdf->Cell(-170, 5, '', 0, 0); 
+$pdf->Cell(50, 5, '', 0);
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(60, 5, 'High Pressure Lift Bag', 1);
+$rect1_x = 160;
+$rect2_x = 180;
+$rect3_x = 200;
+$rect_y = 171;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(-1, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
-
+$pdf->Rect(11, 175, 37, 25); // X,Y,W,H
+$pdf->Rect(48, 175, 38, 25); // X,Y,W,H
 
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
+$pdf->Cell(40, 5, 'CPR:', 0);
 
+$rect1_x = 20;
+$rect2_x = 35;
+$rect_y = 176;
+$rect_size = 3;
 
-$pdf->Cell(40, 5, 'CPR:', 1);
-$pdf->Cell(35, 5, 'Casualty:', 1);
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
 
+$pdf->Cell(1); 
+$pdf->Cell(-28, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Yes', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-178, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'No ', 0, 0);
+$pdf->Cell(-155, 5, '', 0, 0); 
+$pdf->Cell(35, 5, 'Casualty:', 0);
+$rect1_x = 65;
+$rect2_x = 75;
+$rect_y = 176;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+
+$pdf->Cell(-18, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Yes', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-135, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'No ', 0, 0);
+$pdf->Cell(-120, 5, '', 0, 0); 
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(60, 5, 'High Lift Jack', 1);
+$rect1_x = 160;
+$rect2_x = 180;
+$rect3_x = 200;
+$rect_y = 176;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(-1, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
 
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(40, 5, 'Time Started: ' . $time_start, 1);
-$pdf->Cell(35, 5, 'No. of cas: ' . $no_cas, 1);
+$pdf->Cell(40, 5, 'Time Started: ' . $time_start, 0);
+$pdf->Cell(35, 5, 'No. of cas: ' . $no_cas, 0);
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(60, 5, 'Remote Area Lighting System RALS', 1);
+$rect1_x = 160;
+$rect2_x = 180;
+$rect3_x = 200;
+$rect_y = 181;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(-1, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(40, 5, 'Time End: ' . $time_end, 1);
-$pdf->Cell(35, 5, 'Ambulance req.: ' . $ambulance_req, 1);
+$pdf->Cell(40, 5, 'Time End: ' . $time_end, 0);
+$pdf->Cell(35, 5, 'Ambulance req.: ', 0);
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(60, 5, 'Ventilation Blower', 1);
+$rect1_x = 160;
+$rect2_x = 180;
+$rect3_x = 200;
+$rect_y = 186;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(-1, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(40, 5, 'Cyle: ' . $cycle, 1);
-$pdf->Cell(35, 5, 'specify: ' . $amb_spec, 1);
+$pdf->Cell(40, 5, 'Cyle: ' . $cycle, 0);
+$pdf->Cell(35, 5, '', 0);
+
+$rect1_x = 65;
+$rect2_x = 75;
+$rect_y = 191;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+
+$pdf->Cell(-18, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Yes', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-135, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'No ', 0, 0);
+$pdf->Cell(-120, 5, '', 0, 0); 
+
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(60, 5, 'Tripod and Winch', 1);
-$pdf->Cell(20, 5, '', 1);
-$pdf->Cell(20, 5, '', 1);
-$pdf->Cell(20, 5, '', 1);
-$pdf->Ln();
+$rect1_x = 160;
+$rect2_x = 180;
+$rect3_x = 200;
+$rect_y = 191;
+$rect_size = 3;
 
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(-1, 5, '', 0, 0); 
+$pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
+$pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
+$pdf->Cell(20, 5, '', 1);
+$pdf->Cell(-45, 5, '', 0, 0);
+$pdf->Ln();
 
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(40, 5, 'AED/Defib:', 1);
-$pdf->Cell(35, 5, '', 1);
+$pdf->Cell(40, 5, 'AED/Defib:', 0);
+$rect1_x = 28;
+$rect2_x = 38;
+$rect_y = 196;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+
+$pdf->Cell(-20, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Yes', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-172, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'No ', 0, 0);
+$pdf->Cell(-155, 5, '', 0, 0); 
+
+
+$pdf->Cell(35, 5, 'specify: ' . $amb_spec, 0);
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(60, 5, 'Rope Rescue Equipment', 1);
+$rect1_x = 160;
+$rect2_x = 180;
+$rect3_x = 200;
+$rect_y = 196;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(-1, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(75, 5, 'NARRATIVE:', 1);
+$pdf->Cell(75, 10, 'NARRATIVE:', 0,0);
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(60, 5, 'Others', 1);
+$rect1_x = 160;
+$rect2_x = 180;
+$rect3_x = 200;
+$rect_y = 201;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(-1, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-17, 5, '', 0, 0); 
 $pdf->Cell(20, 5, '', 1);
+$pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
+$pdf->Cell(1);
+$pdf->SetFont('Arial', '', 8);
+$pdf->Cell(75, 5, '', 0);
+$pdf->Cell(5);
+
+$pdf->SetFont('Arial', '', 8);
+$pdf->Cell(60, 5, '', 0);
+$pdf->Cell(20, 5, '', 0);
+$pdf->Cell(20, 5, '', 0);
+$pdf->Cell(20, 5, '', 0);
+$pdf->Ln();
+
+
+
+$pdf->Rect(11, 200, 75, 125); // X,Y,W,H
 
 // Check the length of the text
 $textLength = strlen($narrative);
 
 // Set the font size based on the text length
 if ($textLength <= 50) {
-  $pdf->SetFont('Arial', '', 10);
+    $pdf->SetFont('Arial', '', 10);
 } else {
-  $pdf->SetFont('Arial', '', 8);
+    $pdf->SetFont('Arial', '', 8);
 }
+
+$yBeforeNarrative = $pdf->GetY();
 
 // Output the text
 $pdf->Cell(1);
-$pdf->SetFont('Arial', '', 10); // Set font to regular
-$pdf->MultiCell(75, 5, $narrative, 0, 'L', 0); // Set height to 50 and align text to the top
-$pdf->Rect(11, 190, 75, 130); // X,Y,W,H
-$pdf->Ln();
+$pdf->SetFont('Arial', '', 10); 
+$pdf->MultiCell(75, 5, $narrative, 0, 'L', 0); 
+
+$heightNarrative = $pdf->GetY() - $yBeforeNarrative;
+
+$pdf->Rect(11, $yBeforeNarrative, 75, $heightNarrative);
+
+// Set position for "Interventions" section below the narrative
+$pdf->SetXY(90, $yBeforeNarrative);
 
 
-$pdf->Cell(80);
+$pdf->Rect(91, 210, 120, 30); // X,Y,W,H
+
+// Output "Interventions" cell
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(120, 5, 'Interventions:', 1);
+$pdf->Cell(120, 5, 'Interventions:', 0);
 $pdf->Ln();
 
-$pdf->Cell(80);
+// Output other cells related to interventions
+$pdf->SetX(90);
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(40, 5, 'Collapse Structure Rescue', 1);
-$pdf->Cell(40, 5, 'Boom', 1);
-$pdf->Cell(40, 5, 'Barricade', 1);
+$rect1_x = 92;
+$rect2_x = 145;
+$rect3_x = 170;
+$rect_y = 216;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(5, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Collapse Structure Rescue', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-108, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Boom', 0, 0); 
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-53, 5, '', 0, 0); 
+$pdf->Cell(0,5, 'Barricade', 0, 0); 
 $pdf->Ln();
 
-$pdf->Cell(80);
+
+// Output other cells related to interventions
+$pdf->SetX(90);
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(40, 5, 'Confined Space Rescue', 1);
-$pdf->Cell(40, 5, 'Outrigger', 1);
-$pdf->Cell(40, 5, 'Structural Extrication', 1);
+$rect1_x = 92;
+$rect2_x = 145;
+$rect3_x = 170;
+$rect_y = 221;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(5, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Confined Space Rescue', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-108, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Outrigger', 0, 0); 
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-53, 5, '', 0, 0); 
+$pdf->Cell(0,5, 'Structural Extrication', 0, 0); 
 $pdf->Ln();
 
-$pdf->Cell(80);
+// Output other cells related to interventions
+$pdf->SetX(90);
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(40, 5, 'Water Rescue', 1);
-$pdf->Cell(40, 5, 'Tower Light', 1);
-$pdf->Cell(40, 5, 'Vehicular Extrication', 1);
+$rect1_x = 92;
+$rect2_x = 145;
+$rect3_x = 170;
+$rect_y = 226;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(5, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Water Rescue', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-108, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Tower Light', 0, 0); 
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-53, 5, '', 0, 0); 
+$pdf->Cell(0,5, 'Vehicular Extrication', 0, 0); 
 $pdf->Ln();
 
-$pdf->Cell(80);
+// Output other cells related to interventions
+$pdf->SetX(90);
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(40, 5, 'Patient Retrieval', 1);
-$pdf->Cell(40, 5, 'Winch', 1);
-$pdf->Cell(40, 5, 'Wildlife Rescue', 1);
+$rect1_x = 92;
+$rect2_x = 145;
+$rect3_x = 170;
+$rect_y = 231;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(5, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Patient Retrieval', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-108, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'Winch', 0, 0); 
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-53, 5, '', 0, 0); 
+$pdf->Cell(0,5, 'Wildlife Rescue', 0, 0); 
 $pdf->Ln();
 
-$pdf->Cell(80);
+// Output other cells related to interventions
+$pdf->SetX(90);
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(40, 5, 'High Angle Rescue', 1);
-$pdf->Cell(40, 5, 'HazMat', 1);
-$pdf->Cell(40, 5, 'Generator', 1);
+$rect1_x = 92;
+$rect2_x = 145;
+$rect3_x = 170;
+$rect_y = 236;
+$rect_size = 3;
+
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+
+$pdf->Cell(1); 
+$pdf->Cell(5, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'High Angle Rescue', 0, 0); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell(-108, 5, '', 0, 0); 
+$pdf->Cell(0, 5, 'HazMat', 0, 0); 
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
+$pdf->Cell(-53, 5, '', 0, 0); 
+$pdf->Cell(0,5, 'Generator', 0, 0); 
 $pdf->Ln();
 
-$pdf->Cell(80);
+$pdf->SetXY(90, $pdf->GetY());
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(120, 5, '', 0);
 $pdf->Ln();
 
-$pdf->Cell(80);
+$pdf->SetXY(90, $pdf->GetY());
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(120, 5, 'Endorsement', 1, 0, 'C');
 $pdf->Ln();
 
-$pdf->Cell(80);
+$pdf->SetXY(90, $pdf->GetY());
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(120, 5, '', 0);
 $pdf->Ln();
 
-$pdf->Cell(80);
+$pdf->SetXY(90, $pdf->GetY());
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(60, 5, 'Crew', 1, 0, 'C');
 $pdf->Cell(60, 5, 'Designation', 1, 0, 'C');
 $pdf->Ln();
 
-$pdf->Cell(80);
+$pdf->SetXY(90, $pdf->GetY());
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(60, 5, $crew, 1, 0, 'C');
 $pdf->Cell(60, 5, $designation, 1, 0, 'C');
 $pdf->Ln();
 
-$pdf->Cell(80);
+$pdf->SetXY(90, $pdf->GetY());
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(60, 5, $crew, 1, 0, 'C');
 $pdf->Cell(60, 5, $designation, 1, 0, 'C');
 $pdf->Ln();
 
-$pdf->Cell(80);
+$pdf->SetXY(90, $pdf->GetY());
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(60, 5, $crew, 1, 0, 'C');
 $pdf->Cell(60, 5, $designation, 1, 0, 'C');
 $pdf->Ln();
 
-$pdf->Cell(80);
+$pdf->SetXY(90, $pdf->GetY());
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(60, 5, $crew, 1, 0, 'C');
 $pdf->Cell(60, 5, $designation, 1, 0, 'C');
 $pdf->Ln();
 
-$pdf->Cell(80);
+$pdf->SetXY(90, $pdf->GetY());
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(60, 5, $crew, 1, 0, 'C');
 $pdf->Cell(60, 5, $designation, 1, 0, 'C');
 $pdf->Ln();
 
 
-$pdf->Cell(80);
+$pdf->SetXY(90, $pdf->GetY());
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(120, 10, 'Prepared by: ' . $prep_by, 1);
 $pdf->Ln();
 
-$pdf->Cell(80);
+$pdf->SetXY(90, $pdf->GetY());
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(120, 10, 'Endorsed to/by: ' . $endorsed_by, 1);
 $pdf->Ln();
 
-$pdf->Cell(80);
+$pdf->SetXY(90, $pdf->GetY());
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(120, 10, 'Witness/es: ' . $witness, 1);
 $pdf->Ln();
-$pdf->Cell(80);
+$pdf->SetXY(90, $pdf->GetY());
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(120, 10, 'Complete Name and Signature', 1, 0, 'C');
 $pdf->Ln();
