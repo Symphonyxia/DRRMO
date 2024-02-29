@@ -1061,7 +1061,7 @@ $pdf->Ln();
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
-$pdf->Cell(75, 10, 'NARRATIVE:', 0,0);
+$pdf->Cell(75, 10, 'NARRATIVE:', 0 ,0);
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
@@ -1118,15 +1118,19 @@ $yBeforeNarrative = $pdf->GetY();
 
 // Output the text
 $pdf->Cell(1);
-$pdf->SetFont('Arial', '', 10); 
-$pdf->MultiCell(75, 5, $narrative, 0, 'L', 0); 
+$pdf->SetFont('Arial', '', 10);
+$yBeforeNarrative = $pdf->GetY(); // Store Y position before outputting the text
+$pdf->MultiCell(75, 5, $narrative, 0, 'L', 0); // Set border parameter to 0 to remove border
 
-$heightNarrative = $pdf->GetY() - $yBeforeNarrative;
+// Calculate the height of the narrative text
+$heightNarrative = 125 - $yBeforeNarrative;
 
-$pdf->Rect(11, $yBeforeNarrative, 75, $heightNarrative);
+// Draw a rectangle without a border around the narrative text
+$pdf->Rect(11, $yBeforeNarrative, 75, $heightNarrative); // Set 'F' to fill the rectangle
 
 // Set position for "Interventions" section below the narrative
 $pdf->SetXY(90, $yBeforeNarrative);
+
 
 
 $pdf->Rect(91, 210, 120, 30); // X,Y,W,H
