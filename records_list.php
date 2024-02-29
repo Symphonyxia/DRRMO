@@ -1,5 +1,7 @@
 <?php
 include 'header.php';
+
+
 ?>
 
 <style>
@@ -28,7 +30,7 @@ include 'header.php';
         <div class="title-block">
             <div class="row">
                 <div class="col-sm-6">
-                    <h3 class="title">
+                    <h3 class="title" style="margin-left: 50px;">
                         Records List
 
                     </h3>
@@ -48,9 +50,9 @@ include 'header.php';
                         <thead>
                             <tr>
                                 <th class="text-center"> Date</th>
-                                <th class="text-center">Type of Call</th>
+                                <th class="text-center">Location Type</th>
                                 <th class="text-center">Address</th>
-                                <th class="text-center">View</th>
+                                <th class="text-center">View Details</th>
 
 
                             </tr>
@@ -59,18 +61,30 @@ include 'header.php';
 
                             <?php
                             if ($pdo) {
-                                $sql = "SELECT id, date, call_type, incident_loc FROM usar"; // Include 'id' column in the SELECT statement
+
+                                $limit = 10; // Number of results per page
+                                $page = isset($_GET['page']) ? $_GET['page'] : 1; // Current page, default is 1
+                                $offset = ($page - 1) * $limit; // Offset for the SQL query
+
+                                $search = isset($_GET['search']) ? $_GET['search'] : ''; // Get the search term
+
+                                // Initialize $totalRows to avoid undefined variable warning
+                                $totalRows = 0;
+
+                                $sql = "SELECT id, date, loc_type, incident_loc FROM usar"; // Include 'id' column in the SELECT statement
                                 $stmt = $pdo->query($sql);
+
 
                                 if ($stmt->rowCount() > 0) {
                                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                         echo "<tr>";
                                         echo "<td class='text-center'>" . $row['date'] . "</td>";
-                                        echo "<td class='text-center'>" . $row['call_type'] . "</td>";
+                                        echo "<td class='text-center'>" . $row['loc_type'] . "</td>";
                                         echo "<td class='text-center'>" . $row['incident_loc'] . "</td>";
 
-                                        // Create a link to another PHP file with the record ID as a query parameter
-                                        echo "<td class='text-center'><a href='records.php?id=" . $row['id'] . "'>View Details</a></td>";
+
+                                        echo "<td class='text-center'><a href='records.php?id=" . $row['id'] . "' class='btn btn-primary'>View </a></td>";
+
 
                                         echo "</tr>";
                                     }

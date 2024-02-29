@@ -87,7 +87,8 @@ include 'header.php';
                                 <th>Call Recieved:<input type="number" name="cr" value=""></th>
                             </tr>
                             <tr>
-                                <td colspan="14"> <strong> Response Type: </strong>
+                                <td colspan="14">
+                                    <strong>Response Type:</strong>
 
                                     <input type="checkbox" class="form-check-input" name="response_type[]" value="Standby"> Standby
 
@@ -95,16 +96,26 @@ include 'header.php';
                                     <input type="checkbox" class="form-check-input" name="response_type[]" value="Response"> Response to Scene
 
 
-                                    Others:
+                                    <input type="checkbox" class="form-check-input" id="otherResponseTypeCheckbox"> Others:
 
-                                    <input type="text" name="response_type_other" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
-
+                                    <input type="text" name="response_type_other" id="responseTypeOther" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;" disabled>
                                 </td>
+
 
                                 <th>Enroute:
                                     <input type="number" name="enr" value="">
                                 </th>
                             </tr>
+                            <script>
+                                document.getElementById('otherResponseTypeCheckbox').addEventListener('change', function() {
+                                    var responseTypeOtherInput = document.getElementById('responseTypeOther');
+                                    responseTypeOtherInput.disabled = !this.checked;
+                                    if (!this.checked) {
+                                        responseTypeOtherInput.value = '';
+                                    }
+                                });
+                            </script>
+
 
 
                             <tr>
@@ -147,10 +158,23 @@ include 'header.php';
                                     Public Building
 
 
-                                    Others:
 
-                                    <input type="text" name="loc_type_other" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
+
+
+                                    <input type="checkbox" class="form-check-input" id="otherLocTypeCheckbox"> Others:
+
+                                    <input type="text" name="loc_type_other" id="locTypeOther" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;" disabled>
                                 </td>
+                                <script>
+                                    document.getElementById('otherLocTypeCheckbox').addEventListener('change', function() {
+                                        var locTypeOtherInput = document.getElementById('locTypeOther');
+                                        locTypeOtherInput.disabled = !this.checked;
+                                        if (!this.checked) {
+                                            locTypeOtherInput.value = ''; // Clear the input field if the checkbox is unchecked
+                                        }
+                                    });
+                                </script>
+
 
                                 <th>Depart scene:
                                     <input type="number" name="descn" value="">
@@ -206,9 +230,11 @@ include 'header.php';
 
                                     <input type="checkbox" class="form-check-input" name="call_type[]" value="roving"> Roving/Inspection
 
-                                    Others:
 
-                                    <input type="text" name="call_type_other" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
+                                    <input type="checkbox" class="form-check-input" id="otherCallTypeCheckbox" name="call_type[]" value="others"> Others:
+
+                                    <input type="text" name="call_type_other" id="callTypeOther" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;" disabled>
+                                </td>
 
 
 
@@ -661,7 +687,16 @@ include 'header.php';
                                         // If you want to do something with the selected value, you can do it here
                                     });
                                 });
+
+                                document.getElementById('otherCallTypeCheckbox').addEventListener('change', function() {
+                                    var callTypeOtherInput = document.getElementById('callTypeOther');
+                                    callTypeOtherInput.disabled = !this.checked;
+                                    if (!this.checked) {
+                                        callTypeOtherInput.value = ''; // Clear the input field if the checkbox is unchecked
+                                    }
+                                });
                             </script>
+
 
 
 

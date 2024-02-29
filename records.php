@@ -50,7 +50,7 @@ if (isset($_GET['id'])) {
 <div class="container">
 
 
-    <button onclick="printPage()">Print</button>
+    <button onclick="printPage()" class='btn btn-primary'>Print</button>
 
     <script>
         // JavaScript function to print the current page
@@ -141,25 +141,30 @@ if (isset($_GET['id'])) {
 
                             <tr>
                                 <td colspan="14">Response Type:
-
                                     <input type="checkbox" class="form-check-input" name="response_type[]" value="Standby" <?php echo isset($row['response_type']) && in_array('Standby', explode(',', $row['response_type'])) ? 'checked disabled' : 'disabled'; ?>> Standby
-
                                     <input type="checkbox" class="form-check-input" name="response_type[]" value="Response" <?php echo isset($row['response_type']) && in_array('Response', explode(',', $row['response_type'])) ? 'checked disabled' : 'disabled'; ?>> Response to Scene
-
-                                    Others:
-
-                                    <input type="text" name="response_type_other" value="<?php echo isset($row['response_type']) && !in_array('Standby', explode(',', $row['response_type'])) && !in_array('Response', explode(',', $row['response_type'])) ? $row['response_type'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" <?php echo isset($row['response_type']) && (in_array('Standby', explode(',', $row['response_type'])) || in_array('Response', explode(',', $row['response_type']))) ? 'disabled' : ''; ?> disabled>
-
+                                    <input type="checkbox" class="form-check-input" id="otherResponseTypeCheckbox" disabled> Others:
+                                    <input type="text" name="response_type_other" id="response_type_other" value="<?php echo isset($row['response_type']) && !in_array('Standby', explode(',', $row['response_type'])) && !in_array('Response', explode(',', $row['response_type'])) ? $row['response_type'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" <?php echo isset($row['response_type']) && (in_array('Standby', explode(',', $row['response_type'])) || in_array('Response', explode(',', $row['response_type']))) ? 'disabled' : ''; ?> disabled>
                                 </td>
-
-
-
-
-
                                 <td>Enroute:
                                     <strong><?php echo $row['enr']; ?></strong>
                                 </td>
                             </tr>
+                            <script>
+                                // Function to update the "Others" checkbox based on the input field value
+                                function updateOthersCheckbox() {
+                                    var otherResponseTypeInput = document.getElementById('response_type_other');
+                                    var otherResponseTypeCheckbox = document.getElementById('otherResponseTypeCheckbox');
+                                    otherResponseTypeCheckbox.checked = otherResponseTypeInput.value.trim() !== '';
+                                }
+
+                                // Event listener to trigger the update function when input value changes
+                                document.getElementById('response_type_other').addEventListener('input', updateOthersCheckbox);
+
+                                // Initial call to ensure the checkbox state matches the input value on page load
+                                updateOthersCheckbox();
+                            </script>
+
 
 
 
@@ -209,9 +214,24 @@ if (isset($_GET['id'])) {
                                     <label class="form-check-label">
                                         <input type="checkbox" class="form-check-input" name="loc_type[]" value="bldg" <?php echo isset($row['loc_type']) && in_array('bldg', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>> Public Building
                                     </label>
-                                    Others:
-                                    <input type="text" name="loc_type_other" value="<?php echo isset($row['loc_type']) && !in_array('street', explode(',', $row['loc_type'])) && !in_array('bldg', explode(',', $row['loc_type'])) ? $row['loc_type'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" <?php echo isset($row['loc_type']) && (in_array('street', explode(',', $row['loc_type'])) || in_array('bldg', explode(',', $row['loc_type']))) ? 'disabled' : ''; ?> disabled>
+                                    <input type="checkbox" class="form-check-input" id="otherLocTypeCheckbox" disabled> Others:
+                                    <input type="text" name="loc_type_other" id="loc_type_other" value="<?php echo isset($row['loc_type']) && !in_array('street', explode(',', $row['loc_type'])) && !in_array('bldg', explode(',', $row['loc_type'])) ? $row['loc_type'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" <?php echo isset($row['loc_type']) && (in_array('street', explode(',', $row['loc_type'])) || in_array('bldg', explode(',', $row['loc_type']))) ? 'disabled' : ''; ?> disabled>
+
                                 </td>
+                                <script>
+                                    // Function to update the checkbox based on the input field value
+                                    function updateLocTypeCheckbox() {
+                                        var otherInput = document.getElementById('loc_type_other');
+                                        var checkbox = document.getElementById('otherLocTypeCheckbox');
+                                        checkbox.checked = otherInput.value.trim() !== '';
+                                    }
+
+                                    // Event listener to trigger the update function when input value changes
+                                    document.getElementById('loc_type_other').addEventListener('input', updateLocTypeCheckbox);
+
+                                    // Initial call to ensure the checkbox state matches the input value on page load
+                                    updateLocTypeCheckbox();
+                                </script>
                                 <td>Depart scene:
                                     <strong><?php echo $row['descn']; ?></strong>
                                 </td>
@@ -254,10 +274,24 @@ if (isset($_GET['id'])) {
                                     <label class="form-check-label">
                                         <input type="checkbox" class="form-check-input" name="call_type[]" value="roving" <?php echo isset($row['call_type']) && in_array('roving', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>> Roving/Inspection
                                     </label>
-                                    Others:
-                                    <input type="text" name="call_type_other" value="<?php echo isset($row['call_type_other']) ? $row['call_type_other'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" <?php echo isset($row['call_type']) && !empty($row['call_type_other']) ? 'disabled' : ''; ?> disabled>
-                                    </strong>
+
+                                    <input type="checkbox" class="form-check-input" id="otherCallTypeCheckbox"> Others:
+                                    <input type="text" name="call_type_other" id="call_type_other" value="<?php echo isset($row['call_type_other']) ? $row['call_type_other'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
+
                                 </td>
+                                <script>
+                                    function updateCheckbox() {
+                                        var otherInput = document.getElementById('call_type_other');
+                                        var checkbox = document.getElementById('otherCallTypeCheckbox');
+                                        checkbox.checked = otherInput.value.trim() !== '';
+                                    }
+
+
+                                    document.getElementById('call_type_other').addEventListener('input', updateCheckbox);
+
+
+                                    updateCheckbox();
+                                </script>
                                 <td>Operation Team:
                                     <strong><?php echo $row['optm']; ?></strong>
                                 </td>

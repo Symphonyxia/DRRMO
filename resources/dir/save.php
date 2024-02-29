@@ -3,22 +3,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
     try {
         include '../../boot.php';
 
-        $responseType = isset($_POST['response_type']) ? implode(', ', $_POST['response_type']) : '';
+        $responseType = isset($_POST['response_type']) ? implode(',', $_POST['response_type']) : '';
         $responseTypeOther = isset($_POST['response_type_other']) ? $_POST['response_type_other'] : '';
         if (!empty($responseTypeOther)) {
             $responseType .= $responseTypeOther;
         }
 
-        $locType = isset($_POST['loc_type']) && is_array($_POST['loc_type']) ? implode(', ', $_POST['loc_type']) : '';
+        $locType = isset($_POST['loc_type']) && is_array($_POST['loc_type']) ? implode(',', $_POST['loc_type']) : '';
         $locTypeOther = isset($_POST['loc_type_other']) ? $_POST['loc_type_other'] : '';
         if (!empty($locTypeOther)) {
             $locType .=   $locTypeOther;
         }
 
-        $callType = isset($_POST['call_type']) ? implode(', ', $_POST['call_type']) : '';
+
+        $callType = isset($_POST['call_type']) && is_array($_POST['call_type']) ? implode(',', $_POST['call_type']) : '';
         $callTypeOther = isset($_POST['call_type_other']) ? $_POST['call_type_other'] : '';
         if (!empty($callTypeOther)) {
-            $callType .= !empty($callType) ? ', ' . $callTypeOther : $callTypeOther;
+            $callType .=  $callTypeOther;
         }
 
 
