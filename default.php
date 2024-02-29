@@ -237,31 +237,31 @@ $rect6_x = 110;
 $rect_y = 71;
 $rect_size = 3;
 
-$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
-$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle for Hospital
-$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); // Rectangle for Nursing Home
-$pdf->Rect($rect4_x, $rect_y, $rect_size, $rect_size); // Rectangle for Home/Residence
-$pdf->Rect($rect5_x, $rect_y, $rect_size, $rect_size); // Rectangle for Bridge
-$pdf->Rect($rect6_x, $rect_y, $rect_size, $rect_size); // Rectangle for Restaurant/Bar
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect4_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect5_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect6_x, $rect_y, $rect_size, $rect_size); 
 
 // Output labels for location types
 $pdf->Cell(-143, 5, '', 0, 0); 
 $pdf->Cell(0, 5, 'Farm', 0, 0); 
-$pdf->Cell($rect2_x - $rect1_x - $rect_size); 
+$pdf->Cell($rect2_x - $rect1_x - $rect_size); // Empty space for layout
 $pdf->Cell(-185, 5, '', 0, 0); 
 $pdf->Cell(0, 5, 'School ', 0, 0); 
-$pdf->Cell($rect3_x - $rect2_x - $rect_size); // Empty space for layout
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
 $pdf->Cell(-170, 5, '', 0, 0); 
-$pdf->Cell(0, 5, 'Clinic/RHU', 0, 0); // Label for Nursing Home
-$pdf->Cell($rect4_x - $rect3_x - $rect_size); // Empty space for layout
+$pdf->Cell(0, 5, 'Clinic/RHU', 0, 0); 
+$pdf->Cell($rect4_x - $rect3_x - $rect_size); 
 $pdf->Cell(-155, 5, '', 0, 0); 
-$pdf->Cell(0, 5, 'Highway/Street', 0, 0); // Label for Home/Residence
-$pdf->Cell($rect5_x - $rect4_x - $rect_size); // Empty space for layout
+$pdf->Cell(0, 5, 'Highway/Street', 0, 0); 
+$pdf->Cell($rect5_x - $rect4_x - $rect_size); 
 $pdf->Cell(-135, 5, '', 0, 0); 
-$pdf->Cell(0, 5, 'Public Bldg.', 0, 0); // Label for Bridge
+$pdf->Cell(0, 5, 'Public Bldg.', 0, 0); 
 $pdf->Cell(-110, 5, '', 0, 0); 
-$pdf->Cell($rect6_x - $rect5_x - $rect_size); // Empty space for layout
-$pdf->Cell(0, 5, 'Others:_______', 0, 0); // Label for Restaurant/Bar
+$pdf->Cell($rect6_x - $rect5_x - $rect_size); 
+$pdf->Cell(0, 5, 'Others:_______', 0, 0); 
 
 $pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Cell(30, 5, 'In Service', 1); 
@@ -327,30 +327,26 @@ $rect4_x = 95;
 $rect_y = 81;
 $rect_size = 3;
 
-$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
-$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle for Hospital
-$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); // Rectangle for Nursing Home
-$pdf->Rect($rect4_x, $rect_y, $rect_size, $rect_size); // Rectangle for Home/Residence
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect4_x, $rect_y, $rect_size, $rect_size);
 
-// Output labels for location types
 $pdf->Cell(-143, 5, '', 0, 0); 
 $pdf->Cell(0, 5, 'Storm Surge', 0, 0); 
 $pdf->Cell($rect2_x - $rect1_x - $rect_size); 
 $pdf->Cell(-185, 5, '', 0, 0); 
 $pdf->Cell(0, 5, 'Flooding ', 0, 0); 
-$pdf->Cell($rect3_x - $rect2_x - $rect_size); // Empty space for layout
+$pdf->Cell($rect3_x - $rect2_x - $rect_size); 
 $pdf->Cell(-160, 5, '', 0, 0); 
-$pdf->Cell(0, 5, 'Roving/Inspection', 0, 0); // Label for Nursing Home
-$pdf->Cell($rect4_x - $rect3_x - $rect_size); // Empty space for layout
+$pdf->Cell(0, 5, 'Roving/Inspection', 0, 0); 
+$pdf->Cell($rect4_x - $rect3_x - $rect_size); 
 $pdf->Cell(-135, 5, '', 0, 0); 
-$pdf->Cell(0, 5, 'Others:_______', 0, 0); // Label for Home/Residence
-
+$pdf->Cell(0, 5, 'Others:_______', 0, 0); 
 $pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Cell(30, 5, '', 1); 
 $pdf->Cell(20, 5, '', 1); 
 $pdf->Ln();
-
-
 
 
 $pdf->Cell(1);
@@ -393,7 +389,7 @@ $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(15, 55, 'Weather:', 1);
 $pdf->Cell(35, 55, '', 1);
-$pdf->Rect(61, 120, 25, 55); // X,Y,W,H
+$pdf->Rect(61, 120, 25, 55); 
 $pdf->Cell(25, 5, 'Terrain:', 0);
 
 $pdf->Cell(5);
@@ -458,7 +454,7 @@ $rect2_x = 65;
 $rect_y = 131;
 $rect_size = 3;
 
-$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
 $pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); 
 
 $pdf->Cell(-143, 5, '', 0, 0); 
@@ -502,8 +498,8 @@ $rect2_x = 65;
 $rect_y = 136;
 $rect_size = 3;
 
-$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
-$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); 
 
 $pdf->Cell(-143, 5, '', 0, 0); 
 $pdf->Cell(0, 5, 'Cold', 0, 0); 
@@ -546,8 +542,8 @@ $rect2_x = 65;
 $rect_y = 141;
 $rect_size = 3;
 
-$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
-$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); 
 
 $pdf->Cell(-143, 5, '', 0, 0); 
 $pdf->Cell(0, 5, 'Light Rain', 0, 0); 
@@ -590,8 +586,8 @@ $rect2_x = 65;
 $rect_y = 146;
 $rect_size = 3;
 
-$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
-$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); 
 
 $pdf->Cell(-143, 5, '', 0, 0); 
 $pdf->Cell(0, 5, 'Heavy Rain', 0, 0); 
@@ -634,8 +630,8 @@ $rect2_x = 65;
 $rect_y = 151;
 $rect_size = 3;
 
-$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
-$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); 
 
 $pdf->Cell(-143, 5, '', 0, 0); 
 $pdf->Cell(0, 5, 'Hail', 0, 0); 
@@ -678,9 +674,8 @@ $rect2_x = 65;
 $rect_y = 156;
 $rect_size = 3;
 
-$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
-$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
-
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); 
 $pdf->Cell(-143, 5, '', 0, 0); 
 $pdf->Cell(0, 5, 'Windy', 0, 0); 
 $pdf->Cell(-170, 5, '', 0, 0); 
@@ -723,8 +718,8 @@ $rect2_x = 65;
 $rect_y = 161;
 $rect_size = 3;
 
-$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
-$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); 
 
 $pdf->Cell(-143, 5, '', 0, 0); 
 $pdf->Cell(0, 5, 'Thunderstorm', 0, 0); 
@@ -766,7 +761,7 @@ $rect1_x = 30;
 $rect_y = 166;
 $rect_size = 3;
 
-$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
 
 $pdf->Cell(-143, 5, '', 0, 0); 
 $pdf->Cell(0, 5, 'Sun and rain', 0, 0); 
@@ -808,7 +803,7 @@ $rect1_x = 30;
 $rect_y = 171;
 $rect_size = 3;
 
-$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); 
 
 $pdf->Cell(-143, 5, '', 0, 0); 
 $pdf->Cell(0, 5, 'Signal # 1, 2, 3, 4, 5', 0, 0); 
@@ -840,8 +835,8 @@ $pdf->Cell(20, 5, '', 1);
 $pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
-$pdf->Rect(11, 175, 37, 25); // X,Y,W,H
-$pdf->Rect(48, 175, 38, 25); // X,Y,W,H
+$pdf->Rect(11, 175, 37, 25); 
+$pdf->Rect(48, 175, 38, 25); 
 
 
 $pdf->Cell(1);
@@ -1102,12 +1097,9 @@ $pdf->Ln();
 
 
 
-$pdf->Rect(11, 200, 75, 125); // X,Y,W,H
-
-// Check the length of the text
+$pdf->Rect(11, 200, 75, 125); 
 $textLength = strlen($narrative);
 
-// Set the font size based on the text length
 if ($textLength <= 50) {
     $pdf->SetFont('Arial', '', 10);
 } else {
@@ -1116,31 +1108,23 @@ if ($textLength <= 50) {
 
 $yBeforeNarrative = $pdf->GetY();
 
-// Output the text
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 10);
-$yBeforeNarrative = $pdf->GetY(); // Store Y position before outputting the text
-$pdf->MultiCell(75, 5, $narrative, 0, 'L', 0); // Set border parameter to 0 to remove border
+$yBeforeNarrative = $pdf->GetY(); 
+$pdf->MultiCell(75, 5, $narrative, 0, 'L', 0); 
 
-// Calculate the height of the narrative text
 $heightNarrative = 125 - $yBeforeNarrative;
 
-// Draw a rectangle without a border around the narrative text
-$pdf->Rect(11, $yBeforeNarrative, 75, $heightNarrative); // Set 'F' to fill the rectangle
-
-// Set position for "Interventions" section below the narrative
+$pdf->Rect(11, $yBeforeNarrative, 75, $heightNarrative); 
 $pdf->SetXY(90, $yBeforeNarrative);
 
 
 
-$pdf->Rect(91, 210, 120, 30); // X,Y,W,H
-
-// Output "Interventions" cell
+$pdf->Rect(91, 210, 120, 30); 
 $pdf->SetFont('Arial', 'B', 8);
 $pdf->Cell(120, 5, 'Interventions:', 0);
 $pdf->Ln();
 
-// Output other cells related to interventions
 $pdf->SetX(90);
 $pdf->SetFont('Arial', '', 8);
 $rect1_x = 92;
@@ -1165,7 +1149,6 @@ $pdf->Cell(0,5, 'Barricade', 0, 0);
 $pdf->Ln();
 
 
-// Output other cells related to interventions
 $pdf->SetX(90);
 $pdf->SetFont('Arial', '', 8);
 $rect1_x = 92;
@@ -1189,7 +1172,6 @@ $pdf->Cell(-53, 5, '', 0, 0);
 $pdf->Cell(0,5, 'Structural Extrication', 0, 0); 
 $pdf->Ln();
 
-// Output other cells related to interventions
 $pdf->SetX(90);
 $pdf->SetFont('Arial', '', 8);
 $rect1_x = 92;
@@ -1213,7 +1195,6 @@ $pdf->Cell(-53, 5, '', 0, 0);
 $pdf->Cell(0,5, 'Vehicular Extrication', 0, 0); 
 $pdf->Ln();
 
-// Output other cells related to interventions
 $pdf->SetX(90);
 $pdf->SetFont('Arial', '', 8);
 $rect1_x = 92;
@@ -1237,7 +1218,6 @@ $pdf->Cell(-53, 5, '', 0, 0);
 $pdf->Cell(0,5, 'Wildlife Rescue', 0, 0); 
 $pdf->Ln();
 
-// Output other cells related to interventions
 $pdf->SetX(90);
 $pdf->SetFont('Arial', '', 8);
 $rect1_x = 92;
@@ -1346,9 +1326,17 @@ $pdf->Ln();
 
 
 $pdf->Cell(1);
-$pdf->Image('resources/gallery/hope.png', 10, 50, 150, 150, 'PNG', 'C');
+$imagePath = 'resources/gallery/hope.png';
+$imageWidth = 150;
+$imageHeight = 150;
+
+$imageX = ($pdf->GetPageWidth() - $imageWidth) / 2;
+$imageY = $pdf->GetY(); 
+
+$pdf->Image($imagePath, $imageX, $imageY, $imageWidth, $imageHeight);
 $pdf->Cell(200, 150, '', 1);
 $pdf->Ln();
+
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', 'B', 8);
@@ -1511,28 +1499,22 @@ $pdf->Ln();
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', 'B', 8);
-
-// Cell for the recommendation title
 $pdf->Cell(200, 5, 'RECOMMENDATION', 1, 0, 'C');
-
 $pdf->Ln();
 
 
-// Check the length of the text
 $textLength = strlen($recommendation);
 
-// Set the font size based on the text length
 if ($textLength <= 50) {
   $pdf->SetFont('Arial', '', 10);
 } else {
   $pdf->SetFont('Arial', '', 8);
 }
 
-// Output the text
 $pdf->Cell(1);
-$pdf->SetFont('Arial', '', 10); // Set font to regular
-$pdf->MultiCell(200, 5, $recommendation, 0, 'L', 0); // Set height to 50 and align text to the top
-$pdf->Rect(11, 290, 200, 50); // X,Y,W,H
+$pdf->SetFont('Arial', '', 10); 
+$pdf->MultiCell(200, 5, $recommendation, 0, 'L', 0); 
+$pdf->Rect(11, 290, 200, 50); 
 $pdf->Ln();
 
 
