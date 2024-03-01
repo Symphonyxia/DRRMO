@@ -77,14 +77,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
         $designationStr = implode(', ', $designation);
         $warning_signal = $_POST['warning'];
 
-        $usarStmt = $pdo->prepare("INSERT INTO usar (unit, irf_no, date, incident_loc, incident_comm, agency, position, address, contact_no, incident, recommendation, narrative, map_loc, latitude, longitude, dist_ratio, defib, no_cas, amb_spec, time_start, time_end, cycle, cr, enr, atscn, descn, insvc, optm, end, begin, total, cpr, casualty, ambulance_req, response_type, loc_type, call_type, srr_services, weather, terrain, interventions, prep_by, endorsed_by, witness, images, crew, designation, warning) 
-VALUES (:unit, :irf_no, :date, :incident_loc, :incident_comm, :agency, :position, :address, :contact_no, :incident, :recommendation, :narrative, :map_loc, :latitude, :longitude, :dist_ratio, :defib, :no_cas, :amb_spec, :time_start, :time_end, :cycle, :cr, :enr, :atscn, :descn, :insvc, :optm, :end, :begin, :total, :cpr, :casualty, :ambulance_req, :response_type, :loc_type, :call_type, :srr_services, :weather, :terrain, :interventions, :prep_by, :endorsed_by, :witness, :images, :crew, :designation, :warning)");
+        $usarStmt = $pdo->prepare("INSERT INTO usar (unit, irf_no, date, incident_loc, incident_commander, agency, position, address, contact_no, incident, recommendation, narrative, map_loc, latitude, longitude, dist_ratio, defib, no_cas, amb_spec, time_start, time_end, cycle, call_received, enroute, at_scene, depart_scene, in_service, operation_team, end_mileage, begin_mileage, total, cpr, casualty, ambulance_req, response_type, loc_type, call_type, srr_services, weather, terrain, interventions, prep_by, endorsed_by, witnesses, images, crew, designation, warning) 
+VALUES (:unit, :irf_no, :date, :incident_loc, :incident_commander, :agency, :position, :address, :contact_no, :incident, :recommendation, :narrative, :map_loc, :latitude, :longitude, :dist_ratio, :defib, :no_cas, :amb_spec, :time_start, :time_end, :cycle, :call_received, :enroute, :at_scene, :depart_scene, :in_service, :operation_team, :end_mileage, :begin_mileage, :total, :cpr, :casualty, :ambulance_req, :response_type, :loc_type, :call_type, :srr_services, :weather, :terrain, :interventions, :prep_by, :endorsed_by, :witnesses, :images, :crew, :designation, :warning)");
 
         $usarStmt->bindParam(':unit', $_POST['unit']);
         $usarStmt->bindParam(':irf_no', $_POST['irf_no']);
         $usarStmt->bindParam(':date', $_POST['date']);
         $usarStmt->bindParam(':incident_loc', $_POST['incident_loc']);
-        $usarStmt->bindParam(':incident_comm', $_POST['incident_comm']);
+        $usarStmt->bindParam(':incident_commander', $_POST['incident_commander']);
         $usarStmt->bindParam(':agency', $_POST['agency']);
         $usarStmt->bindParam(':position', $_POST['position']);
         $usarStmt->bindParam(':address', $_POST['address']);
@@ -102,14 +102,14 @@ VALUES (:unit, :irf_no, :date, :incident_loc, :incident_comm, :agency, :position
         $usarStmt->bindParam(':time_start', $_POST['time_start']);
         $usarStmt->bindParam(':time_end', $_POST['time_end']);
         $usarStmt->bindParam(':cycle', $_POST['cycle']);
-        $usarStmt->bindParam(':cr', $_POST['cr']);
-        $usarStmt->bindParam(':enr', $_POST['enr']);
-        $usarStmt->bindParam(':atscn', $_POST['atscn']);
-        $usarStmt->bindParam(':descn', $_POST['descn']);
-        $usarStmt->bindParam(':insvc', $_POST['insvc']);
-        $usarStmt->bindParam(':optm', $_POST['optm']);
-        $usarStmt->bindParam(':end', $_POST['end']);
-        $usarStmt->bindParam(':begin', $_POST['begin']);
+        $usarStmt->bindParam(':call_received', $_POST['call_received']);
+        $usarStmt->bindParam(':enroute', $_POST['enroute']);
+        $usarStmt->bindParam(':at_scene', $_POST['at_scene']);
+        $usarStmt->bindParam(':depart_scene', $_POST['depart_scene']);
+        $usarStmt->bindParam(':in_service', $_POST['in_service']);
+        $usarStmt->bindParam(':operation_team', $_POST['operation_team']);
+        $usarStmt->bindParam(':end_mileage', $_POST['end_mileage']);
+        $usarStmt->bindParam(':begin_mileage', $_POST['begin_mileage']);
         $usarStmt->bindParam(':total', $total);
         $usarStmt->bindParam(':cpr', $_POST['cpr']);
         $usarStmt->bindParam(':casualty', $_POST['casualty']);
@@ -124,9 +124,8 @@ VALUES (:unit, :irf_no, :date, :incident_loc, :incident_comm, :agency, :position
         $usarStmt->bindParam(':interventions', $interventions);
         $usarStmt->bindParam(':prep_by', $_POST['prep_by']);
         $usarStmt->bindParam(':endorsed_by', $_POST['endorsed_by']);
-        $usarStmt->bindParam(':witness', $_POST['witness']);
+        $usarStmt->bindParam(':witnesses', $_POST['witnesses']);
         $usarStmt->bindParam(':images', $imagePath);
-
         $usarStmt->bindParam(':crew', $crewStr);
         $usarStmt->bindParam(':designation', $designationStr);
 

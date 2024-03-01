@@ -32,15 +32,15 @@ if (isset($_GET['id'])) {
         $time_start = $row['time_start'];
         $time_end = $row['time_end'];
         $cycle = $row['cycle'];
-        $cr = $row['cr'];
-        $enr = $row['enr'];
-        $atscn = $row['atscn'];
-        $descn = $row['descn'];
-        $insvc = $row['insvc'];
-        $optm = $row['optm'];
+        $call_received = $row['call_received'];
+        $enroute = $row['enroute'];
+        $at_scene = $row['at_scene'];
+        $depart_scene = $row['depart_scene'];
+        $in_service = $row['in_service'];
+        $operation_team = $row['operation_team'];
         $prep_by = $row['prep_by'];
         $endorsed_by = $row['endorsed_by'];
-        $witness = $row['witness'];
+        $witnesses = $row['witnesses'];
         $warning = $row['warning'];
     }
 }
@@ -89,13 +89,13 @@ if (isset($_GET['id'])) {
                             <tr>
                                 <th>END</th>
                                 <td>
-                                    <?php echo $row['end']; ?>
+                                    <?php echo $row['end_mileage']; ?>
                                 </td>
                             </tr>
                             <tr>
                                 <th>BEGIN</th>
                                 <td>
-                                    <?php echo $row['begin']; ?>
+                                    <?php echo $row['begin_mileage']; ?>
                                 </td>
                             </tr>
                             <tr>
@@ -144,7 +144,7 @@ if (isset($_GET['id'])) {
                                 </td>
                                 <td>Call Recieved:
                                     <strong>
-                                        <?php echo $row['cr']; ?>
+                                        <?php echo $row['call_received']; ?>
                                     </strong>
                                 </td>
                             </tr>
@@ -153,14 +153,14 @@ if (isset($_GET['id'])) {
                                 <td colspan="14">Response Type:
                                     <input type="checkbox" class="form-check-input" name="response_type[]" value="Standby" <?php echo isset($row['response_type']) && in_array('Standby', explode(',', $row['response_type'])) ? 'checked disabled' : 'disabled'; ?>>
                                     Standby
-                                    <input type="checkbox" class="form-check-input" name="response_type[]" value="Response" <?php echo isset($row['response_type']) && in_array('Response', explode(',', $row['response_type'])) ? 'checked disabled' : 'disabled'; ?>>
+                                    <input type="checkbox" class="form-check-input" name="response_type[]" value="Response to Scene" <?php echo isset($row['response_type']) && in_array('Response to Scene', explode(',', $row['response_type'])) ? 'checked disabled' : 'disabled'; ?>>
                                     Response to Scene
                                     <input type="checkbox" class="form-check-input" id="otherResponseTypeCheckbox" disabled> Others:
-                                    <input type="text" name="response_type_other" id="response_type_other" value="<?php echo isset($row['response_type']) && !in_array('Standby', explode(',', $row['response_type'])) && !in_array('Response', explode(',', $row['response_type'])) ? $row['response_type'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" <?php echo isset($row['response_type']) && (in_array('Standby', explode(',', $row['response_type'])) || in_array('Response', explode(',', $row['response_type']))) ? 'disabled' : ''; ?> disabled>
+                                    <input type="text" name="response_type_other" id="response_type_other" value="<?php echo isset($row['response_type']) && !in_array('Standby', explode(',', $row['response_type'])) && !in_array('Response to Scene', explode(',', $row['response_type'])) ? $row['response_type'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" <?php echo isset($row['response_type']) && (in_array('Standby', explode(',', $row['response_type'])) || in_array('Response to Scene', explode(',', $row['response_type']))) ? 'disabled' : ''; ?> disabled>
                                 </td>
                                 <td>Enroute:
                                     <strong>
-                                        <?php echo $row['enr']; ?>
+                                        <?php echo $row['enroute']; ?>
                                     </strong>
                                 </td>
                             </tr>
@@ -186,149 +186,143 @@ if (isset($_GET['id'])) {
 
                                 <td colspan="14">Location Type:
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="airport" <?php echo isset($row['loc_type']) && in_array('airport', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>>
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="Airport" <?php echo isset($row['loc_type']) && in_array('Airport', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>>
                                         Airport
                                     </label>
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="Hospital" <?php echo isset($row['loc_type']) && in_array('hospital', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>>
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="Hospital" <?php echo isset($row['loc_type']) && in_array('Hospital', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>>
                                         Hospital
                                     </label>
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="nursing" <?php echo isset($row['loc_type']) && in_array('nursing', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>>
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="Nursing Home" <?php echo isset($row['loc_type']) && in_array('Nursing Home', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>>
                                         Nursing Home
                                     </label>
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="residence" <?php echo isset($row['loc_type']) && in_array('residence', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>>Home/Residence
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="Home/Residence" <?php echo isset($row['loc_type']) && in_array('Home/Residence', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>>Home/Residence
                                     </label>
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="bridge" <?php echo isset($row['loc_type']) && in_array('bridge', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>> Bridge
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="bridge" <?php echo isset($row['loc_type']) && in_array('Bridge', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>> Bridge
                                     </label>
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="bar" <?php echo isset($row['loc_type']) && in_array('bar', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>> Restaurant/Bar
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="Restuarant/Bar" <?php echo isset($row['loc_type']) && in_array('Restuarant/Bar', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>> Restaurant/Bar
                                     </label>
 
                                     </th>
 
                                 <td>At scene:
-                                    <strong><?php echo $row['atscn']; ?></strong>
+                                    <strong><?php echo $row['at_scene']; ?></strong>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="14">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="farm" <?php echo isset($row['loc_type']) && in_array('farm', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>> Farm
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="Farm" <?php echo isset($row['loc_type']) && in_array('Farm', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>> Farm
                                     </label>
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="school" <?php echo isset($row['loc_type']) && in_array('school', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>> School
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="School" <?php echo isset($row['loc_type']) && in_array('School', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>> School
                                     </label>
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="clinic" <?php echo isset($row['loc_type']) && in_array('clinic', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>> Clinic/RHU
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="Clinic/RHU" <?php echo isset($row['loc_type']) && in_array('Clinic/RHU', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>> Clinic/RHU
                                     </label>
-                                    </th>
 
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="Highway/Street" <?php echo isset($row['loc_type']) && in_array('Highway/Street', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>> Highway/Street
+                                    </label>
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="Public Building" <?php echo isset($row['loc_type']) && in_array('Public Building', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>> Public Building
+                                    </label>
+                                    <input type="checkbox" class="form-check-input" id="otherLocTypeCheckbox" disabled> Others:
+                                    <input type="text" name="loc_type_other" id="loc_type_other" value="<?php echo isset($row['loc_type']) && !in_array('', explode(',', $row['loc_type'])) && !in_array('', explode(',', $row['loc_type'])) ? $row['loc_type'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" <?php echo isset($row['loc_type']) && (in_array('', explode(',', $row['loc_type'])) || in_array('', explode(',', $row['loc_type']))) ? 'disabled' : ''; ?> disabled>
+                                </td>
                                     <td>Depart scene:
                                     <strong>
-                                        <?php echo $row['descn']; ?>
+                                        <?php echo $row['depart_scene']; ?>
                                     </strong>
                                 </td>
                             </tr>
-                            <tr>
-                                <td colspan="14">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="street" <?php echo isset($row['loc_type']) && in_array('street', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>> Highway/Street
-                                    </label>
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="loc_type[]" value="bldg" <?php echo isset($row['loc_type']) && in_array('bldg', explode(',', $row['loc_type'])) ? 'checked disabled' : 'disabled'; ?>> Public Building
-                                    </label>
-                                    <input type="checkbox" class="form-check-input" id="otherLocTypeCheckbox" disabled>
-                                    Others:
-                                    <input type="text" name="loc_type_other" id="loc_type_other" value="<?php echo isset($row['loc_type_other']) ? $row['loc_type_other'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
+                           
+                            <script>
+                                // Function to update the "Others" checkbox based on the input field value
+                                function updateOthersCheckbox() {
+                                    var otherLocTypeInput = document.getElementById('loc_type_other');
+                                    var otherLocTypeCheckbox = document.getElementById('otherLocTypeCheckbox');
+                                    otherLocTypeCheckbox.checked = otherLocTypeInput.value.trim() !== '';
+                                }
 
-                                </td>
-                                <script>
-                                    // Function to update the "Others" checkbox based on the input field value
-                                    function updateOthersCheckbox() {
-                                        var otherLocTypeInput = document.getElementById('loc_type_other');
-                                        var otherLocTypeCheckbox = document.getElementById('otherLocTypeCheckbox');
-                                        otherLocTypeCheckbox.checked = otherLocTypeInput.value.trim() !== '';
-                                    }
+                                document.getElementById('loc_type_other').addEventListener('input', updateOthersCheckbox);
 
-                                    document.getElementById('loc_type_other').addEventListener('input', updateOthersCheckbox);
-
-                                    updateOthersCheckbox();
-                                </script>
-
-<td>In service:
-                                    <strong>
-                                        <?php echo $row['insvc']; ?>
-                                    </strong>
-                                </td>
+                                updateOthersCheckbox();
+                            </script>
                             </tr>
 
                             <tr>
                                 <td colspan="14">Type of Call :
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="fire" <?php echo isset($row['call_type']) && in_array('fire', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>> Fire
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="Fire" <?php echo isset($row['call_type']) && in_array('Fire', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>> Fire
                                     </label>
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="vehicular" <?php echo isset($row['call_type']) && in_array('vehicular', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>>
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="Vehicular Accident" <?php echo isset($row['call_type']) && in_array('Vehicular Accident', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>>
                                         Vehicular Accident
                                     </label>
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="earthquake" <?php echo isset($row['call_type']) && in_array('earthquake', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>> Earthquake
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="Earthquake" <?php echo isset($row['call_type']) && in_array('Earthquake', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>> Earthquake
                                     </label>
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="collapse" <?php echo isset($row['call_type']) && in_array('collapse', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>>
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="Collapse" <?php echo isset($row['call_type']) && in_array('Collapse', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>>
                                         Collapse
                                     </label>
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="suicide" <?php echo isset($row['call_type']) && in_array('suicide', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>>
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="Suicide" <?php echo isset($row['call_type']) && in_array('Suicide', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>>
                                         Suicide
                                     </label>
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="drowning" <?php echo isset($row['call_type']) && in_array('drowning', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>>
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="Drowning" <?php echo isset($row['call_type']) && in_array('Drowning', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>>
                                         Drowning
                                     </label>
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="storm" <?php echo isset($row['call_type']) && in_array('storm', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>> Storm Surge
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="Storm Surge" <?php echo isset($row['call_type']) && in_array('Storm Surge', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>> Storm Surge
                                     </label>
                                 </td>
-                                <td>Operation Team:
+
+                                
+                                    <td>In service:
                                     <strong>
-                                        <?php echo $row['optm']; ?>
+                                        <?php echo $row['in_service']; ?>
                                     </strong>
                                 </td>
+                        
                             </tr>
                             <tr>
                                 <td colspan="14">
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="flooding" <?php echo isset($row['call_type']) && in_array('flooding', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>>
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="Flooding" <?php echo isset($row['call_type']) && in_array('Flooding', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>>
                                         Flooding
                                     </label>
                                     <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="roving" <?php echo isset($row['call_type']) && in_array('roving', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>>
+                                        <input type="checkbox" class="form-check-input" name="call_type[]" value="Roving/Inspection" <?php echo isset($row['call_type']) && in_array('Roving/Inspection', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>>
                                         Roving/Inspection
                                     </label>
 
-                                    <input type="checkbox" class="form-check-input" id="otherCallTypeCheckbox" disabled>
-                                    Others:
-                                    <input type="text" name="call_type_other" id="call_type_other" value="<?php echo isset($row['call_type_other']) ? $row['call_type_other'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
-
+                                    <input type="checkbox" class="form-check-input" id="otherCallTypeCheckbox" disabled> Others:
+                                    <input type="text" name="call_type_other" id="call_type_other" value="<?php echo isset($row['call_type']) && !in_array('', explode(',', $row['call_type'])) && !in_array('', explode(',', $row['call_type'])) ? $row['call_type'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" <?php echo isset($row['call_type']) && (in_array('', explode(',', $row['call_type'])) || in_array('', explode(',', $row['call_type']))) ? 'disabled' : ''; ?> disabled>
                                 </td>
-                                <script>
-                                    function updateCheckbox() {
-                                        var otherInput = document.getElementById('call_type_other');
-                                        var checkbox = document.getElementById('otherCallTypeCheckbox');
-                                        checkbox.checked = otherInput.value.trim() !== '';
-                                    }
 
+                                
+                            <script>
+                                function updateOthersCheckbox() {
+                                    var otherCallTypeInput = document.getElementById('call_type_other');
+                                    var otherCallTypeCheckbox = document.getElementById('otherCallTypeCheckbox');
+                                    otherCallTypeCheckbox.checked = otherCallTypeInput.value.trim() !== '';
+                                }
 
-                                    document.getElementById('call_type_other').addEventListener('input', updateCheckbox);
+                                document.getElementById('call_type_other').addEventListener('input', updateOthersCheckbox);
 
-
-                                    updateCheckbox();
-                                </script>
-                                <td>
+                                updateOthersCheckbox();
+                            </script>
+                                   <td>Operation Team:
+                                    <strong>
+                                        <?php echo $row['operation_team']; ?>
+                                    </strong>
                                 </td>
                             </tr>
                             <tr>
@@ -343,7 +337,7 @@ if (isset($_GET['id'])) {
                             <tr>
                                 <td colspan="20">Incident Commander:
                                     <strong>
-                                        <?php echo $row['incident_comm']; ?>
+                                        <?php echo $row['incident_commander']; ?>
                                     </strong>
                                 </td>
                             </tr>
@@ -401,28 +395,31 @@ if (isset($_GET['id'])) {
                                             <label class="form-check-label">
                                                 <ul style="list-style-type: none; padding-left: 0;">
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="normal" <?php echo isset($row['weather']) && in_array('normal', explode(',', $row['weather'])) ? 'checked disabled' : 'disabled'; ?>> Normal
+                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="Normal" <?php echo isset($row['weather']) && in_array('Normal', explode(',', $row['weather'])) ? 'checked disabled' : 'disabled'; ?>> Normal
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="hot" <?php echo isset($row['weather']) && in_array('hot', explode(',', $row['weather'])) ? 'checked disabled' : 'disabled'; ?>> Hot/Humid
+                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="Hot/Humid" <?php echo isset($row['weather']) && in_array('Hot/Humid', explode(',', $row['weather'])) ? 'checked disabled' : 'disabled'; ?>> Hot/Humid
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="cold" <?php echo isset($row['weather']) && in_array('cold', explode(',', $row['weather'])) ? 'checked disabled' : 'disabled'; ?>> Cold
+                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="Cold" <?php echo isset($row['weather']) && in_array('Cold', explode(',', $row['weather'])) ? 'checked disabled' : 'disabled'; ?>> Cold
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="light" <?php echo isset($row['weather']) && in_array('light', explode(',', $row['weather'])) ? 'checked disabled' : 'disabled'; ?>> Light Rain
+                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="Light Rain" <?php echo isset($row['weather']) && in_array('Light Rain', explode(',', $row['weather'])) ? 'checked disabled' : 'disabled'; ?>> Light Rain
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="heavy" <?php echo isset($row['weather']) && in_array('heavy', explode(',', $row['weather'])) ? 'checked disabled' : 'disabled'; ?>> Heavy Rain
+                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="Heavy Rain" <?php echo isset($row['weather']) && in_array('Heavy Rain', explode(',', $row['weather'])) ? 'checked disabled' : 'disabled'; ?>> Heavy Rain
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="hail" <?php echo isset($row['weather']) && in_array('hail', explode(',', $row['weather'])) ? 'checked disabled' : 'disabled'; ?>> Hail
+                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="Hail" <?php echo isset($row['weather']) && in_array('Hail', explode(',', $row['weather'])) ? 'checked disabled' : 'disabled'; ?>> Hail
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="windy" <?php echo isset($row['weather']) && in_array('windy', explode(',', $row['weather'])) ? 'checked disabled' : 'disabled'; ?>> Windy
+                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="Windy" <?php echo isset($row['weather']) && in_array('Windy', explode(',', $row['weather'])) ? 'checked disabled' : 'disabled'; ?>> Windy
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="thunder" <?php echo isset($row['weather']) && in_array('thunder', explode(',', $row['weather'])) ? 'checked disabled' : 'disabled'; ?>> Thunderstorm
+                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="Thunderstorm" <?php echo isset($row['weather']) && in_array('Thunderstorm', explode(',', $row['weather'])) ? 'checked disabled' : 'disabled'; ?>> Thunderstorm
+                                                    </li>
+                                                    <li>
+                                                        <input type="checkbox" class="form-check-input" name="weather[]" value="Sun and Rain" <?php echo isset($row['weather']) && in_array('Sun and Rain', explode(',', $row['weather'])) ? 'checked disabled' : 'disabled'; ?>> Sun and Rain
                                                     </li>
                                                     <li>
 
@@ -445,28 +442,28 @@ if (isset($_GET['id'])) {
                                             <label class="form-check-label">
                                                 <ul style="list-style-type: none; padding-left: 0;">
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="concrete" <?php echo isset($row['terrain']) && in_array('concrete', explode(',', $row['terrain'])) ? 'checked disabled' : 'disabled'; ?>> Concrete
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="Concrete" <?php echo isset($row['terrain']) && in_array('Concrete', explode(',', $row['terrain'])) ? 'checked disabled' : 'disabled'; ?>> Concrete
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="dirt" <?php echo isset($row['terrain']) && in_array('dirt', explode(',', $row['terrain'])) ? 'checked disabled' : 'disabled'; ?>> Dirt
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="Dirt" <?php echo isset($row['terrain']) && in_array('Dirt', explode(',', $row['terrain'])) ? 'checked disabled' : 'disabled'; ?>> Dirt
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="mud" <?php echo isset($row['terrain']) && in_array('mud', explode(',', $row['terrain'])) ? 'checked disabled' : 'disabled'; ?>> Mud
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="Mud" <?php echo isset($row['terrain']) && in_array('Mud', explode(',', $row['terrain'])) ? 'checked disabled' : 'disabled'; ?>> Mud
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="sand" <?php echo isset($row['terrain']) && in_array('sand', explode(',', $row['terrain'])) ? 'checked disabled' : 'disabled'; ?>> Sand
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="Sand" <?php echo isset($row['terrain']) && in_array('Sand', explode(',', $row['terrain'])) ? 'checked disabled' : 'disabled'; ?>> Sand
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="rock" <?php echo isset($row['terrain']) && in_array('rock', explode(',', $row['terrain'])) ? 'checked disabled' : 'disabled'; ?>> Gravel
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="Gravel/Rock" <?php echo isset($row['terrain']) && in_array('Gravel/Rock', explode(',', $row['terrain'])) ? 'checked disabled' : 'disabled'; ?>> Gravel
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="inclined" <?php echo isset($row['terrain']) && in_array('inclined', explode(',', $row['terrain'])) ? 'checked disabled' : 'disabled'; ?>> Inclined
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="Inclined" <?php echo isset($row['terrain']) && in_array('Inclined', explode(',', $row['terrain'])) ? 'checked disabled' : 'disabled'; ?>> Inclined
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="swamp" <?php echo isset($row['terrain']) && in_array('swamp', explode(',', $row['terrain'])) ? 'checked disabled' : 'disabled'; ?>> Swamp
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="Swamp" <?php echo isset($row['terrain']) && in_array('Swamp', explode(',', $row['terrain'])) ? 'checked disabled' : 'disabled'; ?>> Swamp
                                                     </li>
                                                     <li>
-                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="unstable" <?php echo isset($row['terrain']) && in_array('unstable', explode(',', $row['terrain'])) ? 'checked disabled' : 'disabled'; ?>> Unstable
+                                                        <input type="checkbox" class="form-check-input" name="terrain[]" value="Unstable" <?php echo isset($row['terrain']) && in_array('Unstable', explode(',', $row['terrain'])) ? 'checked disabled' : 'disabled'; ?>> Unstable
                                                     </li>
 
                                                 </ul>
@@ -475,10 +472,10 @@ if (isset($_GET['id'])) {
                                     <tr>
                                         <td colspan="6">CPR:
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" name="cpr" value="yes" <?php echo isset($row['cpr']) && $row['cpr'] === 'yes' ? 'checked disabled' : 'disabled'; ?>> Yes
+                                                <input type="checkbox" class="form-check-input" name="cpr" value="Yes" <?php echo isset($row['cpr']) && $row['cpr'] === 'Yes' ? 'checked disabled' : 'disabled'; ?>> Yes
                                             </label>
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" name="cpr" value="no" <?php echo isset($row['cpr']) && $row['cpr'] === 'no' ? 'checked disabled' : 'disabled'; ?>> No
+                                                <input type="checkbox" class="form-check-input" name="cpr" value="No" <?php echo isset($row['cpr']) && $row['cpr'] === 'No' ? 'checked disabled' : 'disabled'; ?>> No
                                             </label>
                                             <br>
                                             Time Started:
@@ -499,10 +496,10 @@ if (isset($_GET['id'])) {
 
                                         <td colspan="6">Casualty:
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" name="casualty" value="yes" <?php echo isset($row['casualty']) && $row['casualty'] === 'yes' ? 'checked disabled' : 'disabled'; ?>> Yes
+                                                <input type="checkbox" class="form-check-input" name="casualty" value="Yes" <?php echo isset($row['casualty']) && $row['casualty'] === 'Yes' ? 'checked disabled' : 'disabled'; ?>> Yes
                                             </label>
                                             <label class="form-check-label">
-                                                <input type="checkbox" class="form-check-input" name="casualty" value="no" <?php echo isset($row['casualty']) && $row['casualty'] === 'no' ? 'checked disabled' : 'disabled'; ?>> No
+                                                <input type="checkbox" class="form-check-input" name="casualty" value="No" <?php echo isset($row['casualty']) && $row['casualty'] === 'No' ? 'checked disabled' : 'disabled'; ?>> No
                                             </label>
 
                                             <br>
@@ -518,20 +515,20 @@ if (isset($_GET['id'])) {
                                         <td colspan="6">AED/Defib:
                                             <label class="form-check-label">
                                                 <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" name="defib" value="yes" <?php echo isset($row['defib']) && $row['defib'] === 'yes' ? 'checked disabled' : 'disabled'; ?>> Yes
+                                                    <input type="checkbox" class="form-check-input" name="defib" value="Yes" <?php echo isset($row['defib']) && $row['defib'] === 'Yes' ? 'checked disabled' : 'disabled'; ?>> Yes
                                                 </label>
                                                 <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" name="defib" value="no" <?php echo isset($row['defib']) && $row['defib'] === 'no' ? 'checked disabled' : 'disabled'; ?>> No
+                                                    <input type="checkbox" class="form-check-input" name="defib" value="No" <?php echo isset($row['defib']) && $row['defib'] === 'No' ? 'checked disabled' : 'disabled'; ?>> No
                                                 </label>
                                             </label>
                                         </td>
                                         <td colspan="6">Ambulance req:
                                             <label class="form-check-label">
                                                 <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" name="ambulance_req" value="yes" <?php echo isset($row['ambulance_req']) && $row['ambulance_req'] === 'yes' ? 'checked disabled' : 'disabled'; ?>> Yes
+                                                    <input type="checkbox" class="form-check-input" name="ambulance_req" value="Yes" <?php echo isset($row['ambulance_req']) && $row['ambulance_req'] === 'Yes' ? 'checked disabled' : 'disabled'; ?>> Yes
                                                 </label>
                                                 <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" name="ambulance_req" value="no" <?php echo isset($row['ambulance_req']) && $row['ambulance_req'] === 'no' ? 'checked disabled' : 'disabled'; ?>> No
+                                                    <input type="checkbox" class="form-check-input" name="ambulance_req" value="No" <?php echo isset($row['ambulance_req']) && $row['ambulance_req'] === 'No' ? 'checked disabled' : 'disabled'; ?>> No
                                                 </label>
                                             </label>
                                             <br>
@@ -585,9 +582,9 @@ if (isset($_GET['id'])) {
 
                                                 echo '<tr>';
                                                 echo '<td name="equip_name">' . $equip_name . '</td>';
-                                                echo '<td><input type="checkbox" class="form-check-input" name="equip_status[]" value="used" ' . ($equip_status === 'used' ? 'checked disabled' : 'disabled') . '></td>';
-                                                echo '<td><input type="checkbox" class="form-check-input" name="equip_status[]" value="checked" ' . ($equip_status === 'checked' ? 'checked disabled' : 'disabled') . '></td>';
-                                                echo '<td><input type="checkbox" class="form-check-input" name="equip_status[]" value="missing" ' . ($equip_status === 'missing' ? 'checked disabled' : 'disabled') . '></td>';
+                                                echo '<td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Used" ' . ($equip_status === 'Used' ? 'checked disabled' : 'disabled') . '></td>';
+                                                echo '<td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Checked" ' . ($equip_status === 'Checked' ? 'checked disabled' : 'disabled') . '></td>';
+                                                echo '<td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Missing" ' . ($equip_status === 'Missing' ? 'checked disabled' : 'disabled') . '></td>';
                                                 echo '</tr>';
                                             }
                                         }
@@ -626,11 +623,11 @@ if (isset($_GET['id'])) {
                                                         'structural' => 'Structural Extrication',
                                                         'water' => 'Water Rescue',
                                                         'tower' => 'Tower Light',
-                                                        'vehi_extri' => 'Vehicular Extrication',
+                                                        'vehicular' => 'Vehicular Extrication',
                                                         'patient' => 'Patient Retrieval',
                                                         'winch' => 'Winch',
                                                         'wildlife' => 'Wildlife Rescue',
-                                                        'angel' => 'High Angle Rescue',
+                                                        'angle' => 'High Angle Rescue',
                                                         'hazmat' => 'HazMat',
                                                         'generator' => 'Generator'
                                                     ];
@@ -642,12 +639,12 @@ if (isset($_GET['id'])) {
 
                                                     foreach ($interventions as $key => $value) {
                                                         echo '<div style="flex: 34%; padding-right: 10px;">';
-                                                        echo '<input type="checkbox" class="form-check-input" id="' . $key . '" name="interventions[]" value="' . $key . '"disabled';
+                                                        echo '<input type="checkbox" class="form-check-input" id="' . $key . '" name="interventions[]" value="'. $key .'"disabled';
                                                         // Check if the intervention key exists in the $checkedInterventions array
                                                         if (in_array($key, $checkedInterventions)) {
                                                             echo ' checked';
                                                         }
-                                                        echo '> ' . $value;
+                                                        echo '>' . $value;
                                                         // echo '<br>Key: <label for="' . $key . '">' . $key . '</label><br>';
                                                         // echo 'Checked interventions: ';
 
@@ -725,7 +722,7 @@ if (isset($_GET['id'])) {
                                             </tr>
                                             <tr>
                                                 <td colspan="6">Witness/es:
-                                                    <input type="text" name="witness" value="<?php echo $witness; ?>" readonly style="font-weight: bold; border: none;">
+                                                    <input type="text" name="witnesses" value="<?php echo $witnesses; ?>" readonly style="font-weight: bold; border: none;">
                                                 </td>
                                             </tr>
 

@@ -47,10 +47,10 @@ include 'delete.php';
                                         echo "</tr>";
                                     }
                                 } else {
-                                    echo "<tr><td colspan='4' class='text-center'>No records found</td></tr>";
+                                    echo "<tr><td colspan='5' class='text-center'>No records found</td></tr>";
                                 }
                             } else {
-                                echo "<tr><td colspan='4' class='text-center'>Database connection failed.</td></tr>";
+                                echo "<tr><td colspan='5' class='text-center'>Database connection failed.</td></tr>";
                             }
                             ?>
                         </tbody>
