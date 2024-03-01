@@ -226,9 +226,9 @@ if (isset($_GET['id'])) {
                                     </label>
                                     </th>
 
-                                <td>At scene:
+                                    <td>Depart scene:
                                     <strong>
-                                        <?php echo $row['atscn']; ?>
+                                        <?php echo $row['descn']; ?>
                                     </strong>
                                 </td>
                             </tr>
@@ -258,9 +258,9 @@ if (isset($_GET['id'])) {
                                     updateOthersCheckbox();
                                 </script>
 
-                                <td>Depart scene:
+<td>In service:
                                     <strong>
-                                        <?php echo $row['descn']; ?>
+                                        <?php echo $row['insvc']; ?>
                                     </strong>
                                 </td>
                             </tr>
@@ -293,9 +293,9 @@ if (isset($_GET['id'])) {
                                         <input type="checkbox" class="form-check-input" name="call_type[]" value="storm" <?php echo isset($row['call_type']) && in_array('storm', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>> Storm Surge
                                     </label>
                                 </td>
-                                <td>In service:
+                                <td>Operation Team:
                                     <strong>
-                                        <?php echo $row['insvc']; ?>
+                                        <?php echo $row['optm']; ?>
                                     </strong>
                                 </td>
                             </tr>
@@ -328,10 +328,7 @@ if (isset($_GET['id'])) {
 
                                     updateCheckbox();
                                 </script>
-                                <td>Operation Team:
-                                    <strong>
-                                        <?php echo $row['optm']; ?>
-                                    </strong>
+                                <td>
                                 </td>
                             </tr>
                             <tr>
