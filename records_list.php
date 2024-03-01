@@ -90,6 +90,10 @@ include 'delete.php';
                         document.getElementById('deleteWarning').innerHTML = 'Data deleted successfully.';
                         document.getElementById('deleteWarning').style.display = 'block';
                     
+                     // Reload page after successful deletion
+                     setTimeout(function() {
+                            window.location.reload();
+                        }, 2000); 
                     } else {
                         // Display error message
                         var errorMessage = xhr.responseText.trim();
