@@ -73,8 +73,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
 
         $crew = isset($_POST['crew']) ? $_POST['crew'] : array();
         $designation = isset($_POST['designation']) ? $_POST['designation'] : array();
-        $crewStr = implode(', ', $crew);
-        $designationStr = implode(', ', $designation);
+        $crewStr = implode(',', $crew);
+        $designationStr = implode(',', $designation);
         $warning_signal = $_POST['warning'];
 
         $usarStmt = $pdo->prepare("INSERT INTO usar (unit, irf_no, date, incident_loc, incident_commander, agency, position, address, contact_no, incident, recommendation, narrative, map_loc, latitude, longitude, dist_ratio, defib, no_cas, amb_spec, time_start, time_end, cycle, call_received, enroute, at_scene, depart_scene, in_service, operation_team, end_mileage, begin_mileage, total, cpr, casualty, ambulance_req, response_type, loc_type, call_type, srr_services, weather, terrain, interventions, prep_by, endorsed_by, witnesses, images, crew, designation, warning) 

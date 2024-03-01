@@ -399,8 +399,7 @@ $pdf->Cell(-160, 5, '', 0, 0);
 $pdf->Cell(0, 5, 'Roving/Inspection', 0, 0);
 $pdf->Cell($rect4_x - $rect3_x - $rect_size);
 $pdf->Cell(-135, 5, '', 0, 0);
-$pdf->Cell(0, 5, 'Others:_______', 0, 0);
-
+$pdf->Cell(0, 5, ($call_type != 'Fire' && $call_type != 'Vehicular Accident' && $call_type != 'Earthquake' && $call_type != 'Collapse' && $call_type != 'Suicide' && $call_type != 'Drowning' && $call_type  != 'Storm Surge' && $call_type != 'Flooding' && $call_type != 'Roving/Inspection') ? "Others: $call_type" : 'Others:_______', 0, 0);
 $pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Cell(30, 5, '', 1);
 $pdf->Cell(20, 5, '', 1);
@@ -1580,36 +1579,46 @@ $pdf->Cell(60, 5, 'Crew', 1, 0, 'C');
 $pdf->Cell(60, 5, 'Designation', 1, 0, 'C');
 $pdf->Ln();
 
-$pdf->SetXY(90, $pdf->GetY());
-$pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(60, 5, $crew, 1, 0, 'C');
-$pdf->Cell(60, 5, $designation, 1, 0, 'C');
-$pdf->Ln();
+$pageId = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$select = $conn->prepare("SELECT * FROM usar WHERE id = ?");
+$select->bind_param("i", $pageId);
+$select->execute();
+$result = $select->get_result();
 
-$pdf->SetXY(90, $pdf->GetY());
-$pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(60, 5, $crew, 1, 0, 'C');
-$pdf->Cell(60, 5, $designation, 1, 0, 'C');
-$pdf->Ln();
+$crew = [];
+$designation = [];
 
-$pdf->SetXY(90, $pdf->GetY());
-$pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(60, 5, $crew, 1, 0, 'C');
-$pdf->Cell(60, 5, $designation, 1, 0, 'C');
-$pdf->Ln();
+// Fetch data from the database
+while ($row = $result->fetch_object()) {
+  // Extract crew and designation values from the fetched row
+  $crew_data = explode(',', $row->crew);
+  $designation_data = explode(',', $row->designation);
 
-$pdf->SetXY(90, $pdf->GetY());
-$pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(60, 5, $crew, 1, 0, 'C');
-$pdf->Cell(60, 5, $designation, 1, 0, 'C');
-$pdf->Ln();
+  // Merge fetched data with existing arrays
+  $crew = array_merge($crew, $crew_data);
+  $designation = array_merge($designation, $designation_data);
+}
 
-$pdf->SetXY(90, $pdf->GetY());
-$pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(60, 5, $crew, 1, 0, 'C');
-$pdf->Cell(60, 5, $designation, 1, 0, 'C');
-$pdf->Ln();
+if (!empty($crew) && !empty($designation)) {
+  $maxCount = max(count($crew), count($designation));
 
+  for ($i = 0; $i < $maxCount; $i++) {
+    $crew_member = isset($crew[$i]) ? $crew[$i] : '';
+    $designation_member = isset($designation[$i]) ? $designation[$i] : '';
+
+    $pdf->SetXY(90, $pdf->GetY());
+
+    $pdf->SetFont('Arial', 'B', 8);
+    $pdf->Cell(60, 5, $crew_member, 1, 0, 'C');
+    $pdf->Cell(60, 5, $designation_member, 1, 0, 'C');
+    $pdf->Ln();
+  }
+} else {
+  $pdf->SetXY(90, $pdf->GetY());
+  $pdf->SetFont('Arial', 'B', 8);
+  $pdf->Cell(120, 5, 'No crew data available.', 1, 0, 'C');
+  $pdf->Ln();
+}
 
 $pdf->SetXY(90, $pdf->GetY());
 $pdf->SetFont('Arial', 'B', 8);
