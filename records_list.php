@@ -16,6 +16,13 @@ include 'delete.php';
         </div>
     </div>
 
+    <div class="alert alert-success alert-dismissible fade show" id="deleteWarning" style="display: none; position: absoulute; top: 0px; left: 50%; transform: translateX(-50%); border-radius: 10px;" role="alert">
+        Data deleted successfully.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
     <section class="example">
         <div class="card card-body col-lg-12">
             <div class="card-body">
@@ -69,6 +76,8 @@ include 'delete.php';
         </div>
     </section>
 </article>
+
+
 <script>
     function deleteRecord(id) {
         if (confirm('Are you sure you want to delete this record?')) {
@@ -77,8 +86,10 @@ include 'delete.php';
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                        // Reload page after successful deletion
-                        window.location.reload();
+                        // Display success message
+                        document.getElementById('deleteWarning').innerHTML = 'Data deleted successfully.';
+                        document.getElementById('deleteWarning').style.display = 'block';
+                    
                     } else {
                         // Display error message
                         var errorMessage = xhr.responseText.trim();
