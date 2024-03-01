@@ -1,11 +1,7 @@
 <?php
 include 'header.php';
 include 'delete.php';
-
-
 ?>
-
-
 
 <article class="content items-list-page">
     <div class="title-search-block">
@@ -14,20 +10,16 @@ include 'delete.php';
                 <div class="col-sm-6">
                     <h3 class="title" style="margin-left: 50px;">
                         Records List
-
                     </h3>
                 </div>
             </div>
         </div>
     </div>
 
-
-
     <section class="example">
         <div class="card card-body col-lg-12">
             <div class="card-body">
                 <div class="card-body">
-
                     <table class="table table-bordered col-lg-8">
                         <thead>
                             <tr>
@@ -36,13 +28,9 @@ include 'delete.php';
                                 <th class="text-center">Address</th>
                                 <th class="text-center">View Details</th>
                                 <th class="text-center">Delete </th>
-
-
-
                             </tr>
                         </thead>
                         <tbody>
-
                             <?php
                             if ($pdo) {
                                 $sql = "SELECT id, date, loc_type, incident_loc FROM usar";
@@ -62,24 +50,27 @@ include 'delete.php';
                                     echo "<tr><td colspan='4' class='text-center'>No records found</td></tr>";
                                 }
                             } else {
-                                echo "Database connection failed.";
+                                echo "<tr><td colspan='4' class='text-center'>Database connection failed.</td></tr>";
                             }
                             ?>
-
                         </tbody>
                     </table>
-
                     </tbody>
                     </table>
+
+                    <div class="alert alert-warning alert-dismissible fade show" id="deleteWarning" style="display: none;" role="alert">
+                        Error deleting record. Please try again later.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-
 </article>
 <script>
     function deleteRecord(id) {
-        console.log('Delete record with ID:', id); // Log the ID being deleted
         if (confirm('Are you sure you want to delete this record?')) {
             // Send AJAX request to delete record
             var xhr = new XMLHttpRequest();
@@ -89,7 +80,15 @@ include 'delete.php';
                         // Reload page after successful deletion
                         window.location.reload();
                     } else {
-                        console.error('Error deleting record');
+                        // Display error message
+                        var errorMessage = xhr.responseText.trim();
+                        if (errorMessage) {
+                            // Display error message received from PHP
+                            alert(errorMessage);
+                        } else {
+                            // Default error message if no specific message received
+                            alert('Error deleting record. Please try again later.');
+                        }
                     }
                 }
             };

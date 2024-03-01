@@ -390,31 +390,6 @@ $pdf->Cell(20, 5, $optm, 1);
 $pdf->Ln();
 
 
-if ($call_type == 'fire' || $call_type == 'vehicular' || $call_type == 'earthquake' || $call_type == 'collapse' || $call_type == 'suicide' || $call_type == 'drowning') {
-  $checkmark = "\x34";
-} else {
-
-  $loc_type = 'others';
-  $checkmark = "\x34";
-}
-
-$pdf->SetFont('ZapfDingbats', '', 8);
-
-
-if ($call_type == 'fire') {
-  $pdf->Text($rect2_x + -12.7, $rect1_x + 48.5, $checkmark);
-} elseif ($loc_type == 'vehicular') {
-  $pdf->Text($rect2_x + 0.3, $rect1_x + 48.5, $checkmark);
-} elseif ($loc_type == 'earthquake') {
-  $pdf->Text($rect2_x + 30.3, $rect1_x + 48.5, $checkmark);
-} elseif ($loc_type == 'collapse') {
-  $pdf->Text($rect2_x +  52.3, $rect1_x + 48.5, $checkmark);
-} elseif ($loc_type == 'suicide') {
-  $pdf->Text($rect2_x +   72.3, $rect1_x + 48.5, $checkmark);
-} elseif ($loc_type == 'drowning') {
-  $pdf->Text($rect2_x + 92.3, $rect1_x + 48.5, $checkmark);
-}
-
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
@@ -462,7 +437,19 @@ if ($call_type == 'fire' || $call_type == 'vehicular' || $call_type == 'earthqua
 $pdf->SetFont('ZapfDingbats', '', 8);
 
 
-if ($call_type == 'storm') {
+if ($call_type == 'fire') {
+  $pdf->Text($rect2_x + -9.7, $rect1_x + 63.5, $checkmark);
+} elseif ($loc_type == 'vehicular') {
+  $pdf->Text($rect2_x + 0.3, $rect1_x + 63.5, $checkmark);
+} elseif ($loc_type == 'earthquake') {
+  $pdf->Text($rect2_x + 30.3, $rect1_x + 63.5, $checkmark);
+} elseif ($loc_type == 'collapse') {
+  $pdf->Text($rect2_x +  52.3, $rect1_x + 63.5, $checkmark);
+} elseif ($loc_type == 'suicide') {
+  $pdf->Text($rect2_x +   72.3, $rect1_x + 63.5, $checkmark);
+} elseif ($loc_type == 'drowning') {
+  $pdf->Text($rect2_x + 92.3, $rect1_x + 63.5, $checkmark);
+} elseif ($call_type == 'storm') {
   $pdf->Text($rect2_x + -24.7, $rect1_x + 68.5, $checkmark);
 } elseif ($loc_type == 'flooding') {
   $pdf->Text($rect2_x + 0.3, $rect1_x + 68.5, $checkmark);

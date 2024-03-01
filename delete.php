@@ -7,11 +7,8 @@ if (isset($_POST['id'])) {
 
     // Database connection
     try {
-        $pdo = new PDO('mysql:host=localhost;dbname=your_database', 'username', 'password');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
         // Delete records from the equipment_record table
-        $stmt1 = $pdo->prepare("DELETE FROM equipment_record WHERE usar_id = :id");
+        $stmt1 = $pdo->prepare("DELETE FROM equipment_record WHERE id = :id");
         $stmt1->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt1->execute();
 
@@ -20,19 +17,13 @@ if (isset($_POST['id'])) {
         $stmt2->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt2->execute();
 
-        // Close connection
-        $pdo = null;
-
-        // Send success response
-        http_response_code(200);
-        echo "Record deleted successfully.";
+        // Display success message
+        echo "<div class='alert alert-success' role='alert'>Record with ID $id has been deleted successfully</div>";
     } catch (PDOException $e) {
-        // Handle database errors
-        http_response_code(500);
-        echo "Error: " . $e->getMessage();
+        // Display error message
+        echo "<div class='alert alert-danger' role='alert'>Error deleting record: " . $e->getMessage() . "</div>";
     }
 } else {
     // If ID parameter is not provided, send bad request response
     http_response_code(400);
-    echo "ID parameter is required.";
 }
