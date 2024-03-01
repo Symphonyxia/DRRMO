@@ -35,11 +35,13 @@ include 'header.php';
                             </tr>
                             <tr>
                                 <th>BEGIN</th>
-                                <td><input type="number" name="begin" id="begin_mileage_1" oninput="calculateTotal();"></td>
+                                <td><input type="number" name="begin" id="begin_mileage_1" oninput="calculateTotal();">
+                                </td>
                             </tr>
                             <tr>
                                 <th>TOTAL</th>
-                                <td> <span id="total_mileage">0</span><input type="hidden" name="total" id="total_mileage_input"></td>
+                                <td> <span id="total_mileage">0</span><input type="hidden" name="total"
+                                        id="total_mileage_input"></td>
 
 
                             </tr>
@@ -58,7 +60,9 @@ include 'header.php';
                     }
                 </script>
 
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
                 <br>
                 <p>City Disaster Risk Reduction and Management Office</p>
@@ -83,132 +87,141 @@ include 'header.php';
                             </tr>
 
                             <tr>
-                                <th colspan="14">Incident Address/Location: <input type="text" name="incident_loc" value=""></th>
+                                <th colspan="14">Incident Address/Location: <input type="text" name="incident_loc"
+                                        value=""></th>
                                 <th>Call Recieved:<input type="number" name="cr" value=""></th>
                             </tr>
                             <tr>
-                                <td colspan="14">
-                                    <strong>Response Type:</strong>
+                            <td colspan="14">
+    <strong>Response Type:</strong>
 
-                                    <input type="checkbox" class="form-check-input" name="response_type[]" value="Standby"> Standby
+    <input type="checkbox" class="form-check-input response-checkbox-group" name="response_type[]" value="Standby"> Standby
 
+    <input type="checkbox" class="form-check-input response-checkbox-group" name="response_type[]" value="Response"> Response to Scene
 
-                                    <input type="checkbox" class="form-check-input" name="response_type[]" value="Response"> Response to Scene
+    <input type="checkbox" class="form-check-input response-checkbox-group" id="otherResponseTypeCheckbox" name="response_type[]" value="others"> Others:
 
+    <input type="text" name="response_type_other" id="responseTypeOther" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;" disabled>
+</td>
+<th>Enroute:
+    <input type="number" name="enr" value="">
+</th>
 
-                                    <input type="checkbox" class="form-check-input" id="otherResponseTypeCheckbox"> Others:
-
-                                    <input type="text" name="response_type_other" id="responseTypeOther" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;" disabled>
-                                </td>
-
-
-                                <th>Enroute:
-                                    <input type="number" name="enr" value="">
-                                </th>
                             </tr>
                             <script>
-                                document.getElementById('otherResponseTypeCheckbox').addEventListener('change', function() {
-                                    var responseTypeOtherInput = document.getElementById('responseTypeOther');
-                                    responseTypeOtherInput.disabled = !this.checked;
-                                    if (!this.checked) {
-                                        responseTypeOtherInput.value = '';
-                                    }
-                                });
-                            </script>
+    document.getElementById('otherResponseTypeCheckbox').addEventListener('change', function () {
+        var responseTypeOtherInput = document.getElementById('responseTypeOther');
+        responseTypeOtherInput.disabled = !this.checked;
+        if (!this.checked) {
+            responseTypeOtherInput.value = '';
+        }
+    });
+
+    $(document).ready(function () {
+        $('.response-checkbox-group').click(function () {
+            if ($(this).attr('id') !== 'otherResponseTypeCheckbox') {
+                $('#otherResponseTypeCheckbox').prop('checked', false);
+            } else {
+                $('#otherResponseTypeCheckbox').prop('checked', true);
+            }
+            $('.response-checkbox-group').not(this).prop('checked', false);
+        });
+    });
+</script>
 
 
 
                             <tr>
                                 <td colspan="14"> <strong> Location Type: </strong>
-                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="airport"> Airport
-
-
-                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="Hospital"> Hospital
-
-                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="nursing"> Nursing Home
-
-                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="home"> Home/Residence
-
-                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="bridge"> Bridge
-
-                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="bar"> Restaurant/Bar
-
+                                    <input type="checkbox" class="form-check-input single-checkbox-group"
+                                        name="loc_type[]" value="airport"> Airport
+                                    <input type="checkbox" class="form-check-input single-checkbox-group"
+                                        name="loc_type[]" value="Hospital"> Hospital
+                                    <input type="checkbox" class="form-check-input single-checkbox-group"
+                                        name="loc_type[]" value="nursing"> Nursing Home
+                                    <input type="checkbox" class="form-check-input single-checkbox-group"
+                                        name="loc_type[]" value="residence"> Home/Residence
+                                    <input type="checkbox" class="form-check-input single-checkbox-group"
+                                        name="loc_type[]" value="bridge"> Bridge
+                                    <input type="checkbox" class="form-check-input single-checkbox-group"
+                                        name="loc_type[]" value="bar"> Restaurant/Bar
                                 </td>
                                 <th>At scene:
                                     <input type="number" name="atscn" value="">
                                 </th>
-
-
                             </tr>
 
                             <tr>
                                 <td colspan="14">
+                                    <input type="checkbox" class="form-check-input single-checkbox-group"
+                                        name="loc_type[]" value="farm"> Farm
+                                    <input type="checkbox" class="form-check-input single-checkbox-group"
+                                        name="loc_type[]" value="school"> School
+                                    <input type="checkbox" class="form-check-input single-checkbox-group"
+                                        name="loc_type[]" value="clinic"> Clinic/RHU
+                                    <input type="checkbox" class="form-check-input single-checkbox-group"
+                                        name="loc_type[]" value="street"> Highway/Street
+                                    <input type="checkbox" class="form-check-input single-checkbox-group"
+                                        name="loc_type[]" value="bldg"> Public Building
 
-                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="farm"> Farm
+                                    <input type="checkbox" class="form-check-input loc-checkbox-group"
+                                        id="otherLocTypeCheckbox" name="loc_type[]" value="others"> Others:
 
-                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="school"> School
-
-                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="clinic"> Clinic/RHU
-
-
-
-                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="street">
-                                    Highway/Street
-
-                                    <input type="checkbox" class="form-check-input" name="loc_type[]" value="bldg">
-                                    Public Building
-
-
-
-
-
-                                    <input type="checkbox" class="form-check-input" id="otherLocTypeCheckbox"> Others:
-
-                                    <input type="text" name="loc_type_other" id="locTypeOther" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;" disabled>
+                                    <input type="text" name="loc_type_other" id="locTypeOther" value=""
+                                        style="border: none; background-color: transparent; border-bottom: 1px solid black;"
+                                        disabled>
                                 </td>
                                 <script>
-                                    document.getElementById('otherLocTypeCheckbox').addEventListener('change', function() {
+                                    document.getElementById('otherLocTypeCheckbox').addEventListener('change', function () {
                                         var locTypeOtherInput = document.getElementById('locTypeOther');
                                         locTypeOtherInput.disabled = !this.checked;
                                         if (!this.checked) {
                                             locTypeOtherInput.value = ''; // Clear the input field if the checkbox is unchecked
                                         }
                                     });
-                                </script>
 
+                                    $(document).ready(function () {
+                                        $('.single-checkbox-group').click(function () {
+                                            $('#otherLocTypeCheckbox').prop('checked', false);
+                                            $('.single-checkbox-group').not(this).prop('checked', false);
+                                        });
+                                    });
+                                </script>
 
                                 <th>Depart scene:
                                     <input type="number" name="descn" value="">
                                 </th>
-
-
-
-
-
                             </tr>
-
-
-                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
                             <tr>
                                 <td colspan="14"> <strong> Type of Call:</strong>
 
-                                    <input type="checkbox" class="form-check-input" name="call_type[]" value="fire">
+                                    <input type="checkbox" class="form-check-input call-checkbox-group"
+                                        name="call_type[]" value="fire">
                                     Fire
 
 
-                                    <input type="checkbox" class="form-check-input" name="call_type[]" value="vehicular"> Vehicular Accident
+                                    <input type="checkbox" class="form-check-input call-checkbox-group"
+                                        name="call_type[]" value="vehicular"> Vehicular Accident
 
-                                    <input type="checkbox" class="form-check-input" name="call_type[]" value="earthquake"> Earthquake
+                                    <input type="checkbox" class="form-check-input call-checkbox-group"
+                                        name="call_type[]" value="earthquake"> Earthquake
 
 
-                                    <input type="checkbox" class="form-check-input" name="call_type[]" value="collapse"> Collapse
+                                    <input type="checkbox" class="form-check-input call-checkbox-group"
+                                        name="call_type[]" value="collapse">
+                                    Collapse
 
-                                    <input type="checkbox" class="form-check-input" name="call_type[]" value="suicide"> Suicide
+                                    <input type="checkbox" class="form-check-input call-checkbox-group"
+                                        name="call_type[]" value="suicide">
+                                    Suicide
 
-                                    <input type="checkbox" class="form-check-input" name="call_type[]" value="drowning"> Drowning
+                                    <input type="checkbox" class="form-check-input call-checkbox-group"
+                                        name="call_type[]" value="drowning">
+                                    Drowning
 
-                                    <input type="checkbox" class="form-check-input" name="call_type[]" value="storm"> Storm Surge
+                                    <input type="checkbox" class="form-check-input call-checkbox-group"
+                                        name="call_type[]" value="storm">
+                                    Storm Surge
 
 
 
@@ -227,21 +240,37 @@ include 'header.php';
                             <tr>
                                 <td colspan="14">
 
-                                    <input type="checkbox" class="form-check-input" name="call_type[]" value="flooding"> Flooding
+                                    <input type="checkbox" class="form-check-input call-checkbox-group"
+                                        name="call_type[]" value="flooding">
+                                    Flooding
 
-                                    <input type="checkbox" class="form-check-input" name="call_type[]" value="roving"> Roving/Inspection
+                                    <input type="checkbox" class="form-check- call-checkbox-group" name="call_type[]"
+                                        value="roving">
+                                    Roving/Inspection
 
 
-                                    <input type="checkbox" class="form-check-input" id="otherCallTypeCheckbox" name="call_type[]" value="others"> Others:
+                                    <input type="checkbox" class="form-check-input call-checkbox-group"
+                                        id="otherCallTypeCheckbox" name="call_type[]" value="others"> Others:
 
-                                    <input type="text" name="call_type_other" id="callTypeOther" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;" disabled>
+                                    <input type="text" name="call_type_other" id="callTypeOther" value=""
+                                        style="border: none; background-color: transparent; border-bottom: 1px solid black;"
+                                        disabled>
                                 </td>
-
-
 
                                 </td>
                                 <th>Operation Team: <input type="text" name="optm" value=""></th>
                             </tr>
+
+                            <script>
+                                $(document).ready(function () {
+                                    $('.call-checkbox-group').click(function () {
+                                        $('.call-checkbox-group').not(this).prop('checked', false);
+                                    });
+                                });
+                            </script>
+
+
+
                             <tr>
                                 <th colspan="15">
                                     SRR Services:
@@ -252,396 +281,396 @@ include 'header.php';
                             </tr>
 
                             <script>
-                                $(document).ready(function() {
+                                $(document).ready(function () {
                                     const srrOptions = {
                                         fire: [{
-                                                value: "aerial",
-                                                label: "Aerial Footage"
-                                            },
-                                            {
-                                                value: "firefight",
-                                                label: "Support in FireFighting Operations"
-                                            },
-                                            {
-                                                value: "fire",
-                                                label: "Fire Rescue"
-                                            },
-                                            {
-                                                value: "illumination",
-                                                label: "Illumination"
-                                            },
-                                            {
-                                                value: "machinery",
-                                                label: "Machinery"
-                                            }
+                                            value: "aerial",
+                                            label: "Aerial Footage"
+                                        },
+                                        {
+                                            value: "firefight",
+                                            label: "Support in FireFighting Operations"
+                                        },
+                                        {
+                                            value: "fire",
+                                            label: "Fire Rescue"
+                                        },
+                                        {
+                                            value: "illumination",
+                                            label: "Illumination"
+                                        },
+                                        {
+                                            value: "machinery",
+                                            label: "Machinery"
+                                        }
                                         ],
                                         drowning: [{
-                                                value: "technical",
-                                                label: "Technical Search"
-                                            },
-                                            {
-                                                value: "physical",
-                                                label: "Physical Search"
-                                            },
-                                            {
-                                                value: "boat",
-                                                label: "Boat Operation"
-                                            },
-                                            {
-                                                value: "drowning",
-                                                label: "Active Drowning Response"
-                                            },
-                                            {
-                                                value: "illumination",
-                                                label: "Illumination"
-                                            },
-                                            {
-                                                value: "machinery",
-                                                label: "Machinery"
-                                            },
-                                            {
-                                                value: "marpol",
-                                                label: "Marpol"
-                                            },
-                                            {
-                                                value: "icp_activation",
-                                                label: "ICP Activation"
-                                            }
+                                            value: "technical",
+                                            label: "Technical Search"
+                                        },
+                                        {
+                                            value: "physical",
+                                            label: "Physical Search"
+                                        },
+                                        {
+                                            value: "boat",
+                                            label: "Boat Operation"
+                                        },
+                                        {
+                                            value: "drowning",
+                                            label: "Active Drowning Response"
+                                        },
+                                        {
+                                            value: "illumination",
+                                            label: "Illumination"
+                                        },
+                                        {
+                                            value: "machinery",
+                                            label: "Machinery"
+                                        },
+                                        {
+                                            value: "marpol",
+                                            label: "Marpol"
+                                        },
+                                        {
+                                            value: "icp_activation",
+                                            label: "ICP Activation"
+                                        }
                                         ],
                                         storm: [{
-                                                value: "technical",
-                                                label: "Technical Search"
-                                            },
-                                            {
-                                                value: "physical",
-                                                label: "Physical Search"
-                                            },
-                                            {
-                                                value: "boat",
-                                                label: "Boat Operation"
-                                            },
-                                            {
-                                                value: "drowning",
-                                                label: "Active Drowning Response"
-                                            },
-                                            {
-                                                value: "illumination",
-                                                label: "Illumination"
-                                            },
-                                            {
-                                                value: "machinery",
-                                                label: "Machinery"
-                                            },
-                                            {
-                                                value: "marpol",
-                                                label: "Marpol"
-                                            },
-                                            {
-                                                value: "icp_activation",
-                                                label: "ICP Activation"
-                                            }
+                                            value: "technical",
+                                            label: "Technical Search"
+                                        },
+                                        {
+                                            value: "physical",
+                                            label: "Physical Search"
+                                        },
+                                        {
+                                            value: "boat",
+                                            label: "Boat Operation"
+                                        },
+                                        {
+                                            value: "drowning",
+                                            label: "Active Drowning Response"
+                                        },
+                                        {
+                                            value: "illumination",
+                                            label: "Illumination"
+                                        },
+                                        {
+                                            value: "machinery",
+                                            label: "Machinery"
+                                        },
+                                        {
+                                            value: "marpol",
+                                            label: "Marpol"
+                                        },
+                                        {
+                                            value: "icp_activation",
+                                            label: "ICP Activation"
+                                        }
                                         ],
                                         flooding: [{
-                                                value: "technical",
-                                                label: "Technical Search"
-                                            },
-                                            {
-                                                value: "physical",
-                                                label: "Physical Search"
-                                            },
-                                            {
-                                                value: "boat",
-                                                label: "Boat Operation"
-                                            },
-                                            {
-                                                value: "drowning",
-                                                label: "Active Drowning Response"
-                                            },
-                                            {
-                                                value: "illumination",
-                                                label: "Illumination"
-                                            },
-                                            {
-                                                value: "machinery",
-                                                label: "Machinery"
-                                            },
-                                            {
-                                                value: "marpol",
-                                                label: "Marpol"
-                                            },
-                                            {
-                                                value: "icp_activation",
-                                                label: "ICP Activation"
-                                            }
+                                            value: "technical",
+                                            label: "Technical Search"
+                                        },
+                                        {
+                                            value: "physical",
+                                            label: "Physical Search"
+                                        },
+                                        {
+                                            value: "boat",
+                                            label: "Boat Operation"
+                                        },
+                                        {
+                                            value: "drowning",
+                                            label: "Active Drowning Response"
+                                        },
+                                        {
+                                            value: "illumination",
+                                            label: "Illumination"
+                                        },
+                                        {
+                                            value: "machinery",
+                                            label: "Machinery"
+                                        },
+                                        {
+                                            value: "marpol",
+                                            label: "Marpol"
+                                        },
+                                        {
+                                            value: "icp_activation",
+                                            label: "ICP Activation"
+                                        }
                                         ],
                                         earthquake: [{
-                                                value: "srr_training",
-                                                label: "SRR Training"
-                                            },
-                                            {
-                                                value: "mutual_response",
-                                                label: "Mutual Aid Response"
-                                            },
-                                            {
-                                                value: "aerial_search",
-                                                label: "Aerial Survey and Search"
-                                            },
-                                            {
-                                                value: "clearing_operation",
-                                                label: "Clearing Operation"
-                                            },
-                                            {
-                                                value: "public_response",
-                                                label: "Public Safety Response"
-                                            },
-                                            {
-                                                value: "ev_standby",
-                                                label: "EV Standby"
-                                            },
-                                            {
-                                                value: "hazard_assessment",
-                                                label: "Hazard Assessment"
-                                            },
-                                            {
-                                                value: "earthquake_drill",
-                                                label: "Earthquake Drill and Orientation"
-                                            },
-                                            {
-                                                value: "elsaroc",
-                                                label: "ELSAROC and CBDRRM"
-                                            },
-                                            {
-                                                value: "safety_information",
-                                                label: "Dissemination of Safety Information Via Rekurida"
-                                            },
-                                            {
-                                                value: "others",
-                                                label: "Other Dissemination"
-                                            }
+                                            value: "srr_training",
+                                            label: "SRR Training"
+                                        },
+                                        {
+                                            value: "mutual_response",
+                                            label: "Mutual Aid Response"
+                                        },
+                                        {
+                                            value: "aerial_search",
+                                            label: "Aerial Survey and Search"
+                                        },
+                                        {
+                                            value: "clearing_operation",
+                                            label: "Clearing Operation"
+                                        },
+                                        {
+                                            value: "public_response",
+                                            label: "Public Safety Response"
+                                        },
+                                        {
+                                            value: "ev_standby",
+                                            label: "EV Standby"
+                                        },
+                                        {
+                                            value: "hazard_assessment",
+                                            label: "Hazard Assessment"
+                                        },
+                                        {
+                                            value: "earthquake_drill",
+                                            label: "Earthquake Drill and Orientation"
+                                        },
+                                        {
+                                            value: "elsaroc",
+                                            label: "ELSAROC and CBDRRM"
+                                        },
+                                        {
+                                            value: "safety_information",
+                                            label: "Dissemination of Safety Information Via Rekurida"
+                                        },
+                                        {
+                                            value: "others",
+                                            label: "Other Dissemination"
+                                        }
 
                                         ],
                                         collapse: [{
-                                                label: "Operation and Trainings"
-                                            },
-                                            {
-                                                value: "srr_training",
-                                                label: "SRR Training"
-                                            },
-                                            {
-                                                value: "mutual_response",
-                                                label: "Mutual Aid Response"
-                                            },
-                                            {
-                                                value: "aerial_search",
-                                                label: "Aerial Survey and Search"
-                                            },
-                                            {
-                                                value: "clearing_operation",
-                                                label: "Clearing Operation"
-                                            },
-                                            {
-                                                value: "public_response",
-                                                label: "Public Safety Response"
-                                            },
-                                            {
-                                                value: "ev_standby",
-                                                label: "EV Standby"
-                                            },
-                                            {
-                                                value: "hazard_assessment",
-                                                label: "Hazard Assessment"
-                                            },
-                                            {
-                                                value: "earthquake_drill",
-                                                label: "Earthquake Drill and Orientation"
-                                            },
-                                            {
-                                                value: "elsaroc",
-                                                label: "ELSAROC and CBDRRM"
-                                            },
-                                            {
-                                                value: "safety_information",
-                                                label: "Dissemination of Safety Information Via Rekurida"
-                                            },
-                                            {
-                                                value: "others",
-                                                label: "Other Dissemination"
-                                            }
+                                            label: "Operation and Trainings"
+                                        },
+                                        {
+                                            value: "srr_training",
+                                            label: "SRR Training"
+                                        },
+                                        {
+                                            value: "mutual_response",
+                                            label: "Mutual Aid Response"
+                                        },
+                                        {
+                                            value: "aerial_search",
+                                            label: "Aerial Survey and Search"
+                                        },
+                                        {
+                                            value: "clearing_operation",
+                                            label: "Clearing Operation"
+                                        },
+                                        {
+                                            value: "public_response",
+                                            label: "Public Safety Response"
+                                        },
+                                        {
+                                            value: "ev_standby",
+                                            label: "EV Standby"
+                                        },
+                                        {
+                                            value: "hazard_assessment",
+                                            label: "Hazard Assessment"
+                                        },
+                                        {
+                                            value: "earthquake_drill",
+                                            label: "Earthquake Drill and Orientation"
+                                        },
+                                        {
+                                            value: "elsaroc",
+                                            label: "ELSAROC and CBDRRM"
+                                        },
+                                        {
+                                            value: "safety_information",
+                                            label: "Dissemination of Safety Information Via Rekurida"
+                                        },
+                                        {
+                                            value: "others",
+                                            label: "Other Dissemination"
+                                        }
                                         ],
                                         suicide: [{
-                                                value: "hazmat",
-                                                label: "Hazmat Response"
-                                            },
-                                            {
-                                                value: "cssr_response",
-                                                label: "CSSR Response"
-                                            },
-                                            {
-                                                value: "space_response",
-                                                label: "Confined Space Response"
-                                            },
-                                            {
-                                                value: "rescue_response",
-                                                label: "Rope Rescue Response"
-                                            },
-                                            {
-                                                value: "active_suicide",
-                                                label: "Active Suicide Response"
-                                            },
-                                            {
-                                                value: "terrorism",
-                                                label: "Acts of Terrorism"
-                                            },
-                                            {
-                                                value: "hostage_taking",
-                                                label: "Hostage Taking"
-                                            },
-                                            {
-                                                value: "mountain_rescue",
-                                                label: "Mountain Search and Rescue"
-                                            },
-                                            {
-                                                value: "ground_rescue",
-                                                label: "Ground Search and Rescue"
-                                            },
-                                            {
-                                                value: "icp_activation",
-                                                label: "ICP Activation"
-                                            }
+                                            value: "hazmat",
+                                            label: "Hazmat Response"
+                                        },
+                                        {
+                                            value: "cssr_response",
+                                            label: "CSSR Response"
+                                        },
+                                        {
+                                            value: "space_response",
+                                            label: "Confined Space Response"
+                                        },
+                                        {
+                                            value: "rescue_response",
+                                            label: "Rope Rescue Response"
+                                        },
+                                        {
+                                            value: "active_suicide",
+                                            label: "Active Suicide Response"
+                                        },
+                                        {
+                                            value: "terrorism",
+                                            label: "Acts of Terrorism"
+                                        },
+                                        {
+                                            value: "hostage_taking",
+                                            label: "Hostage Taking"
+                                        },
+                                        {
+                                            value: "mountain_rescue",
+                                            label: "Mountain Search and Rescue"
+                                        },
+                                        {
+                                            value: "ground_rescue",
+                                            label: "Ground Search and Rescue"
+                                        },
+                                        {
+                                            value: "icp_activation",
+                                            label: "ICP Activation"
+                                        }
 
                                         ],
                                         vehicular: [{
-                                                value: "vehicle",
-                                                label: "Vehicle Extrication"
-                                            },
-                                            {
-                                                value: "recovery",
-                                                label: "Vehicle Recovery"
-                                            },
-                                            {
-                                                value: "illumination",
-                                                label: "Illumination"
-                                            },
-                                            {
-                                                value: "emr_truck_response",
-                                                label: "EMR Truck Response"
-                                            },
-                                            {
-                                                value: "down_structure",
-                                                label: "Down Structure"
-                                            },
-                                            {
-                                                value: "marpol",
-                                                label: "Marpol"
-                                            },
-                                            {
-                                                value: "natural_disaster_response",
-                                                label: "Natural Disaster Response"
-                                            },
-                                            {
-                                                value: "icp_activation",
-                                                label: "ICP Activation"
-                                            },
-                                            {
-                                                value: "ems_response",
-                                                label: "Support To EMS Response"
-                                            }
+                                            value: "vehicle",
+                                            label: "Vehicle Extrication"
+                                        },
+                                        {
+                                            value: "recovery",
+                                            label: "Vehicle Recovery"
+                                        },
+                                        {
+                                            value: "illumination",
+                                            label: "Illumination"
+                                        },
+                                        {
+                                            value: "emr_truck_response",
+                                            label: "EMR Truck Response"
+                                        },
+                                        {
+                                            value: "down_structure",
+                                            label: "Down Structure"
+                                        },
+                                        {
+                                            value: "marpol",
+                                            label: "Marpol"
+                                        },
+                                        {
+                                            value: "natural_disaster_response",
+                                            label: "Natural Disaster Response"
+                                        },
+                                        {
+                                            value: "icp_activation",
+                                            label: "ICP Activation"
+                                        },
+                                        {
+                                            value: "ems_response",
+                                            label: "Support To EMS Response"
+                                        }
                                         ],
                                         roving: [{
-                                                label: "Operation and Trainings"
-                                            },
-                                            {
-                                                value: "srr_training",
-                                                label: "SRR Training"
-                                            },
-                                            {
-                                                value: "mutual_response",
-                                                label: "Mutual Aid Response"
-                                            },
-                                            {
-                                                value: "aerial_search",
-                                                label: "Aerial Survey and Search"
-                                            },
-                                            {
-                                                value: "clearing_operation",
-                                                label: "Clearing Operation"
-                                            },
-                                            {
-                                                value: "public_response",
-                                                label: "Public Safety Response"
-                                            },
-                                            {
-                                                value: "ev_standby",
-                                                label: "EV Standby"
-                                            },
-                                            {
-                                                value: "hazard_assessment",
-                                                label: "Hazard Assessment"
-                                            },
-                                            {
-                                                value: "earthquake_drill",
-                                                label: "Earthquake Drill and Orientation"
-                                            },
-                                            {
-                                                value: "elsaroc",
-                                                label: "ELSAROC and CBDRRM"
-                                            },
-                                            {
-                                                value: "safety_information",
-                                                label: "Dissemination of Safety Information Via Rekurida"
-                                            },
-                                            {
-                                                value: "others",
-                                                label: "Other Dissemination"
-                                            }
+                                            label: "Operation and Trainings"
+                                        },
+                                        {
+                                            value: "srr_training",
+                                            label: "SRR Training"
+                                        },
+                                        {
+                                            value: "mutual_response",
+                                            label: "Mutual Aid Response"
+                                        },
+                                        {
+                                            value: "aerial_search",
+                                            label: "Aerial Survey and Search"
+                                        },
+                                        {
+                                            value: "clearing_operation",
+                                            label: "Clearing Operation"
+                                        },
+                                        {
+                                            value: "public_response",
+                                            label: "Public Safety Response"
+                                        },
+                                        {
+                                            value: "ev_standby",
+                                            label: "EV Standby"
+                                        },
+                                        {
+                                            value: "hazard_assessment",
+                                            label: "Hazard Assessment"
+                                        },
+                                        {
+                                            value: "earthquake_drill",
+                                            label: "Earthquake Drill and Orientation"
+                                        },
+                                        {
+                                            value: "elsaroc",
+                                            label: "ELSAROC and CBDRRM"
+                                        },
+                                        {
+                                            value: "safety_information",
+                                            label: "Dissemination of Safety Information Via Rekurida"
+                                        },
+                                        {
+                                            value: "others",
+                                            label: "Other Dissemination"
+                                        }
                                         ],
                                         others: [{
-                                                label: "Operation and Trainings"
-                                            },
-                                            {
-                                                value: "srr_training",
-                                                label: "SRR Training"
-                                            },
-                                            {
-                                                value: "mutual_response",
-                                                label: "Mutual Aid Response"
-                                            },
-                                            {
-                                                value: "aerial_search",
-                                                label: "Aerial Survey and Search"
-                                            },
-                                            {
-                                                value: "clearing_operation",
-                                                label: "Clearing Operation"
-                                            },
-                                            {
-                                                value: "public_response",
-                                                label: "Public Safety Response"
-                                            },
-                                            {
-                                                value: "ev_standby",
-                                                label: "EV Standby"
-                                            },
-                                            {
-                                                value: "hazard_assessment",
-                                                label: "Hazard Assessment"
-                                            },
-                                            {
-                                                value: "earthquake_drill",
-                                                label: "Earthquake Drill and Orientation"
-                                            },
-                                            {
-                                                value: "elsaroc",
-                                                label: "ELSAROC and CBDRRM"
-                                            },
-                                            {
-                                                value: "safety_information",
-                                                label: "Dissemination of Safety Information Via Rekurida"
-                                            },
-                                            {
-                                                value: "others",
-                                                label: "Other Dissemination"
-                                            }
+                                            label: "Operation and Trainings"
+                                        },
+                                        {
+                                            value: "srr_training",
+                                            label: "SRR Training"
+                                        },
+                                        {
+                                            value: "mutual_response",
+                                            label: "Mutual Aid Response"
+                                        },
+                                        {
+                                            value: "aerial_search",
+                                            label: "Aerial Survey and Search"
+                                        },
+                                        {
+                                            value: "clearing_operation",
+                                            label: "Clearing Operation"
+                                        },
+                                        {
+                                            value: "public_response",
+                                            label: "Public Safety Response"
+                                        },
+                                        {
+                                            value: "ev_standby",
+                                            label: "EV Standby"
+                                        },
+                                        {
+                                            value: "hazard_assessment",
+                                            label: "Hazard Assessment"
+                                        },
+                                        {
+                                            value: "earthquake_drill",
+                                            label: "Earthquake Drill and Orientation"
+                                        },
+                                        {
+                                            value: "elsaroc",
+                                            label: "ELSAROC and CBDRRM"
+                                        },
+                                        {
+                                            value: "safety_information",
+                                            label: "Dissemination of Safety Information Via Rekurida"
+                                        },
+                                        {
+                                            value: "others",
+                                            label: "Other Dissemination"
+                                        }
                                         ],
 
                                     };
@@ -662,10 +691,10 @@ include 'header.php';
                                         } else {
                                             // If type of call(s) are selected, populate the dropdown with options based on selected type(s)
                                             let options = [];
-                                            selectedTypes.forEach(function(type) {
+                                            selectedTypes.forEach(function (type) {
                                                 options = options.concat(srrOptions[type]);
                                             });
-                                            options.forEach(function(option) {
+                                            options.forEach(function (option) {
                                                 srrSelect.append($('<option>', {
                                                     value: option.value,
                                                     text: option.label
@@ -673,14 +702,14 @@ include 'header.php';
                                             });
                                         }
                                     }
-                                    $("input[name='call_type[]']").change(function() {
+                                    $("input[name='call_type[]']").change(function () {
                                         const selectedTypes = [];
-                                        $("input[name='call_type[]']:checked").each(function() {
+                                        $("input[name='call_type[]']:checked").each(function () {
                                             selectedTypes.push($(this).val());
                                         });
                                         updateSrrServicesDropdown(selectedTypes);
                                     });
-                                    $("#srrServicesSelect").change(function() {
+                                    $("#srrServicesSelect").change(function () {
                                         const selectedService = $(this).val();
                                         // Save the selected value to a variable named srr_services
                                         const srr_services = selectedService;
@@ -689,7 +718,7 @@ include 'header.php';
                                     });
                                 });
 
-                                document.getElementById('otherCallTypeCheckbox').addEventListener('change', function() {
+                                document.getElementById('otherCallTypeCheckbox').addEventListener('change', function () {
                                     var callTypeOtherInput = document.getElementById('callTypeOther');
                                     callTypeOtherInput.disabled = !this.checked;
                                     if (!this.checked) {
@@ -749,29 +778,37 @@ include 'header.php';
                                             <ul style="list-style-type: none; padding-left: 0;">
                                                 <li>
 
-                                                    <input type="checkbox" class="form-check-input" name="weather[]" value="normal">
+                                                    <input type="checkbox" class="form-check-input" name="weather[]"
+                                                        value="normal">
                                                     Normal
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input" name="weather[]" value="hot"> Hot/Humid
+                                                    <input type="checkbox" class="form-check-input" name="weather[]"
+                                                        value="hot"> Hot/Humid
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input" name="weather[]" value="cold"> Cold
+                                                    <input type="checkbox" class="form-check-input" name="weather[]"
+                                                        value="cold"> Cold
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input" name="weather[]" value="light"> Light Rain
+                                                    <input type="checkbox" class="form-check-input" name="weather[]"
+                                                        value="light"> Light Rain
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input" name="weather[]" value="heavy"> Heavy Rain
+                                                    <input type="checkbox" class="form-check-input" name="weather[]"
+                                                        value="heavy"> Heavy Rain
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input" name="weather[]" value="hail"> Hail
+                                                    <input type="checkbox" class="form-check-input" name="weather[]"
+                                                        value="hail"> Hail
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input" name="weather[]" value="windy"> Windy
+                                                    <input type="checkbox" class="form-check-input" name="weather[]"
+                                                        value="windy"> Windy
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input" name="weather[]" value="thunder"> Thunderstorm
+                                                    <input type="checkbox" class="form-check-input" name="weather[]"
+                                                        value="thunder"> Thunderstorm
                                                 </li>
                                                 <li>
                                                     <label>Signal:
@@ -799,28 +836,36 @@ include 'header.php';
 
                                             <ul style="list-style-type: none; padding-left: 0;">
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input" name="terrain[]" value="concrete"> Concrete
+                                                    <input type="checkbox" class="form-check-input" name="terrain[]"
+                                                        value="concrete"> Concrete
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input" name="terrain[]" value="dirt"> Dirt
+                                                    <input type="checkbox" class="form-check-input" name="terrain[]"
+                                                        value="dirt"> Dirt
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input" name="terrain[]" value="mud"> Mud
+                                                    <input type="checkbox" class="form-check-input" name="terrain[]"
+                                                        value="mud"> Mud
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input" name="terrain[]" value="sand"> Sand
+                                                    <input type="checkbox" class="form-check-input" name="terrain[]"
+                                                        value="sand"> Sand
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input" name="terrain[]" value="rock"> Gravel/Rock
+                                                    <input type="checkbox" class="form-check-input" name="terrain[]"
+                                                        value="rock"> Gravel/Rock
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input" name="terrain[]" value="inclined"> Inclined
+                                                    <input type="checkbox" class="form-check-input" name="terrain[]"
+                                                        value="inclined"> Inclined
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input" name="terrain[]" value="swamp"> Swamp
+                                                    <input type="checkbox" class="form-check-input" name="terrain[]"
+                                                        value="swamp"> Swamp
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input" name="terrain[]" value="unstable"> Unstable
+                                                    <input type="checkbox" class="form-check-input" name="terrain[]"
+                                                        value="unstable"> Unstable
                                                 </li>
                                             </ul>
 
@@ -852,10 +897,13 @@ include 'header.php';
 
 
 
-                                            <input type="checkbox" class="form-check-input" name="casualty" value="yes"> Yes
-                                            <input type="checkbox" class="form-check-input" name="casualty" value="no"> No
+                                            <input type="checkbox" class="form-check-input" name="casualty" value="yes">
+                                            Yes
+                                            <input type="checkbox" class="form-check-input" name="casualty" value="no">
+                                            No
                                             <br>
-                                            No. of Cas: <input type="number" name="no_cas" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
+                                            No. of Cas: <input type="number" name="no_cas" value=""
+                                                style="border: none; background-color: transparent; border-bottom: 1px solid black;">
 
 
 
@@ -865,7 +913,8 @@ include 'header.php';
                                         <td colspan="6"> <strong> AED/Defib: </strong>
 
 
-                                            <input type="checkbox" class="form-check-input" name="defib" value="yes"> Yes
+                                            <input type="checkbox" class="form-check-input" name="defib" value="yes">
+                                            Yes
                                             <input type="checkbox" class="form-check-input" name="defib" value="no">
                                             No
 
@@ -873,10 +922,13 @@ include 'header.php';
                                         <td colspan="6"> <strong> Ambulance req: </strong>
 
 
-                                            <input type="checkbox" class="form-check-input" name="ambulance_req" value="yes"> Yes
-                                            <input type="checkbox" class="form-check-input" name="ambulance_req" value="no"> No
+                                            <input type="checkbox" class="form-check-input" name="ambulance_req"
+                                                value="yes"> Yes
+                                            <input type="checkbox" class="form-check-input" name="ambulance_req"
+                                                value="no"> No
                                             <br>
-                                            specify: <input type="text" name="amb_spec" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
+                                            specify: <input type="text" name="amb_spec" value=""
+                                                style="border: none; background-color: transparent; border-bottom: 1px solid black;">
 
 
 
@@ -890,7 +942,9 @@ include 'header.php';
 
                                     <tr>
                                         <th colspan="12" style="height: 670px;">
-                                            <textarea name="narrative" style="height: 670px; width: 100%; overflow-wrap: break-word; border: none; resize: none;" placeholder="Enter your text here"></textarea>
+                                            <textarea name="narrative"
+                                                style="height: 670px; width: 100%; overflow-wrap: break-word; border: none; resize: none;"
+                                                placeholder="Enter your text here"></textarea>
 
                                             </textarea>
                                         </th>
@@ -911,113 +965,166 @@ include 'header.php';
                                     <th>Checked</th>
                                     <th>Missing</th>
                                     <tr>
-                                        <td><input type="hidden" name="equip_name[]" value="Self-Contained Breathing Apparatus">Self-Contained Breathing
+                                        <td><input type="hidden" name="equip_name[]"
+                                                value="Self-Contained Breathing Apparatus">Self-Contained Breathing
                                             Apparatus</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="missing"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="missing"></td>
 
                                     </tr>
 
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Electric Spreader">Electric
                                             Spreader</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="missing"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Electric Cutter">Electric
                                             Cutter</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="missing"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Electric Ram">Electric Ram
                                         </td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="missing"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="missing"></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="hidden" name="equip_name[]" value="Hydraulic Hand Pump">Hydraulic Hand Pump</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="missing"></td>
+                                        <td><input type="hidden" name="equip_name[]"
+                                                value="Hydraulic Hand Pump">Hydraulic Hand Pump</td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="missing"></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="hidden" name="equip_name[]" value="Hydraulic Combi-tool">Hydraulic Combi-tool</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="missing"></td>
+                                        <td><input type="hidden" name="equip_name[]"
+                                                value="Hydraulic Combi-tool">Hydraulic Combi-tool</td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Hydraulic Ram">Hydraulic Ram
                                         </td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="missing"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Chainsaw">Chainsaw</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="missing"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Cutters Edge">Cutters Edge
                                         </td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="missing"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="High Pressure Lift Bag">High
                                             Pressure Lift Bag</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="missing"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="High Lift Jack">High Lift
                                             Jack</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="missing"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="missing"></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="hidden" name="equip_name[]" value="Remote Area Lighting System RALS">Remote Area Lighting System
+                                        <td><input type="hidden" name="equip_name[]"
+                                                value="Remote Area Lighting System RALS">Remote Area Lighting System
                                             RALS</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="missing"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="missing"></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="hidden" name="equip_name[]" value="Ventilation Blower">Ventilation Blower</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="missing"></td>
+                                        <td><input type="hidden" name="equip_name[]"
+                                                value="Ventilation Blower">Ventilation Blower</td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Tripod and Winch">Tripod and
                                             Winch</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="missing"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Rope Rescue Equipment">Rope
                                             Rescue Equipment</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="missing"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Other">Other</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="missing"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="used"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="checked"></td>
+                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]"
+                                                value="missing"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1032,63 +1139,80 @@ include 'header.php';
                                         <td colspan="6" class="checkbox-group">
                                             <div style="display: flex; flex-wrap: wrap;">
                                                 <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="colstruct"> Collapse Structure Rescue
+                                                    <input type="checkbox" class="form-check-input"
+                                                        name="interventions[]" value="colstruct"> Collapse Structure
+                                                    Rescue
                                                 </div>
                                                 <div style="flex: 10%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="boom"> Boom
+                                                    <input type="checkbox" class="form-check-input"
+                                                        name="interventions[]" value="boom"> Boom
                                                 </div>
                                                 <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="barricade"> Barricade
+                                                    <input type="checkbox" class="form-check-input"
+                                                        name="interventions[]" value="barricade"> Barricade
                                                 </div>
 
                                             </div>
                                             <div style="display: flex; flex-wrap: wrap;">
                                                 <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="confined"> Confined Space Rescue
+                                                    <input type="checkbox" class="form-check-input"
+                                                        name="interventions[]" value="confined"> Confined Space Rescue
                                                 </div>
                                                 <div style="flex: 10%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="outrigger"> Outrigger
+                                                    <input type="checkbox" class="form-check-input"
+                                                        name="interventions[]" value="outrigger"> Outrigger
                                                 </div>
                                                 <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="structural"> Structural Extrication
-                                                </div>
-                                            </div>
-
-                                            <div style="display: flex; flex-wrap: wrap;">
-
-                                                <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="water"> Water Rescue
-                                                </div>
-                                                <div style="flex: 10%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="tower"> Tower Light
-                                                </div>
-                                                <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="vehi_extri"> Vehicular Extrication
-                                                </div>
-
-                                            </div>
-                                            <div style="display: flex; flex-wrap: wrap;">
-                                                <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="patient"> Patient Retrieval
-                                                </div>
-                                                <div style="flex: 10%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="winch"> Winch
-                                                </div>
-                                                <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="wildlife"> Wildlife Rescue
+                                                    <input type="checkbox" class="form-check-input"
+                                                        name="interventions[]" value="structural"> Structural
+                                                    Extrication
                                                 </div>
                                             </div>
 
                                             <div style="display: flex; flex-wrap: wrap;">
 
                                                 <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="angel"> High Angle Rescue
+                                                    <input type="checkbox" class="form-check-input"
+                                                        name="interventions[]" value="water"> Water Rescue
                                                 </div>
                                                 <div style="flex: 10%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="hazmat"> HazMat
+                                                    <input type="checkbox" class="form-check-input"
+                                                        name="interventions[]" value="tower"> Tower Light
                                                 </div>
                                                 <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="generator"> Generator
+                                                    <input type="checkbox" class="form-check-input"
+                                                        name="interventions[]" value="vehi_extri"> Vehicular Extrication
+                                                </div>
+
+                                            </div>
+                                            <div style="display: flex; flex-wrap: wrap;">
+                                                <div style="flex: 20%; padding-right: 10px;">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        name="interventions[]" value="patient"> Patient Retrieval
+                                                </div>
+                                                <div style="flex: 10%; padding-right: 10px;">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        name="interventions[]" value="winch"> Winch
+                                                </div>
+                                                <div style="flex: 20%; padding-right: 10px;">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        name="interventions[]" value="wildlife"> Wildlife Rescue
+                                                </div>
+                                            </div>
+
+                                            <div style="display: flex; flex-wrap: wrap;">
+
+                                                <div style="flex: 20%; padding-right: 10px;">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        name="interventions[]" value="angel"> High Angle Rescue
+                                                </div>
+                                                <div style="flex: 10%; padding-right: 10px;">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        name="interventions[]" value="hazmat"> HazMat
+                                                </div>
+                                                <div style="flex: 20%; padding-right: 10px;">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        name="interventions[]" value="generator"> Generator
                                                 </div>
                                             </div>
                                         </td>
@@ -1168,14 +1292,15 @@ include 'header.php';
             <input type="file" name="images" accept="image/*" id="image-input" onchange="previewImage(this)">
             <br><br>
 
-            <div class="imageform" style="height: 300px; width: 100%; display: flex; justify-content: center; border: 1px solid #ccc;">
+            <div class="imageform"
+                style="height: 300px; width: 100%; display: flex; justify-content: center; border: 1px solid #ccc;">
                 <img id="selected-image-preview" src="#" alt="Image Preview" style="max-width: 100%; max-height: 100%;">
             </div>
 
             <script>
                 function previewImage(input) {
                     var reader = new FileReader();
-                    reader.onload = function(e) {
+                    reader.onload = function (e) {
                         document.getElementById('selected-image-preview').src = e.target.result;
                     };
                     reader.readAsDataURL(input.files[0]);
@@ -1316,7 +1441,9 @@ include 'header.php';
                         </tr>
                         <tr>
                             <th colspan="12" style="height: 300px;">
-                                <textarea name="recommendation" style="height: 670px; width: 100%; overflow-wrap: break-word; border: none; resize: none;" placeholder="Enter your text here"></textarea>
+                                <textarea name="recommendation"
+                                    style="height: 670px; width: 100%; overflow-wrap: break-word; border: none; resize: none;"
+                                    placeholder="Enter your text here"></textarea>
                             </th>
                         </tr>
 
@@ -1327,7 +1454,8 @@ include 'header.php';
         </div>
 </div>
 
-<button type="submit" class="btn btn-success btn-sm" onclick="uploadImage()" style="float: right;" name="addform">Submit</button>
+<button type="submit" class="btn btn-success btn-sm" onclick="uploadImage()" style="float: right;"
+    name="addform">Submit</button>
 
 </form>
 

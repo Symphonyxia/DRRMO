@@ -1171,7 +1171,7 @@ $pdf->SetXY(90, $yBeforeNarrative);
 
 $pdf->Rect(91, 210, 120, 30);
 $pdf->SetFont('Arial', 'B', 8);
-$pdf->Cell(120, 5, 'Interventions:', 0);
+$pdf->Cell(120, 5, '  Interventions:', 0);
 $pdf->Ln();
 
 $pdf->SetX(90);
