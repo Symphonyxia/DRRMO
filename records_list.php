@@ -1,29 +1,11 @@
 <?php
 include 'header.php';
+include 'delete.php';
 
 
 ?>
 
-<style>
-    .table-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
 
-    }
-
-    .table {
-
-        justify-content: center;
-        align-items: center;
-
-
-
-
-
-    }
-</style>
 
 <article class="content items-list-page">
     <div class="title-search-block">
@@ -53,6 +35,8 @@ include 'header.php';
                                 <th class="text-center">Location Type</th>
                                 <th class="text-center">Address</th>
                                 <th class="text-center">View Details</th>
+                                <th class="text-center">Delete </th>
+
 
 
                             </tr>
@@ -61,19 +45,8 @@ include 'header.php';
 
                             <?php
                             if ($pdo) {
-
-                                $limit = 10; // Number of results per page
-                                $page = isset($_GET['page']) ? $_GET['page'] : 1; // Current page, default is 1
-                                $offset = ($page - 1) * $limit; // Offset for the SQL query
-
-                                $search = isset($_GET['search']) ? $_GET['search'] : ''; // Get the search term
-
-                                // Initialize $totalRows to avoid undefined variable warning
-                                $totalRows = 0;
-
-                                $sql = "SELECT id, date, loc_type, incident_loc FROM usar"; // Include 'id' column in the SELECT statement
+                                $sql = "SELECT id, date, loc_type, incident_loc FROM usar";
                                 $stmt = $pdo->query($sql);
-
 
                                 if ($stmt->rowCount() > 0) {
                                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -81,11 +54,8 @@ include 'header.php';
                                         echo "<td class='text-center'>" . $row['date'] . "</td>";
                                         echo "<td class='text-center'>" . $row['loc_type'] . "</td>";
                                         echo "<td class='text-center'>" . $row['incident_loc'] . "</td>";
-
-
-                                        echo "<td class='text-center'><a href='records.php?id=" . $row['id'] . "' class='btn btn-primary'>View </a></td>";
-
-
+                                        echo "<td class='text-center'><a href='records.php?id=" . $row['id'] . "' class='btn btn-primary'>View</a></td>";
+                                        echo "<td class='text-center'><button class='btn btn-danger' onclick='deleteRecord(" . $row['id'] . ")'>Delete</button></td>"; // Add delete button
                                         echo "</tr>";
                                     }
                                 } else {
@@ -106,6 +76,26 @@ include 'header.php';
         </div>
     </section>
 
-
-
 </article>
+<script>
+    function deleteRecord(id) {
+        console.log('Delete record with ID:', id); // Log the ID being deleted
+        if (confirm('Are you sure you want to delete this record?')) {
+            // Send AJAX request to delete record
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Reload page after successful deletion
+                        window.location.reload();
+                    } else {
+                        console.error('Error deleting record');
+                    }
+                }
+            };
+            xhr.open('POST', 'delete.php'); // Replace 'delete.php' with the URL to your delete script
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send('id=' + id);
+        }
+    }
+</script>

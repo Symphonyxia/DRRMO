@@ -195,12 +195,12 @@ if ($response_type == 'Standby' || $response_type == 'Response' || $response_typ
 $pdf->SetFont('ZapfDingbats', '', 8); // Set font to Zapf Dingbats
 
 if ($response_type == 'Standby') {
-  $pdf->Text($rect1_x + 0.5, $rect_y + 2.5, $checkmark);
+  $pdf->Text($rect1_x + 0.3, $rect_y + 2.5, $checkmark);
 } elseif ($response_type == 'Response') {
   $pdf->Text($rect2_x + 0.5, $rect_y + 2.5, $checkmark);
 } else {
   // If the response type is "Others", set the checkmark at the appropriate position
-  $pdf->Text($rect3_x + 0.5, $rect_y + 2.5, $checkmark);
+  $pdf->Text($rect3_x + 0.3, $rect_y + 2.5, $checkmark);
 }
 
 
@@ -249,22 +249,24 @@ $pdf->Ln();
 
 
 // Check if the condition for displaying the checkmark is met and set $checkmark accordingly
-if ($loc_type == 'airport' || $loc_type == 'Hospital' || $loc_type == 'nursing' || $loc_type == 'Home/Residence' || $loc_type == 'Bridge' || $loc_type == 'Restaurant/Bar') {
+if ($loc_type == 'airport' || $loc_type == 'Hospital' || $loc_type == 'nursing' || $loc_type == 'home' || $loc_type == 'bridge' || $loc_type == 'bar') {
   $checkmark = "\x34"; // Set checkmark symbol
 
   $pdf->SetFont('ZapfDingbats', '', 8); // Set font to Zapf Dingbats
 
   if ($loc_type == 'airport') {
-    $pdf->Text($rect2_x + -24.5, $rect1_x + 0.4, $checkmark); // Adjust the position
+    $pdf->Text($rect2_x + -14.7, $rect1_x + 33.5, $checkmark); // Adjust the position
   } elseif ($loc_type == 'Hospital') {
-    $pdf->Text($rect3_x + -24.5, $rect2_x + 0.4, $checkmark); // Adjust the position
+    $pdf->Text($rect3_x + -17.7, $rect2_x + 18.5, $checkmark); // Adjust the position
   } elseif ($loc_type == 'nursing') {
     $pdf->Text($rect4_x + -24.5, $rect3_x + 0.4, $checkmark); // Adjust the position
-  } elseif ($loc_type == 'Home/Residence') {
-    $pdf->Text($rect5_x + -24.5, $rect4_x + 0.4, $checkmark); // Adjust the position
-  } elseif ($loc_type == 'Bridge') {
-    $pdf->Text($rect6_x + -24.5, $rect5_x + 0.4, $checkmark); // Adjust the position
-  } elseif ($loc_type == 'Restaurant/Bar') {
+  } elseif ($loc_type == 'home') {
+    $pdf->Text($rect4_x + 0.3, $rect3_x + 0.4, $checkmark); // Adjust the position
+  } elseif ($loc_type == 'bridge') {
+    $pdf->Text($rect4_x + 27.3, $rect3_x + 0.4, $checkmark); // Adjust the position
+  } elseif ($loc_type == 'bar') {
+    $pdf->Text($rect4_x + 42.3, $rect3_x + 0.6, $checkmark); // Adjust the position
+
   }
 }
 
@@ -307,11 +309,41 @@ $pdf->Cell(-135, 5, '', 0, 0);
 $pdf->Cell(0, 5, 'Public Bldg.', 0, 0);
 $pdf->Cell(-110, 5, '', 0, 0);
 $pdf->Cell($rect6_x - $rect5_x - $rect_size);
-$pdf->Cell(0, 5, 'Others:_______', 0, 0);
+$pdf->Cell(0, 5, ($loc_type != 'airport' && $loc_type != 'Hospital' && $loc_type != 'nursing' && $loc_type != 'home' && $loc_type != 'bridge' && $loc_type != 'bar' && $loc_type  != 'farm' && $loc_type != 'school' && $loc_type != 'clinic') ? "Others: $loc_type" : 'Others:_______', 0, 0);
 $pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Cell(30, 5, 'In Service', 1);
 $pdf->Cell(20, 5, $insvc, 1);
 $pdf->Ln();
+
+
+// Check if the condition for displaying the checkmark is met and set $checkmark accordingly
+if ($loc_type == 'farm' || $loc_type == 'school' || $loc_type == 'clinic' || $loc_type == 'street' || $loc_type == 'bldg' || $loc_type == 'others') {
+  $checkmark = "\x34"; // Set checkmark symbol
+} else {
+  // Default to "Others" if none of the conditions are met
+  $loc_type = 'others';
+  $checkmark = "\x34"; // Set checkmark symbol for "Others"
+}
+
+$pdf->SetFont('ZapfDingbats', '', 8); // Set font to Zapf Dingbats
+
+
+if ($loc_type == 'farm') {
+  $pdf->Text($rect2_x + -14.7, $rect1_x + 58.5, $checkmark); // Adjust the position
+} elseif ($loc_type == 'school') {
+  $pdf->Text($rect2_x + 0.3, $rect1_x + 58.5, $checkmark); // Adjust the position
+} elseif ($loc_type == 'clinic') {
+  $pdf->Text($rect2_x + 15.3, $rect1_x + 58.5, $checkmark); // Adjust the position
+} elseif ($loc_type == 'street') {
+  $pdf->Text($rect2_x + 35.3, $rect1_x + 58.5, $checkmark); // Adjust the position
+} elseif ($loc_type == 'bldg') {
+  $pdf->Text($rect2_x + 60.3, $rect1_x + 58.5, $checkmark); // Adjust the position
+} else {
+  $pdf->Text($rect2_x + 80.3, $rect1_x + 58.5, $checkmark); // Adjust the position
+
+}
+
+
 
 
 
@@ -352,13 +384,36 @@ $pdf->Cell(0, 5, 'Suicide', 0, 0);
 $pdf->Cell(-85, 5, '', 0, 0);
 $pdf->Cell($rect6_x - $rect5_x - $rect_size);
 $pdf->Cell(0, 5, 'Drowning', 0, 0);
-
 $pdf->Cell(-45, 5, '', 0, 0);
-
-
 $pdf->Cell(30, 5, 'Operation Team', 1);
 $pdf->Cell(20, 5, $optm, 1);
 $pdf->Ln();
+
+
+if ($call_type == 'fire' || $call_type == 'vehicular' || $call_type == 'earthquake' || $call_type == 'collapse' || $call_type == 'suicide' || $call_type == 'drowning') {
+  $checkmark = "\x34";
+} else {
+
+  $loc_type = 'others';
+  $checkmark = "\x34";
+}
+
+$pdf->SetFont('ZapfDingbats', '', 8);
+
+
+if ($call_type == 'fire') {
+  $pdf->Text($rect2_x + -12.7, $rect1_x + 48.5, $checkmark);
+} elseif ($loc_type == 'vehicular') {
+  $pdf->Text($rect2_x + 0.3, $rect1_x + 48.5, $checkmark);
+} elseif ($loc_type == 'earthquake') {
+  $pdf->Text($rect2_x + 30.3, $rect1_x + 48.5, $checkmark);
+} elseif ($loc_type == 'collapse') {
+  $pdf->Text($rect2_x +  52.3, $rect1_x + 48.5, $checkmark);
+} elseif ($loc_type == 'suicide') {
+  $pdf->Text($rect2_x +   72.3, $rect1_x + 48.5, $checkmark);
+} elseif ($loc_type == 'drowning') {
+  $pdf->Text($rect2_x + 92.3, $rect1_x + 48.5, $checkmark);
+}
 
 
 $pdf->Cell(1);
@@ -395,6 +450,28 @@ $pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Cell(30, 5, '', 1);
 $pdf->Cell(20, 5, '', 1);
 $pdf->Ln();
+
+if ($call_type == 'fire' || $call_type == 'vehicular' || $call_type == 'earthquake' || $call_type == 'collapse' || $call_type == 'suicide' || $call_type == 'drowning' ||  $call_type == 'storm' || $call_type == 'flooding' || $call_type == 'roving' || $call_type == 'other') {
+  $checkmark = "\x34";
+} else {
+
+  $loc_type = 'others';
+  $checkmark = "\x34";
+}
+
+$pdf->SetFont('ZapfDingbats', '', 8);
+
+
+if ($call_type == 'storm') {
+  $pdf->Text($rect2_x + -24.7, $rect1_x + 68.5, $checkmark);
+} elseif ($loc_type == 'flooding') {
+  $pdf->Text($rect2_x + 0.3, $rect1_x + 68.5, $checkmark);
+} elseif ($loc_type == 'roving') {
+  $pdf->Text($rect2_x + 25.4, $rect1_x + 68.5, $checkmark);
+} else {
+  $pdf->Text($rect2_x + 55.3, $rect1_x + 68.5, $checkmark);
+}
+
 
 
 $pdf->Cell(1);
