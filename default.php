@@ -74,6 +74,7 @@ while ($row = $result->fetch_object()) {
 
 
 
+
 $pdf->Image('resources/img/iloilo.png', 9, 7, 20, 20, 'PNG');
 $pdf->Image('resources/img/disaster.jpg', 29, 4, 25, 25, 'JPG');
 $pdf->Image('resources/img/USAR.jpg', 55, 7, 19, 19, 'JPG');
@@ -1292,6 +1293,60 @@ $pdf->Cell(-17, 5, '', 0, 0);
 $pdf->Cell(20, 5, '', 1);
 $pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
+
+$selectEquipment = $conn->prepare("SELECT id, equip_id, equip_status FROM equipment_record WHERE id = ?");
+$selectEquipment->bind_param("i", $pageId);
+$selectEquipment->execute();
+$resultEquipment = $selectEquipment->get_result();
+
+
+$equipments = [];
+while ($rowEquipment = $resultEquipment->fetch_assoc()) {
+  $equipments[] = $rowEquipment;
+}
+
+$pdf->SetFont('ZapfDingbats', '', 8);
+$positions = [];
+
+
+$yPosition = -31.5;
+
+
+foreach ($equipments as $equipment) {
+  $equipId = $equipment['equip_id'];
+  $status = $equipment['equip_status'];
+
+
+  switch ($status) {
+    case 'Used':
+
+      $positions[$equipId][$status] = ['x' => -19.7, 'y' =>  $yPosition];
+
+      $yPosition += 5;
+      break;
+    case 'Checked':
+
+      $positions[$equipId][$status] = ['x' => 0.3, 'y' => $yPosition];
+
+      $yPosition += 5;
+      break;
+    case 'Missing':
+
+      $positions[$equipId][$status] = ['x' => 20.3, 'y' => $yPosition];
+
+      $yPosition += 5;
+      break;
+  }
+}
+
+foreach ($positions as $equipId => $statusPositions) {
+  foreach ($statusPositions as $status => $position) {
+    $pdf->Text($rect2_x + $position['x'], $rect1_x + $position['y'], $checkmark);
+  }
+}
+
+
+
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
