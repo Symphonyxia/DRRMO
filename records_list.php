@@ -93,7 +93,7 @@ include 'delete.php';
                      // Reload page after successful deletion
                      setTimeout(function() {
                             window.location.reload();
-                        }, 2000); 
+                        }, 500); 
                     } else {
                         // Display error message
                         var errorMessage = xhr.responseText.trim();
