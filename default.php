@@ -1,26 +1,18 @@
 <?php
 require('pdf/fpdf.php');
 
-// Database Connection 
+
 $conn = new mysqli('localhost', 'root', '', 'drrmo');
-// Check for connection error
+
 if ($conn->connect_error) {
   die("Error in DB connection: " . $conn->connect_errno . " : " . $conn->connect_error);
 }
 
-// Assuming the page ID is passed through the URL as 'id'
+
 $pageId = isset($_GET['id']) ? intval($_GET['id']) : 0;
-
-// Prepare and bind the SELECT statement with a parameter for pageId
 $select = $conn->prepare("SELECT * FROM usar WHERE id = ?");
-
-// Bind parameters
 $select->bind_param("i", $pageId);
-
-// Execute the query
 $select->execute();
-
-// Get the result
 $result = $select->get_result();
 
 $pdf = new FPDF('P', 'mm', 'legal');
@@ -36,7 +28,7 @@ while ($row = $result->fetch_object()) {
   $response_type = $row->response_type;
   $call_type = $row->call_type;
   $srr_services = $row->srr_services;
-  $incident_comm = $row->incident_comm;
+  $incident_comm = $row->incident_commander;
   $agency = $row->agency;
   $position = $row->position;
   $address = $row->address;
@@ -62,20 +54,21 @@ while ($row = $result->fetch_object()) {
   $time_start = $row->time_start;
   $time_end = $row->time_end;
   $cycle = $row->cycle;
-  $cr = $row->cr;
-  $enr = $row->enr;
-  $atscn = $row->atscn;
-  $descn = $row->descn;
-  $insvc = $row->insvc;
-  $optm = $row->optm;
-  $end = $row->end;
-  $begin = $row->begin;
+  $cr = $row->call_received;
+  $enr = $row->enroute;
+  $atscn = $row->at_scene;
+  $descn = $row->depart_scene;
+  $insvc = $row->in_service;
+  $optm = $row->operation_team;
+  $end = $row->end_mileage;
+  $begin = $row->begin_mileage;
   $total = $row->total;
   $prep_by = $row->prep_by;
   $endorsed_by = $row->endorsed_by;
-  $witness = $row->witness;
+  $witness = $row->witnesses;
   $crew = $row->crew;
   $designation = $row->designation;
+  $warning = $row->warning;
 }
 
 
@@ -181,25 +174,24 @@ $pdf->Cell(30, 5, 'At Scene ', 1);
 $pdf->Cell(20, 5, $atscn, 1);
 $pdf->Ln();
 
-$checkmark = ''; // Initialize the variable
-// Check if the response type matches "Standby", "Response", or "Others" and set $checkmark if it does
+$checkmark = '';
 if ($response_type == 'Standby' || $response_type == 'Response' || $response_type == 'Others') {
-  $checkmark = "\x34"; // Set checkmark symbol
+  $checkmark = "\x34";
 } else {
-  // Default to "Others" if none of the conditions are met
+
   $response_type = 'Others';
-  $checkmark = "\x34"; // Set checkmark symbol for "Others"
+  $checkmark = "\x34";
 }
 
-// Draw a checkmark based on the response type
-$pdf->SetFont('ZapfDingbats', '', 8); // Set font to Zapf Dingbats
+
+$pdf->SetFont('ZapfDingbats', '', 8);
 
 if ($response_type == 'Standby') {
   $pdf->Text($rect1_x + 0.3, $rect_y + 2.5, $checkmark);
 } elseif ($response_type == 'Response') {
   $pdf->Text($rect2_x + 0.5, $rect_y + 2.5, $checkmark);
 } else {
-  // If the response type is "Others", set the checkmark at the appropriate position
+
   $pdf->Text($rect3_x + 0.3, $rect_y + 2.5, $checkmark);
 }
 
@@ -248,28 +240,6 @@ $pdf->Cell(20, 5, $descn, 1);
 $pdf->Ln();
 
 
-// Check if the condition for displaying the checkmark is met and set $checkmark accordingly
-if ($loc_type == 'airport' || $loc_type == 'Hospital' || $loc_type == 'nursing' || $loc_type == 'home' || $loc_type == 'bridge' || $loc_type == 'bar') {
-  $checkmark = "\x34"; // Set checkmark symbol
-
-  $pdf->SetFont('ZapfDingbats', '', 8); // Set font to Zapf Dingbats
-
-  if ($loc_type == 'airport') {
-    $pdf->Text($rect2_x + -14.7, $rect1_x + 33.5, $checkmark); // Adjust the position
-  } elseif ($loc_type == 'Hospital') {
-    $pdf->Text($rect3_x + -17.7, $rect2_x + 18.5, $checkmark); // Adjust the position
-  } elseif ($loc_type == 'nursing') {
-    $pdf->Text($rect4_x + -24.5, $rect3_x + 0.4, $checkmark); // Adjust the position
-  } elseif ($loc_type == 'home') {
-    $pdf->Text($rect4_x + 0.3, $rect3_x + 0.4, $checkmark); // Adjust the position
-  } elseif ($loc_type == 'bridge') {
-    $pdf->Text($rect4_x + 27.3, $rect3_x + 0.4, $checkmark); // Adjust the position
-  } elseif ($loc_type == 'bar') {
-    $pdf->Text($rect4_x + 42.3, $rect3_x + 0.6, $checkmark); // Adjust the position
-
-  }
-}
-
 
 
 $pdf->Cell(1);
@@ -309,38 +279,47 @@ $pdf->Cell(-135, 5, '', 0, 0);
 $pdf->Cell(0, 5, 'Public Bldg.', 0, 0);
 $pdf->Cell(-110, 5, '', 0, 0);
 $pdf->Cell($rect6_x - $rect5_x - $rect_size);
-$pdf->Cell(0, 5, ($loc_type != 'airport' && $loc_type != 'Hospital' && $loc_type != 'nursing' && $loc_type != 'home' && $loc_type != 'bridge' && $loc_type != 'bar' && $loc_type  != 'farm' && $loc_type != 'school' && $loc_type != 'clinic') ? "Others: $loc_type" : 'Others:_______', 0, 0);
+$pdf->Cell(0, 5, ($loc_type != 'Airport' && $loc_type != 'Hospital' && $loc_type != 'Nursing Home' && $loc_type != 'Home/Residence' && $loc_type != 'Bridge' && $loc_type != 'Restuarant/Bar' && $loc_type  != 'Farm' && $loc_type != 'School' && $loc_type != 'Clinic/RHU' && $loc_type != 'Highway/Street' && $loc_type != 'Public Building') ? "Others: $loc_type" : 'Others:_______', 0, 0);
 $pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Cell(30, 5, 'In Service', 1);
 $pdf->Cell(20, 5, $insvc, 1);
 $pdf->Ln();
 
 
-// Check if the condition for displaying the checkmark is met and set $checkmark accordingly
-if ($loc_type == 'farm' || $loc_type == 'school' || $loc_type == 'clinic' || $loc_type == 'street' || $loc_type == 'bldg' || $loc_type == 'others') {
-  $checkmark = "\x34"; // Set checkmark symbol
+if ($loc_type == 'Airport' || $loc_type == 'Hospital' || $loc_type == 'Nursing Home' || $loc_type == 'Home/Residence' || $loc_type == 'Bridge' || $loc_type == 'Restuarant/Bar' || $loc_type == 'Farm' || $loc_type == 'School' || $loc_type == 'Clinic/RHU' || $loc_type == 'Highway/Street' || $loc_type == 'Public Building' || $loc_type == 'Others') {
+  $checkmark = "\x34";
 } else {
-  // Default to "Others" if none of the conditions are met
+
   $loc_type = 'others';
-  $checkmark = "\x34"; // Set checkmark symbol for "Others"
+  $checkmark = "\x34";
 }
 
-$pdf->SetFont('ZapfDingbats', '', 8); // Set font to Zapf Dingbats
+$pdf->SetFont('ZapfDingbats', '', 8);
 
-
-if ($loc_type == 'farm') {
-  $pdf->Text($rect2_x + -14.7, $rect1_x + 58.5, $checkmark); // Adjust the position
-} elseif ($loc_type == 'school') {
-  $pdf->Text($rect2_x + 0.3, $rect1_x + 58.5, $checkmark); // Adjust the position
-} elseif ($loc_type == 'clinic') {
-  $pdf->Text($rect2_x + 15.3, $rect1_x + 58.5, $checkmark); // Adjust the position
-} elseif ($loc_type == 'street') {
-  $pdf->Text($rect2_x + 35.3, $rect1_x + 58.5, $checkmark); // Adjust the position
-} elseif ($loc_type == 'bldg') {
-  $pdf->Text($rect2_x + 60.3, $rect1_x + 58.5, $checkmark); // Adjust the position
+if ($loc_type == 'Airport') {
+  $pdf->Text($rect2_x + 5.3, $rect1_x + 53.5, $checkmark);
+} elseif ($loc_type == 'Hospital') {
+  $pdf->Text($rect2_x + 20.3, $rect1_x + 53.5, $checkmark);
+} elseif ($loc_type == 'Nursing Home') {
+  $pdf->Text($rect2_x + 38.3, $rect1_x + 53.5, $checkmark);
+} elseif ($loc_type == 'Home/Residence') {
+  $pdf->Text($rect2_x +  63.3, $rect1_x + 53.5, $checkmark);
+} elseif ($loc_type == 'Bridge') {
+  $pdf->Text($rect2_x +  90.3, $rect1_x + 53.5, $checkmark);
+} elseif ($loc_type == 'Restuarant/Bar') {
+  $pdf->Text($rect2_x + 105.3, $rect1_x + 53.5, $checkmark);
+} elseif ($loc_type == 'Farm') {
+  $pdf->Text($rect2_x + 0.3, $rect1_x + 58.5, $checkmark);
+} elseif ($loc_type == 'School') {
+  $pdf->Text($rect2_x + 15.3, $rect1_x + 58.5, $checkmark);
+} elseif ($loc_type == 'Clinic/RHU') {
+  $pdf->Text($rect2_x + 35.3, $rect1_x + 58.5, $checkmark);
+} elseif ($loc_type == 'Highway/Street') {
+  $pdf->Text($rect2_x + 60.3, $rect1_x + 58.5, $checkmark);
+} elseif ($loc_type == 'Public Building') {
+  $pdf->Text($rect2_x + 60.3, $rect1_x + 58.5, $checkmark);
 } else {
-  $pdf->Text($rect2_x + 80.3, $rect1_x + 58.5, $checkmark); // Adjust the position
-
+  $pdf->Text($rect2_x + 80.3, $rect1_x + 58.5, $checkmark);
 }
 
 
@@ -403,61 +382,62 @@ $rect4_x = 95;
 $rect_y = 81;
 $rect_size = 3;
 
-$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
-$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle for Hospital
-$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size); // Rectangle for Nursing Home
-$pdf->Rect($rect4_x, $rect_y, $rect_size, $rect_size); // Rectangle for Home/Residence
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect3_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect4_x, $rect_y, $rect_size, $rect_size);
 
-// Output labels for location types
+
 $pdf->Cell(-143, 5, '', 0, 0);
 $pdf->Cell(0, 5, 'Storm Surge', 0, 0);
 $pdf->Cell($rect2_x - $rect1_x - $rect_size);
 $pdf->Cell(-185, 5, '', 0, 0);
 $pdf->Cell(0, 5, 'Flooding ', 0, 0);
-$pdf->Cell($rect3_x - $rect2_x - $rect_size); // Empty space for layout
+$pdf->Cell($rect3_x - $rect2_x - $rect_size);
 $pdf->Cell(-160, 5, '', 0, 0);
-$pdf->Cell(0, 5, 'Roving/Inspection', 0, 0); // Label for Nursing Home
-$pdf->Cell($rect4_x - $rect3_x - $rect_size); // Empty space for layout
+$pdf->Cell(0, 5, 'Roving/Inspection', 0, 0);
+$pdf->Cell($rect4_x - $rect3_x - $rect_size);
 $pdf->Cell(-135, 5, '', 0, 0);
-$pdf->Cell(0, 5, 'Others:_______', 0, 0); // Label for Home/Residence
+$pdf->Cell(0, 5, 'Others:_______', 0, 0);
 
 $pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Cell(30, 5, '', 1);
 $pdf->Cell(20, 5, '', 1);
 $pdf->Ln();
 
-if ($call_type == 'fire' || $call_type == 'vehicular' || $call_type == 'earthquake' || $call_type == 'collapse' || $call_type == 'suicide' || $call_type == 'drowning' ||  $call_type == 'storm' || $call_type == 'flooding' || $call_type == 'roving' || $call_type == 'other') {
+if ($call_type == 'Fire' || $call_type == 'Vehicular Accident' || $call_type == 'Earthquake' || $call_type == 'Collapse' || $call_type == 'Suicide' || $call_type == 'Drowning' ||  $call_type == 'Storm Surge' || $call_type == 'Flooding' || $call_type == 'Roving/Inspection' || $call_type == 'Others') {
   $checkmark = "\x34";
 } else {
 
-  $loc_type = 'others';
+  $call_type = 'Others';
   $checkmark = "\x34";
 }
 
 $pdf->SetFont('ZapfDingbats', '', 8);
 
 
-if ($call_type == 'fire') {
-  $pdf->Text($rect2_x + -9.7, $rect1_x + 63.5, $checkmark);
-} elseif ($loc_type == 'vehicular') {
-  $pdf->Text($rect2_x + 0.3, $rect1_x + 63.5, $checkmark);
-} elseif ($loc_type == 'earthquake') {
-  $pdf->Text($rect2_x + 30.3, $rect1_x + 63.5, $checkmark);
-} elseif ($loc_type == 'collapse') {
-  $pdf->Text($rect2_x +  52.3, $rect1_x + 63.5, $checkmark);
-} elseif ($loc_type == 'suicide') {
-  $pdf->Text($rect2_x +   72.3, $rect1_x + 63.5, $checkmark);
-} elseif ($loc_type == 'drowning') {
-  $pdf->Text($rect2_x + 92.3, $rect1_x + 63.5, $checkmark);
-} elseif ($call_type == 'storm') {
+if ($call_type == 'Fire') {
+  $pdf->Text($rect2_x +  -9.7, $rect1_x + 63.5, $checkmark);
+} elseif ($call_type == 'Vehicular Accident') {
+  $pdf->Text($rect2_x + 3.3, $rect1_x + 63.5, $checkmark);
+} elseif ($call_type == 'Earthquake') {
+  $pdf->Text($rect2_x +  33.3, $rect1_x + 63.5, $checkmark);
+} elseif ($call_type == 'Collapse') {
+  $pdf->Text($rect2_x +  55.3, $rect1_x + 63.5, $checkmark);
+} elseif ($call_type == 'Suicide') {
+  $pdf->Text($rect2_x +  75.3, $rect1_x + 63.5, $checkmark);
+} elseif ($call_type == 'Drowning') {
+  $pdf->Text($rect2_x + 95.3, $rect1_x + 63.5, $checkmark);
+} elseif ($call_type == 'Storm Surge') {
   $pdf->Text($rect2_x + -24.7, $rect1_x + 68.5, $checkmark);
-} elseif ($loc_type == 'flooding') {
+} elseif ($call_type == 'Flooding') {
   $pdf->Text($rect2_x + 0.3, $rect1_x + 68.5, $checkmark);
-} elseif ($loc_type == 'roving') {
+} elseif ($call_type == 'Roving/Inspection') {
   $pdf->Text($rect2_x + 25.4, $rect1_x + 68.5, $checkmark);
 } else {
   $pdf->Text($rect2_x + 55.3, $rect1_x + 68.5, $checkmark);
 }
+
 
 
 
@@ -529,7 +509,7 @@ $pdf->Cell(-143, 5, '', 0, 0);
 $pdf->Cell(0, 5, 'Normal', 0, 0);
 $pdf->Cell(-170, 5, '', 0, 0);
 $pdf->Cell($rect2_x - $rect1_x - $rect_size);
-$pdf->Cell(18, 5, 'Conrete', 0);
+$pdf->Cell(18, 5, 'Concrete', 0);
 
 $pdf->Cell(5);
 $pdf->SetFont('Arial', '', 8);
@@ -566,7 +546,7 @@ $rect2_x = 65;
 $rect_y = 131;
 $rect_size = 3;
 
-$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size);
 $pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
 
 $pdf->Cell(-143, 5, '', 0, 0);
@@ -786,8 +766,8 @@ $rect2_x = 65;
 $rect_y = 156;
 $rect_size = 3;
 
-$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
-$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size); // Rectangle for Airport
+$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size);
+$pdf->Rect($rect2_x, $rect_y, $rect_size, $rect_size);
 
 $pdf->Cell(-143, 5, '', 0, 0);
 $pdf->Cell(0, 5, 'Windy', 0, 0);
@@ -907,6 +887,57 @@ $pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
 
+if ($weather == 'Normal' || $weather == 'Hot/Humid' || $weather == 'Cold' || $weather == 'Light Rain' || $weather == 'Heavy Rain' || $weather == 'Hail' || $weather == 'Windy' || $weather == 'Thunderstorm' || $weather == 'Sun and Rain') {
+  $checkmark = "\x34";
+}
+
+$pdf->SetFont('ZapfDingbats', '', 8);
+if ($weather == 'Normal') {
+  $pdf->Text($rect2_x + -149.7, $rect1_x + -31.5, $checkmark);
+} elseif ($weather == 'Hot/Humid') {
+  $pdf->Text($rect2_x + -149.7, $rect1_x +  -26.5, $checkmark);
+} elseif ($weather == 'Cold') {
+  $pdf->Text($rect2_x + -149.7, $rect1_x + -21.5, $checkmark);
+} elseif ($weather == 'Light Rain') {
+  $pdf->Text($rect2_x +  -149.7, $rect1_x + -16.5, $checkmark);
+} elseif ($weather == 'Heavy Rain') {
+  $pdf->Text($rect2_x +  -149.7, $rect1_x + -11.5, $checkmark);
+} elseif ($weather == 'Hail') {
+  $pdf->Text($rect2_x + -149.7, $rect1_x + -6.5, $checkmark);
+} elseif ($weather == 'Windy') {
+  $pdf->Text($rect2_x + -149.7, $rect1_x + -1.5, $checkmark);
+} elseif ($weather == 'Thunderstorm') {
+  $pdf->Text($rect2_x + -149.7, $rect1_x + 3.5, $checkmark);
+} elseif ($weather == 'Sun and Rain') {
+  $pdf->Text($rect2_x + -149.7, $rect1_x + 8.5, $checkmark);
+}
+
+
+if ($terrain == 'Concrete' || $terrain == 'Dirt' || $terrain == 'Mud' || $terrain == 'Sand' || $terrain == 'Gravel/Rock' || $terrain == 'Inclined' || $terrain == 'Swamp' || $terrain == 'Unstable') {
+  $checkmark = "\x34";
+}
+
+$pdf->SetFont('ZapfDingbats', '', 8);
+if ($terrain == 'Concrete') {
+  $pdf->Text($rect2_x + -114.7, $rect1_x + -31.5, $checkmark);
+} elseif ($terrain == 'Dirt') {
+  $pdf->Text($rect2_x + -114.7, $rect1_x +  -26.5, $checkmark);
+} elseif ($terrain == 'Mud') {
+  $pdf->Text($rect2_x + -114.7, $rect1_x + -21.5, $checkmark);
+} elseif ($terrain == 'Sand') {
+  $pdf->Text($rect2_x +  -114.7, $rect1_x + -16.5, $checkmark);
+} elseif ($terrain == 'Gravel/Rock') {
+  $pdf->Text($rect2_x +  -114.7, $rect1_x + -11.5, $checkmark);
+} elseif ($terrain == 'Inclined') {
+  $pdf->Text($rect2_x + -114.7, $rect1_x + -6.5, $checkmark);
+} elseif ($terrain == 'Swamp') {
+  $pdf->Text($rect2_x + -114.7, $rect1_x + -1.5, $checkmark);
+} elseif ($terrain == 'Unstable') {
+  $pdf->Text($rect2_x + -114.7, $rect1_x + 3.5, $checkmark);
+}
+
+
+
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(15, 55, '', 0);
@@ -916,10 +947,11 @@ $rect1_x = 30;
 $rect_y = 171;
 $rect_size = 3;
 
-$pdf->Rect($rect1_x, $rect_y, $rect_size, $rect_size);
 
-$pdf->Cell(-143, 5, '', 0, 0);
-$pdf->Cell(0, 5, 'Signal # 1, 2, 3, 4, 5', 0, 0);
+$pdf->Cell(-150, 2, '', 0, 0);
+$pdf->Cell(0, 5, 'Signal:', 0, 0);
+$pdf->Cell(-170, 5, '', 0, 0);
+$pdf->Cell(0, 5, $warning, 0, 0);
 $pdf->Cell(-170, 5, '', 0, 0);
 $pdf->Cell(50, 5, '', 0);
 
@@ -947,6 +979,8 @@ $pdf->Cell(-17, 5, '', 0, 0);
 $pdf->Cell(20, 5, '', 1);
 $pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
+
+
 
 $pdf->Rect(11, 175, 37, 25);
 $pdf->Rect(48, 175, 38, 25);
@@ -1013,6 +1047,37 @@ $pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
 
+if ($cpr == 'Yes' || $cpr == 'No') {
+  $checkmark = "\x34";
+}
+
+$pdf->SetFont('ZapfDingbats', '', 8);
+
+if ($cpr == 'Yes') {
+  $pdf->Text($rect2_x + -159.7, $rect1_x +  18.6, $checkmark);
+} elseif ($cpr == 'No') {
+  $pdf->Text($rect2_x + -144.7, $rect1_x +  18.6, $checkmark);
+}
+
+
+if ($casualty == 'Yes' || $casualty == 'No') {
+  $checkmark = "\x34";
+}
+
+$pdf->SetFont('ZapfDingbats', '', 8);
+
+if ($casualty == 'Yes') {
+  $pdf->Text($rect2_x + -114.7, $rect1_x +  18.6, $checkmark);
+} elseif ($casualty == 'No') {
+  $pdf->Text($rect2_x + -104.7, $rect1_x +  18.6, $checkmark);
+}
+
+
+
+
+
+
+
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
@@ -1073,6 +1138,7 @@ $pdf->Cell(-17, 5, '', 0, 0);
 $pdf->Cell(20, 5, '', 1);
 $pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
+
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
@@ -1166,6 +1232,37 @@ $pdf->Cell(-17, 5, '', 0, 0);
 $pdf->Cell(20, 5, '', 1);
 $pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
+
+
+if ($defib == 'Yes' || $defib == 'No') {
+  $checkmark = "\x34";
+}
+
+$pdf->SetFont('ZapfDingbats', '', 8);
+
+if ($defib == 'Yes') {
+  $pdf->Text($rect2_x + -151.7, $rect1_x +  38.6, $checkmark);
+} elseif ($defib == 'No') {
+  $pdf->Text($rect2_x + -141.7, $rect1_x +   38.6, $checkmark);
+}
+
+
+
+if ($ambulance_req == 'Yes' || $ambulance_req == 'No') {
+  $checkmark = "\x34";
+}
+
+$pdf->SetFont('ZapfDingbats', '', 8);
+
+if ($ambulance_req == 'Yes') {
+  $pdf->Text($rect2_x + -114.7, $rect1_x +  33.6, $checkmark);
+} elseif ($ambulance_req == 'No') {
+  $pdf->Text($rect2_x + -104.7, $rect1_x +   33.6, $checkmark);
+}
+
+
+
+
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', '', 8);
@@ -1353,6 +1450,59 @@ $pdf->Cell($rect3_x - $rect2_x - $rect_size);
 $pdf->Cell(-53, 5, '', 0, 0);
 $pdf->Cell(0, 5, 'Generator', 0, 0);
 $pdf->Ln();
+
+
+
+$interventionsData = explode(',', $interventions);
+
+
+foreach ($interventionsData as $intervention) {
+  if (
+    $intervention == 'colstruct' || $intervention == 'boom' || $intervention == 'barricade' || $intervention == 'confined' || $intervention == 'outrigger'
+    || $intervention == 'structural' || $intervention == 'water' || $intervention == 'tower' || $intervention == 'vehicular' || $intervention == 'patient' || $intervention == 'winch'
+    || $intervention == 'wildlife' || $intervention == 'angle' || $intervention == 'hazmat' || $intervention == 'generator'
+  ) {
+    $checkmark = "\x34";
+  }
+  $pdf->SetFont('ZapfDingbats', '', 8);
+
+  if ($intervention == 'colstruct') {
+    $pdf->Text($rect2_x + -52.7, $rect1_x + 126.5, $checkmark);
+  } elseif ($intervention == 'boom') {
+    $pdf->Text($rect2_x + 0.3, $rect1_x + 126.5, $checkmark);
+  } elseif ($intervention == 'barricade') {
+    $pdf->Text($rect2_x + 25.4, $rect1_x +  126.5, $checkmark);
+  } elseif ($intervention == 'confined') {
+    $pdf->Text($rect2_x + -52.7, $rect1_x + 131.5, $checkmark);
+  } elseif ($intervention == 'outrigger') {
+    $pdf->Text($rect2_x + 0.3, $rect1_x + 131.5, $checkmark);
+  } elseif ($intervention == 'structural') {
+    $pdf->Text($rect2_x + 25.4, $rect1_x + 131.5, $checkmark);
+  } elseif ($intervention == 'water') {
+    $pdf->Text($rect2_x + -52.7, $rect1_x + 136.5, $checkmark);
+  } elseif ($intervention == 'tower') {
+    $pdf->Text($rect2_x + 0.3, $rect1_x + 136.5, $checkmark);
+  } elseif ($intervention == 'vehicular') {
+    $pdf->Text($rect2_x + 25.4, $rect1_x + 136.5, $checkmark);
+  } elseif ($intervention == 'patient') {
+    $pdf->Text($rect2_x + -52.7, $rect1_x + 141.5, $checkmark);
+  } elseif ($intervention == 'winch') {
+    $pdf->Text($rect2_x + 0.3, $rect1_x + 141.5, $checkmark);
+  } elseif ($intervention == 'wildlife') {
+    $pdf->Text($rect2_x + 25.4, $rect1_x + 141.5, $checkmark);
+  } elseif ($intervention == 'angle') {
+    $pdf->Text($rect2_x +  -52.7, $rect1_x + 146.5, $checkmark);
+  } elseif ($intervention == 'hazmat') {
+    $pdf->Text($rect2_x + 0.3, $rect1_x + 146.5, $checkmark);
+  } elseif ($intervention == 'generator') {
+    $pdf->Text($rect2_x + 25.4, $rect1_x + 146.5, $checkmark);
+  }
+}
+
+
+
+
+
 
 $pdf->SetXY(90, $pdf->GetY());
 $pdf->SetFont('Arial', 'B', 8);
