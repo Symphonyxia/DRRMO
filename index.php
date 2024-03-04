@@ -852,12 +852,12 @@ include 'header.php';
                                         </td>
 
 
-                                        <th>Terrain:</th>
                                         <td>
 
 
                                             <ul style="list-style-type: none; padding-left: 0;">
-                                                <li>
+                                            <p style = "font-weight: bold;"> Terrain:</p>
+                                            <li>
                                                     <label>
                                                         <input type="checkbox" class="form-check-input terrain-checkbox-group" name="terrain[]" value="Concrete"> Concrete
                                                     </label>

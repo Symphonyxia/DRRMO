@@ -425,9 +425,8 @@ if (isset($_GET['id'])) {
                                                 </ul>
                                             </label>
                                         </td>
-                                        <td>Terrain:</td>
                                         <td>
-                                            <br>
+                                        <p style = "font-weight: bold;"> Terrain:</p>
                                             <label class="form-check-label">
                                                 <ul style="list-style-type: none; padding-left: 0;">
                                                     <li>
