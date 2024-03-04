@@ -169,14 +169,14 @@ $pdf->Cell(-164, 5, '', 0, 0);
 $pdf->Cell(0, 5, 'Response to Scene ', 0, 0);
 $pdf->Cell($rect3_x - $rect2_x - $rect_size);
 $pdf->Cell(-144, 5, '', 0, 0);
-$pdf->Cell(0, 5, ($response_type != 'Standby' && $response_type != 'Response') ? "Others: $response_type" : 'Others:_______', 0, 0);
+$pdf->Cell(0, 5, ($response_type != 'Standby' && $response_type != 'Response to Scene') ? "Others: $response_type" : 'Others:_______', 0, 0);
 $pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Cell(30, 5, 'At Scene ', 1);
 $pdf->Cell(20, 5, $atscn, 1);
 $pdf->Ln();
 
 $checkmark = '';
-if ($response_type == 'Standby' || $response_type == 'Response' || $response_type == 'Others') {
+if ($response_type == 'Standby' || $response_type == 'Response to Scene' || $response_type == 'Others') {
   $checkmark = "\x34";
 } else {
 
@@ -189,7 +189,7 @@ $pdf->SetFont('ZapfDingbats', '', 8);
 
 if ($response_type == 'Standby') {
   $pdf->Text($rect1_x + 0.3, $rect_y + 2.5, $checkmark);
-} elseif ($response_type == 'Response') {
+} elseif ($response_type == 'Response to Scene') {
   $pdf->Text($rect2_x + 0.5, $rect_y + 2.5, $checkmark);
 } else {
 

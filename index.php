@@ -1237,7 +1237,7 @@ include 'header.php';
 
                                                 <div style="flex: 20%; padding-right: 10px;">
                                                     <label>
-                                                        <input type="checkbox" class="form-check-input" name="interventions[]" value=" "> High Angle
+                                                        <input type="checkbox" class="form-check-input" name="interventions[]" value="angle"> High Angle
                                                         Rescue
                                                     </label>
                                                 </div>
