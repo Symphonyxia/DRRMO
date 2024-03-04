@@ -1329,7 +1329,7 @@ include 'header.php';
             <input type="file" name="images" accept="image/*" id="image-input" onchange="previewImage(this)">
             <br><br>
 
-            <div class="imageform" style="height: 300px; width: 100%; display: flex; justify-content: center; border: 1px solid #ccc;">
+            <div class="imageform" style="height: 100%; width: 100%; display: flex; justify-content: center; border: 1px solid #ccc;">
                 <img id="selected-image-preview" src="#" alt="Image Preview" style="max-width: 100%; max-height: 100%;">
             </div>
 
@@ -1343,7 +1343,7 @@ include 'header.php';
                 }
             </script>
 
-
+            <br>
 
             <table class="table table-bordered">
                 <tbody>
