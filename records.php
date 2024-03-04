@@ -5,20 +5,15 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $database = "drrmo";
-
 $conn = new mysqli($servername, $username, $password, $database);
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Check if the ID is provided in the URL
-if (isset($_GET['id'])) {
-    // Sanitize the input to prevent SQL injection
-    $record_id = $conn->real_escape_string($_GET['id']);
 
-    // Fetch data from usar table for the specified ID
+if (isset($_GET['id'])) {
+    $record_id = $conn->real_escape_string($_GET['id']);
     $sql = "SELECT * FROM usar WHERE id = $record_id";
     $result = $conn->query($sql);
 
@@ -53,14 +48,10 @@ if (isset($_GET['id'])) {
     <button onclick="printPage()" class='btn btn-primary'>Print</button>
 
     <script>
-        // JavaScript function to print the current page
         function printPage() {
-            // Get the current page URL
             var currentPageUrl = window.location.href;
-            // Append the page ID to the URL
-            var pageId = currentPageUrl.split('?')[1]; // Assuming the page ID is passed as a query parameter
+            var pageId = currentPageUrl.split('?')[1];
             var urlWithId = 'default.php?' + pageId;
-            // Open the new URL in a new tab for printing
             window.open(urlWithId, '_blank');
         }
     </script>
@@ -234,13 +225,13 @@ if (isset($_GET['id'])) {
                                     <input type="checkbox" class="form-check-input" id="otherLocTypeCheckbox" disabled> Others:
                                     <input type="text" name="loc_type_other" id="loc_type_other" value="<?php echo isset($row['loc_type']) && !in_array('', explode(',', $row['loc_type'])) && !in_array('', explode(',', $row['loc_type'])) ? $row['loc_type'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" <?php echo isset($row['loc_type']) && (in_array('', explode(',', $row['loc_type'])) || in_array('', explode(',', $row['loc_type']))) ? 'disabled' : ''; ?> disabled>
                                 </td>
-                                    <td>Depart scene:
+                                <td>Depart scene:
                                     <strong>
                                         <?php echo $row['depart_scene']; ?>
                                     </strong>
                                 </td>
                             </tr>
-                           
+
                             <script>
                                 // Function to update the "Others" checkbox based on the input field value
                                 function updateOthersCheckbox() {
@@ -284,13 +275,13 @@ if (isset($_GET['id'])) {
                                     </label>
                                 </td>
 
-                                
-                                    <td>In service:
+
+                                <td>In service:
                                     <strong>
                                         <?php echo $row['in_service']; ?>
                                     </strong>
                                 </td>
-                        
+
                             </tr>
                             <tr>
                                 <td colspan="14">
@@ -307,19 +298,19 @@ if (isset($_GET['id'])) {
                                     <input type="text" name="call_type_other" id="call_type_other" value="<?php echo isset($row['call_type']) && !in_array('', explode(',', $row['call_type'])) && !in_array('', explode(',', $row['call_type'])) ? $row['call_type'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" <?php echo isset($row['call_type']) && (in_array('', explode(',', $row['call_type'])) || in_array('', explode(',', $row['call_type']))) ? 'disabled' : ''; ?> disabled>
                                 </td>
 
-                                
-                            <script>
-                                function updateOthersCheckbox() {
-                                    var otherCallTypeInput = document.getElementById('call_type_other');
-                                    var otherCallTypeCheckbox = document.getElementById('otherCallTypeCheckbox');
-                                    otherCallTypeCheckbox.checked = otherCallTypeInput.value.trim() !== '';
-                                }
 
-                                document.getElementById('call_type_other').addEventListener('input', updateOthersCheckbox);
+                                <script>
+                                    function updateOthersCheckbox() {
+                                        var otherCallTypeInput = document.getElementById('call_type_other');
+                                        var otherCallTypeCheckbox = document.getElementById('otherCallTypeCheckbox');
+                                        otherCallTypeCheckbox.checked = otherCallTypeInput.value.trim() !== '';
+                                    }
 
-                                updateOthersCheckbox();
-                            </script>
-                                   <td>Operation Team:
+                                    document.getElementById('call_type_other').addEventListener('input', updateOthersCheckbox);
+
+                                    updateOthersCheckbox();
+                                </script>
+                                <td>Operation Team:
                                     <strong>
                                         <?php echo $row['operation_team']; ?>
                                     </strong>
@@ -639,7 +630,7 @@ if (isset($_GET['id'])) {
 
                                                     foreach ($interventions as $key => $value) {
                                                         echo '<div style="flex: 34%; padding-right: 10px;">';
-                                                        echo '<input type="checkbox" class="form-check-input" id="' . $key . '" name="interventions[]" value="'. $key .'"disabled';
+                                                        echo '<input type="checkbox" class="form-check-input" id="' . $key . '" name="interventions[]" value="' . $key . '"disabled';
                                                         // Check if the intervention key exists in the $checkedInterventions array
                                                         if (in_array($key, $checkedInterventions)) {
                                                             echo ' checked';
@@ -750,36 +741,34 @@ if (isset($_GET['id'])) {
 
             <?php
             if (isset($_GET['id'])) {
-                // Sanitize the input to prevent SQL injection
                 $record_id = $conn->real_escape_string($_GET['id']);
 
-                // Fetch the data including images from usar table for the specified ID
                 $sql = "SELECT * FROM usar WHERE id = $record_id";
                 $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
-                    // Fetch the record
+
                     $row = $result->fetch_assoc();
 
-                    // Assign fetched values to variables
+
                     $map_loc = $row['map_loc'];
                     $longitude = $row['longitude'];
                     $latitude = $row['latitude'];
                     $dist_ratio = $row['dist_ratio'];
                     $recommendation = $row['recommendation'];
 
-                    // Fetch the image filenames from usar table for the specified ID
+
                     $sql_images = "SELECT images FROM usar WHERE id = $record_id";
                     $result_images = $conn->query($sql_images);
 
                     if ($result_images->num_rows > 0) {
-                        // Output the fetched images as <img> tags
+
                         while ($row_images = $result_images->fetch_assoc()) {
                             $imagePath = "resources/gallery/" . $row_images['images'];
                             echo "<img src='{$imagePath}' alt='Uploaded Image' class='mx-auto d-block' style='max-width: 100%; height: auto;'>";
                         }
                     } else {
-                        // No images found for the specified ID
+
                         echo "No images found";
                     }
                 }

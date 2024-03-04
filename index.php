@@ -92,14 +92,19 @@ include 'header.php';
                             <tr>
                                 <td colspan="14">
                                     <strong>Response Type:</strong>
+                                    <label>
 
-                                    <input type="checkbox" class="form-check-input response-checkbox-group" name="response_type[]" value="Standby"> Standby
-
-                                    <input type="checkbox" class="form-check-input response-checkbox-group" name="response_type[]" value="Response to Scene"> Response to Scene
-
-                                    <input type="checkbox" class="form-check-input response-checkbox-group" id="otherResponseTypeCheckbox" name="response_type[]" value=""> Others:
+                                        <input type="checkbox" class="form-check-input response-checkbox-group" name="response_type[]" value="Standby"> Standby
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="form-check-input response-checkbox-group" name="response_type[]" value="Response to Scene"> Response to Scene
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="form-check-input response-checkbox-group" id="otherResponseTypeCheckbox" name="response_type[]" value=""> Others:
+                                    </label>
 
                                     <input type="text" name="response_type_other" id="responseTypeOther" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;" disabled>
+
                                 </td>
                                 <th>Enroute:
                                     <input type="text" name="enroute" value="">
@@ -117,11 +122,7 @@ include 'header.php';
 
                                 $(document).ready(function() {
                                     $('.response-checkbox-group').click(function() {
-                                        if ($(this).attr('id') !== 'otherResponseTypeCheckbox') {
-                                            $('#otherResponseTypeCheckbox').prop('checked', false);
-                                        } else {
-                                            $('#otherResponseTypeCheckbox').prop('checked', true);
-                                        }
+
                                         $('.response-checkbox-group').not(this).prop('checked', false);
                                     });
                                 });
@@ -131,12 +132,25 @@ include 'header.php';
 
                             <tr>
                                 <td colspan="14"> <strong> Location Type: </strong>
-                                    <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Airport"> Airport
-                                    <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Hospital"> Hospital
-                                    <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Nursing Home"> Nursing Home
-                                    <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Home/Residence"> Home/Residence
-                                    <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Bridge"> Bridge
-                                    <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Restuarant/Bar"> Restaurant/Bar
+                                    <label>
+                                        <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Airport"> Airport
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Hospital"> Hospital
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Nursing Home"> Nursing Home
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Home/Residence"> Home/Residence
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Bridge"> Bridge
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Restuarant/Bar"> Restaurant/Bar
+                                    </label>
+
                                 </td>
                                 <th>At scene:
                                     <input type="text" name="at_scene" value="">
@@ -145,15 +159,28 @@ include 'header.php';
 
                             <tr>
                                 <td colspan="14">
-                                    <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Farm"> Farm
-                                    <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="School"> School
-                                    <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Clinic/RHU"> Clinic/RHU
-                                    <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Highway/Street"> Highway/Street
-                                    <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Public Building"> Public Building
 
-                                    <input type="checkbox" class="form-check-input loc-checkbox-group" id="otherLocTypeCheckbox" name="loc_type[]" value=""> Others:
+                                    <label>
+                                        <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Farm"> Farm
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="School"> School
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Clinic/RHU"> Clinic/RHU
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Highway/Street"> Highway/Street
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="form-check-input single-checkbox-group" name="loc_type[]" value="Public Building"> Public Building
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="form-check-input single-checkbox-group" id="otherLocTypeCheckbox" name="loc_type[]" value=""> Others:
+                                    </label>
 
                                     <input type="text" name="loc_type_other" id="locTypeOther" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;" disabled>
+
                                 </td>
                                 <script>
                                     document.getElementById('otherLocTypeCheckbox').addEventListener('change', function() {
@@ -166,7 +193,7 @@ include 'header.php';
 
                                     $(document).ready(function() {
                                         $('.single-checkbox-group').click(function() {
-                                            $('#otherLocTypeCheckbox').prop('checked', false);
+
                                             $('.single-checkbox-group').not(this).prop('checked', false);
                                         });
                                     });
@@ -179,26 +206,35 @@ include 'header.php';
                             <tr>
                                 <td colspan="14"> <strong> Type of Call:</strong>
 
-                                    <input type="checkbox" class="form-check-input call-checkbox-group" name="call_type[]" value="Fire">
-                                    Fire
+                                    <label>
 
+                                        <input type="checkbox" class="form-check-input call-checkbox-group" name="call_type[]" value="Fire">
+                                        Fire
+                                    </label>
+                                    <label>
 
-                                    <input type="checkbox" class="form-check-input call-checkbox-group" name="call_type[]" value="Vehicular Accident"> Vehicular Accident
+                                        <input type="checkbox" class="form-check-input call-checkbox-group" name="call_type[]" value="Vehicular Accident"> Vehicular Accident
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="form-check-input call-checkbox-group" name="call_type[]" value="Earthquake"> Earthquake
 
-                                    <input type="checkbox" class="form-check-input call-checkbox-group" name="call_type[]" value="Earthquake"> Earthquake
-
-
-                                    <input type="checkbox" class="form-check-input call-checkbox-group" name="call_type[]" value="Collapse">
-                                    Collapse
-
-                                    <input type="checkbox" class="form-check-input call-checkbox-group" name="call_type[]" value="Suicide">
-                                    Suicide
-
-                                    <input type="checkbox" class="form-check-input call-checkbox-group" name="call_type[]" value="Drowning">
-                                    Drowning
-
-                                    <input type="checkbox" class="form-check-input call-checkbox-group" name="call_type[]" value="Storm Surge">
-                                    Storm Surge
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="form-check-input call-checkbox-group" name="call_type[]" value="Collapse">
+                                        Collapse
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="form-check-input call-checkbox-group" name="call_type[]" value="Suicide">
+                                        Suicide
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="form-check-input call-checkbox-group" name="call_type[]" value="Drowning">
+                                        Drowning
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="form-check-input call-checkbox-group" name="call_type[]" value="Storm Surge">
+                                        Storm Surge
+                                    </label>
 
 
 
@@ -217,16 +253,23 @@ include 'header.php';
                             <tr>
                                 <td colspan="14">
 
-                                    <input type="checkbox" class="form-check-input call-checkbox-group" name="call_type[]" value="Flooding">
-                                    Flooding
 
-                                    <input type="checkbox" class="form-check-input call-checkbox-group" name="call_type[]" value="Roving/Inspection">
-                                    Roving/Inspection
+                                    <label>
+                                        <input type="checkbox" class="form-check-input call-checkbox-group" name="call_type[]" value="Flooding">
+                                        Flooding
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" class="form-check-input call-checkbox-group" name="call_type[]" value="Roving/Inspection">
+                                        Roving/Inspection
+                                    </label>
+                                    <label>
 
-
-                                    <input type="checkbox" class="form-check-input call-checkbox-group" id="otherCallTypeCheckbox" name="call_type[]" value=" "> Others:
+                                        <input type="checkbox" class="form-check-input call-checkbox-group" id="otherCallTypeCheckbox" name="call_type[]" value=" "> Others:
+                                    </label>
 
                                     <input type="text" name="call_type_other" id="callTypeOther" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;" disabled>
+
+
                                 </td>
 
                                 </td>
@@ -739,32 +782,56 @@ include 'header.php';
                                             <ul style="list-style-type: none; padding-left: 0;">
                                                 <li>
 
-                                                    <input type="checkbox" class="form-check-input weather-checkbox-group" name="weather[]" value="Normal">
-                                                    Normal
+                                                    <label>
+
+                                                        <input type="checkbox" class="form-check-input weather-checkbox-group" name="weather[]" value="Normal">
+                                                        Normal
+                                                    </label>
+
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input weather-checkbox-group" name="weather[]" value="Hot/Humid"> Hot/Humid
+
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input weather-checkbox-group" name="weather[]" value="Hot/Humid"> Hot/Humid
+                                                    </label>
+
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input weather-checkbox-group" name="weather[]" value="Cold"> Cold
+
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input weather-checkbox-group" name="weather[]" value="Cold"> Cold
+                                                    </label>
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input weather-checkbox-group" name="weather[]" value="Light Rain"> Light Rain
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input weather-checkbox-group" name="weather[]" value="Light Rain"> Light Rain
+                                                    </label>
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input weather-checkbox-group" name="weather[]" value="Heavy Rain"> Heavy Rain
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input weather-checkbox-group" name="weather[]" value="Heavy Rain"> Heavy Rain
+                                                    </label>
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input weather-checkbox-group" name="weather[]" value="Hail"> Hail
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input weather-checkbox-group" name="weather[]" value="Hail"> Hail
+
+                                                    </label>
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input weather-checkbox-group" name="weather[]" value="Windy"> Windy
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input weather-checkbox-group" name="weather[]" value="Windy"> Windy
+                                                    </label>
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input weather-checkbox-group" name="weather[]" value="Thunderstorm"> Thunderstorm
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input weather-checkbox-group" name="weather[]" value="Thunderstorm"> Thunderstorm
+                                                    </label>
                                                 </li>
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input weather-checkbox-group" name="weather[]" value="Sun and Rain"> Sun and Rain
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input weather-checkbox-group" name="weather[]" value="Sun and Rain"> Sun and Rain
+                                                    </label>
                                                 </li>
                                                 <li>
                                                     <label>Signal:
@@ -798,29 +865,31 @@ include 'header.php';
 
                                             <ul style="list-style-type: none; padding-left: 0;">
                                                 <li>
-                                                    <input type="checkbox" class="form-check-input terrain-checkbox-group" name="terrain[]" value="Concrete"> Concrete
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input terrain-checkbox-group" name="terrain[]" value="Concrete"> Concrete
+                                                    </label>
                                                 </li>
-                                                <li>
-                                                    <input type="checkbox" class="form-check-input terrain-checkbox-group" name="terrain[]" value="Dirt"> Dirt
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" class="form-check-input terrain-checkbox-group" name="terrain[]" value="Mud"> Mud
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" class="form-check-input terrain-checkbox-group" name="terrain[]" value="Sand"> Sand
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" class="form-check-input terrain-checkbox-group" name="terrain[]" value="Gravel/Rock"> Gravel/Rock
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" class="form-check-input terrain-checkbox-group" name="terrain[]" value="Inclined"> Inclined
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" class="form-check-input terrain-checkbox-group" name="terrain[]" value="Swamp"> Swamp
-                                                </li>
-                                                <li>
-                                                    <input type="checkbox" class="form-check-input terrain-checkbox-group" name="terrain[]" value="Unstable"> Unstable
-                                                </li>
+                                                <li> <label>
+                                                        <input type="checkbox" class="form-check-input terrain-checkbox-group" name="terrain[]" value="Dirt"> Dirt
+                                                    </label> </li>
+                                                <li> <label>
+                                                        <input type="checkbox" class="form-check-input terrain-checkbox-group" name="terrain[]" value="Mud"> Mud
+                                                    </label> </li>
+                                                <li> <label>
+                                                        <input type="checkbox" class="form-check-input terrain-checkbox-group" name="terrain[]" value="Sand"> Sand
+                                                    </label> </li>
+                                                <li> <label>
+                                                        <input type="checkbox" class="form-check-input terrain-checkbox-group" name="terrain[]" value="Gravel/Rock"> Gravel/Rock
+                                                    </label> </li>
+                                                <li> <label>
+                                                        <input type="checkbox" class="form-check-input terrain-checkbox-group" name="terrain[]" value="Inclined"> Inclined
+                                                    </label> </li>
+                                                <li> <label>
+                                                        <input type="checkbox" class="form-check-input terrain-checkbox-group" name="terrain[]" value="Swamp"> Swamp
+                                                    </label> </li>
+                                                <li> <label>
+                                                        <input type="checkbox" class="form-check-input terrain-checkbox-group" name="terrain[]" value="Unstable"> Unstable
+                                                    </label> </li>
                                             </ul>
                                         </td>
 
@@ -834,21 +903,30 @@ include 'header.php';
 
                                     <tr>
                                         <td colspan="6"> <strong> CPR: </strong>
+                                            <label>
 
-                                            <input type="checkbox" class="form-check-input cpr-checkbox-group" name="cpr" value="Yes">
-                                            Yes
-                                            <input type="checkbox" class="form-check-input cpr-checkbox-group" name="cpr" value="No">
-                                            No
+                                                <input type="checkbox" class="form-check-input cpr-checkbox-group" name="cpr" value="Yes">
+                                                Yes
+                                            </label>
+                                            <label>
+                                                <input type="checkbox" class="form-check-input cpr-checkbox-group" name="cpr" value="No">
+                                                No
+                                            </label>
                                             <br>
-                                            <strong> Time Started:</strong>
-                                            <input type="time" name="time_start" value="">
+                                            <label>
+                                                <strong> Time Started:</strong>
+                                                <input type="time" name="time_start" value="">
+                                            </label>
                                             <br>
-                                            <strong>Time End:</strong>
-                                            <input type="time" name="time_end" value="">
+                                            <label>
+                                                <strong>Time End:</strong>
+                                                <input type="time" name="time_end" value="">
+                                            </label>
                                             <br>
-                                            <strong> Cycle:</strong>
-                                            <input type="text" name="cycle" value="">
-
+                                            <label>
+                                                <strong> Cycle:</strong>
+                                                <input type="text" name="cycle" value="">
+                                            </label>
                                             <script>
                                                 $(document).ready(function() {
                                                     $('.cpr-checkbox-group').click(function() {
@@ -861,11 +939,15 @@ include 'header.php';
                                         <td colspan="6"> <strong> Casualty: </strong>
 
 
+                                            <label>
+                                                <input type="checkbox" class="form-check-input casualty-checkbox-group" name="casualty" value="Yes">
+                                                Yes
+                                            </label>
+                                            <label>
+                                                <input type="checkbox" class="form-check-input casualty-checkbox-group" name="casualty" value="No">
+                                                No
+                                            </label>
 
-                                            <input type="checkbox" class="form-check-input casualty-checkbox-group" name="casualty" value="Yes">
-                                            Yes
-                                            <input type="checkbox" class="form-check-input casualty-checkbox-group" name="casualty" value="No">
-                                            No
                                             <br>
                                             No. of Cas: <input type="number" name="no_cas" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
 
@@ -881,12 +963,15 @@ include 'header.php';
                                     </tr>
                                     <tr>
                                         <td colspan="6"> <strong> AED/Defib: </strong>
+                                            <label>
 
-
-                                            <input type="checkbox" class="form-check-input defib-checkbox-group" name="defib" value="Yes">
-                                            Yes
-                                            <input type="checkbox" class="form-check-input defib-checkbox-group" name="defib" value="No">
-                                            No
+                                                <input type="checkbox" class="form-check-input defib-checkbox-group" name="defib" value="Yes">
+                                                Yes
+                                            </label>
+                                            <label>
+                                                <input type="checkbox" class="form-check-input defib-checkbox-group" name="defib" value="No">
+                                                No
+                                            </label>
                                         </td>
 
                                         <script>
@@ -898,9 +983,12 @@ include 'header.php';
                                         </script>
                                         <td colspan="6"> <strong> Ambulance req: </strong>
 
-
-                                            <input type="checkbox" class="form-check-input ambulance-checkbox-group" name="ambulance_req" value="Yes"> Yes
-                                            <input type="checkbox" class="form-check-input ambulance-checkbox-group" name="ambulance_req" value="No"> No
+                                            <label>
+                                                <input type="checkbox" class="form-check-input ambulance-checkbox-group" name="ambulance_req" value="Yes"> Yes
+                                            </label>
+                                            <label>
+                                                <input type="checkbox" class="form-check-input ambulance-checkbox-group" name="ambulance_req" value="No"> No
+                                            </label>
                                             <br>
                                             specify: <input type="text" name="amb_spec" value="" style="border: none; background-color: transparent; border-bottom: 1px solid black;">
                                         </td>
@@ -941,8 +1029,10 @@ include 'header.php';
                                     <th>Checked</th>
                                     <th>Missing</th>
                                     <tr>
-                                        <td><input type="hidden" name="equip_name[]" value="Self-Contained Breathing Apparatus">Self-Contained Breathing
-                                            Apparatus</td>
+                                        <td>
+                                            <input type="hidden" name="equip_name[]" value="Self-Contained Breathing Apparatus">Self-Contained Breathing
+                                            Apparatus
+                                        </td>
                                         <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Used"></td>
                                         <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Checked"></td>
                                         <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Missing"></td>
@@ -1062,71 +1152,102 @@ include 'header.php';
                                         <td colspan="6" class="checkbox-group">
                                             <div style="display: flex; flex-wrap: wrap;">
                                                 <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="colstruct">
-                                                    Collapse Structure
-                                                    Rescue
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input" name="interventions[]" value="colstruct">
+                                                        Collapse Structure
+                                                        Rescue
+                                                    </label>
                                                 </div>
                                                 <div style="flex: 10%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="boom"> Boom
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input" name="interventions[]" value="boom"> Boom
+                                                    </label>
                                                 </div>
                                                 <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="barricade"> Barricade
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input" name="interventions[]" value="barricade"> Barricade
+                                                    </label>
                                                 </div>
 
                                             </div>
                                             <div style="display: flex; flex-wrap: wrap;">
                                                 <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="confined"> Confined
-                                                    Space Rescue
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input" name="interventions[]" value="confined"> Confined
+                                                        Space Rescue
+                                                    </label>
                                                 </div>
                                                 <div style="flex: 10%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="outrigger"> Outrigger
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input" name="interventions[]" value="outrigger"> Outrigger
+                                                    </label>
                                                 </div>
                                                 <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="structural">
-                                                    Structural
-                                                    Extrication
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input" name="interventions[]" value="structural">
+                                                        Structural
+                                                        Extrication
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div style="display: flex; flex-wrap: wrap;">
+
+
+                                                <div style="flex: 20%; padding-right: 10px;">
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input" name="interventions[]" value="water"> Water Rescue
+                                                    </label>
+                                                </div>
+                                                <div style="flex: 10%; padding-right: 10px;">
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input" name="interventions[]" value="tower"> Tower Light
+                                                    </label>
+                                                </div>
+                                                <div style="flex: 20%; padding-right: 10px;">
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input" name="interventions[]" value="vehicular"> Vehicular
+                                                        Extrication
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                            <div style="display: flex; flex-wrap: wrap;">
+                                                <div style="flex: 20%; padding-right: 10px;">
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input" name="interventions[]" value="patient"> Patient
+                                                        Retrieval
+                                                    </label>
+                                                </div>
+                                                <div style="flex: 10%; padding-right: 10px;">
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input" name="interventions[]" value="winch"> Winch
+                                                    </label>
+                                                </div>
+                                                <div style="flex: 20%; padding-right: 10px;">
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input" name="interventions[]" value="wildlife"> Wildlife Rescue
+                                                    </label>
                                                 </div>
                                             </div>
 
                                             <div style="display: flex; flex-wrap: wrap;">
 
                                                 <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="water"> Water Rescue
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input" name="interventions[]" value=" "> High Angle
+                                                        Rescue
+                                                    </label>
                                                 </div>
                                                 <div style="flex: 10%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="tower"> Tower Light
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input" name="interventions[]" value="hazmat"> HazMat
+                                                    </label>
                                                 </div>
                                                 <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="vehicular"> Vehicular
-                                                    Extrication
-                                                </div>
-
-                                            </div>
-                                            <div style="display: flex; flex-wrap: wrap;">
-                                                <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="patient"> Patient
-                                                    Retrieval
-                                                </div>
-                                                <div style="flex: 10%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="winch"> Winch
-                                                </div>
-                                                <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="wildlife"> Wildlife Rescue
-                                                </div>
-                                            </div>
-
-                                            <div style="display: flex; flex-wrap: wrap;">
-
-                                                <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="angle"> High Angle
-                                                    Rescue
-                                                </div>
-                                                <div style="flex: 10%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="hazmat"> HazMat
-                                                </div>
-                                                <div style="flex: 20%; padding-right: 10px;">
-                                                    <input type="checkbox" class="form-check-input" name="interventions[]" value="generator"> Generator
+                                                    <label>
+                                                        <input type="checkbox" class="form-check-input" name="interventions[]" value="generator"> Generator
+                                                    </label>
                                                 </div>
                                             </div>
                                         </td>

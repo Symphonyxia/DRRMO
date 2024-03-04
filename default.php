@@ -1653,17 +1653,28 @@ $pdf->Ln();
 
 
 $pdf->Cell(1);
-$imagePath = 'resources/gallery/hope.png';
-$imageWidth = 150;
-$imageHeight = 150;
+$imagePaths = array();
 
-$imageX = ($pdf->GetPageWidth() - $imageWidth) / 2;
-$imageY = $pdf->GetY();
+$sql_images = "SELECT images FROM usar WHERE id = $id";
+$result_images = $conn->query($sql_images);
 
-$pdf->Image($imagePath, $imageX, $imageY, $imageWidth, $imageHeight);
-$pdf->Cell(200, 150, '', 1);
-$pdf->Ln();
+if ($result_images->num_rows > 0) {
+  while ($row_images = $result_images->fetch_assoc()) {
+    $imagePaths[] = "resources/gallery/" . $row_images['images'];
+  }
 
+  foreach ($imagePaths as $imagePath) {
+
+    $imageWidth = 150;
+    $imageHeight = 150;
+    $imageX = ($pdf->GetPageWidth() - $imageWidth) / 2;
+    $imageY = $pdf->GetY();
+
+    $pdf->Image($imagePath, $imageX, $imageY, $imageWidth, $imageHeight);
+    $pdf->Cell(200, 150, '', 1);
+    $pdf->Ln();
+  }
+}
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', 'B', 8);
