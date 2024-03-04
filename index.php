@@ -55,7 +55,7 @@ include 'header.php';
                         var beginMileage = parseFloat(document.getElementById('begin_mileage_1').value) || 0;
                         var totalMileage = endMileage - beginMileage;
                         document.getElementById('total_mileage').textContent = totalMileage;
-                        document.getElementById('total_mileage_input').value = totalMileage; // Set the value of the hidden input
+                        document.getElementById('total_mileage_input').value = totalMileage;
                     }
                 </script>
 
@@ -79,8 +79,8 @@ include 'header.php';
 
                         <tbody>
                             <tr>
-                                <th colspan="10">UNIT/VEHICLE NAME:<input type="text" name="unit" value=""></th>
-                                <th>IFR No.:<input type="text" name="irf_no" value=""></th>
+                                <th colspan="10">UNIT/VEHICLE NAME: <input type="text" name="unit" value=" "></th>
+                                <th>IFR No.: <input type="text" name="irf_no" value=""></th>
                                 <th>DATE: <input type="date" name="date" value=""></th>
                                 <th colspan="6"></th>
                             </tr>
@@ -682,10 +682,10 @@ include 'header.php';
 
                                     function updateSrrServicesDropdown(selectedTypes) {
                                         const srrSelect = $("#srrServicesSelect");
-                                        srrSelect.empty(); // Clear existing options
+                                        srrSelect.empty();
 
                                         if (selectedTypes.length === 0) {
-                                            // If no type of call is selected, show default option
+
                                             srrSelect.append($('<option>', {
                                                 value: "default",
                                                 text: "Please select a type of call",
@@ -693,7 +693,7 @@ include 'header.php';
                                                 selected: true
                                             }));
                                         } else {
-                                            // If type of call(s) are selected, populate the dropdown with options based on selected type(s)
+
                                             let options = [];
                                             selectedTypes.forEach(function(type) {
                                                 options = options.concat(srrOptions[type]);
@@ -715,10 +715,10 @@ include 'header.php';
                                     });
                                     $("#srrServicesSelect").change(function() {
                                         const selectedService = $(this).val();
-                                        // Save the selected value to a variable named srr_services
+
                                         const srr_services = selectedService;
                                         console.log("Selected SRR service:", srr_services);
-                                        // If you want to do something with the selected value, you can do it here
+
                                     });
                                 });
 
@@ -726,7 +726,7 @@ include 'header.php';
                                     var callTypeOtherInput = document.getElementById('callTypeOther');
                                     callTypeOtherInput.disabled = !this.checked;
                                     if (!this.checked) {
-                                        callTypeOtherInput.value = ''; // Clear the input field if the checkbox is unchecked
+                                        callTypeOtherInput.value = '';
                                     }
                                 });
                             </script>
@@ -777,7 +777,7 @@ include 'header.php';
                             <table class="table table-bordered">
                                 <tbody>
                                     <tr>
-                                        <th colspan="5">Weather</th>
+                                        <th colspan="5">Weather:</th>
                                         <td>
                                             <ul style="list-style-type: none; padding-left: 0;">
                                                 <li>
@@ -847,13 +847,6 @@ include 'header.php';
                                                 </li>
                                             </ul>
 
-                                            <script>
-                                                $(document).ready(function() {
-                                                    $('.weather-checkbox-group').click(function() {
-                                                        $('.weather-checkbox-group').not(this).prop('checked', false);
-                                                    });
-                                                });
-                                            </script>
 
 
                                         </td>
@@ -893,13 +886,7 @@ include 'header.php';
                                             </ul>
                                         </td>
 
-                                        <script>
-                                            $(document).ready(function() {
-                                                $('.terrain-checkbox-group').click(function() {
-                                                    $('.terrain-checkbox-group').not(this).prop('checked', false);
-                                                });
-                                            });
-                                        </script>
+
 
                                     <tr>
                                         <td colspan="6"> <strong> CPR: </strong>
@@ -1022,122 +1009,137 @@ include 'header.php';
 
                         <div class="col-md-6">
                             <table class="table table-bordered">
+                                <style>
+                                    .table-checkbox-input[type="checkbox"] {
+                                        width: 25px;
+                                        height: 25px;
 
+                                        display: inline-block;
+
+                                        vertical-align: middle;
+
+                                    }
+
+
+                                    .table-checkbox-input[type="checkbox"]:checked {
+                                        background-color: blue;
+
+                                    }
+                                </style>
                                 <tbody>
-                                    <th>Equipment</th>
-                                    <th>Used</th>
-                                    <th>Checked</th>
-                                    <th>Missing</th>
+                                    <th style="text-align: center;">Equipment</th>
+                                    <th style="text-align: center;">Used</th>
+                                    <th style="text-align: center;">Checked</th>
+                                    <th style="text-align: center;">Missing</th>
                                     <tr>
                                         <td>
                                             <input type="hidden" name="equip_name[]" value="Self-Contained Breathing Apparatus">Self-Contained Breathing
                                             Apparatus
                                         </td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Missing"></td>
-
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Used"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Checked"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
                                     </tr>
 
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Electric Spreader">Electric
                                             Spreader</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Missing"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Used"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Checked"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Electric Cutter">Electric
                                             Cutter</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Missing"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Used"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Checked"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Electric Ram">Electric Ram
                                         </td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Missing"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Used"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Checked"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Hydraulic Hand Pump">Hydraulic Hand Pump</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Missing"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Used"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Checked"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Hydraulic Combi-tool">Hydraulic Combi-tool</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Missing"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Used"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Checked"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Hydraulic Ram">Hydraulic Ram
                                         </td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Missing"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Used"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Checked"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Chainsaw">Chainsaw</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Missing"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Used"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Checked"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Cutters Edge">Cutters Edge
                                         </td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Missing"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Used"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Checked"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="High Pressure Lift Bag">High
                                             Pressure Lift Bag</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Missing"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Used"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Checked"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="High Lift Jack">High Lift
                                             Jack</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Missing"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Used"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Checked"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Remote Area Lighting System RALS">Remote Area Lighting System
                                             RALS</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Missing"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Used"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Checked"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Ventilation Blower">Ventilation Blower</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Missing"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Used"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Checked"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Tripod and Winch">Tripod and
                                             Winch</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Missing"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Used"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Checked"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Rope Rescue Equipment">Rope
                                             Rescue Equipment</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Missing"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Used"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Checked"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
                                     </tr>
                                     <tr>
                                         <td><input type="hidden" name="equip_name[]" value="Other">Other</td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Used"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Checked"></td>
-                                        <td><input type="checkbox" class="form-check-input" name="equip_status[]" value="Missing"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Used"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Checked"></td>
+                                        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1258,32 +1260,32 @@ include 'header.php';
                                         <th colspan="6" class="text-center">Endorsement</th>
                                     </tr>
                                     <tr>
-                                        <th>Crew</th>
-                                        <th>Designation</th>
+                                        <th>Crew:</th>
+                                        <th>Designation:</th>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="crew[]" value=""></td>
-                                        <td><input type="text" name="designation[]" value=""></td>
+                                        <td style="text-align: center;"><input type="text" name="crew[]" value=""></td>
+                                        <td style="text-align: center;"><input type="text" name="designation[]" value=""></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="crew[]" value=""></td>
-                                        <td><input type="text" name="designation[]" value=""></td>
+                                        <td style="text-align: center;"><input type="text" name="crew[]" value=""></td>
+                                        <td style="text-align: center;"><input type="text" name="designation[]" value=""></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="crew[]" value=""></td>
-                                        <td><input type="text" name="designation[]" value=""></td>
+                                        <td style="text-align: center;"><input type="text" name="crew[]" value=""></td>
+                                        <td style="text-align: center;"><input type="text" name="designation[]" value=""></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="crew[]" value=""></td>
-                                        <td><input type="text" name="designation[]" value=""></td>
+                                        <td style="text-align: center;"><input type="text" name="crew[]" value=""></td>
+                                        <td style="text-align: center;"><input type="text" name="designation[]" value=""></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="crew[]" value=""></td>
-                                        <td><input type="text" name="designation[]" value=""></td>
+                                        <td style="text-align: center;"><input type="text" name="crew[]" value=""></td>
+                                        <td style="text-align: center;"><input type="text" name="designation[]" value=""></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="text" name="crew[]" value=""></td>
-                                        <td><input type="text" name="designation[]" value=""></td>
+                                        <td style="text-align: center;"><input type="text" name="crew[]" value=""></td>
+                                        <td style="text-align: center;"><input type="text" name="designation[]" value=""></td>
                                     </tr>
                                     <tr>
                                         <th colspan="6">Prepared by:

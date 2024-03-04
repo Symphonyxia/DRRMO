@@ -156,7 +156,6 @@ if (isset($_GET['id'])) {
                                 </td>
                             </tr>
                             <script>
-                                // Function to update the "Others" checkbox based on the input field value
                                 function updateOthersCheckbox() {
                                     var otherResponseTypeInput = document.getElementById('response_type_other');
                                     var otherResponseTypeCheckbox = document.getElementById('otherResponseTypeCheckbox');
@@ -233,7 +232,6 @@ if (isset($_GET['id'])) {
                             </tr>
 
                             <script>
-                                // Function to update the "Others" checkbox based on the input field value
                                 function updateOthersCheckbox() {
                                     var otherLocTypeInput = document.getElementById('loc_type_other');
                                     var otherLocTypeCheckbox = document.getElementById('otherLocTypeCheckbox');
@@ -622,8 +620,6 @@ if (isset($_GET['id'])) {
                                                         'hazmat' => 'HazMat',
                                                         'generator' => 'Generator'
                                                     ];
-                                                    // echo "<pre>";
-                                                    // print_r($interventions);
 
 
                                                     echo '<div style="display: flex; flex-wrap: wrap;">';
@@ -631,15 +627,12 @@ if (isset($_GET['id'])) {
                                                     foreach ($interventions as $key => $value) {
                                                         echo '<div style="flex: 34%; padding-right: 10px;">';
                                                         echo '<input type="checkbox" class="form-check-input" id="' . $key . '" name="interventions[]" value="' . $key . '"disabled';
-                                                        // Check if the intervention key exists in the $checkedInterventions array
+
                                                         if (in_array($key, $checkedInterventions)) {
                                                             echo ' checked';
                                                         }
                                                         echo '>' . $value;
-                                                        // echo '<br>Key: <label for="' . $key . '">' . $key . '</label><br>';
-                                                        // echo 'Checked interventions: ';
 
-                                                        // print_r($checkedInterventions);
                                                         echo '</div>';
                                                     }
                                                     echo '</div>';
@@ -655,19 +648,19 @@ if (isset($_GET['id'])) {
 
 
                                             <?php
-                                            // Check if the ID is provided in the URL
+
                                             if (isset($_GET['id'])) {
-                                                // Sanitize the input to prevent SQL injection
+
                                                 $id = $_GET['id'];
 
-                                                // SQL query to fetch crew members and their designations from the usar table based on the current page ID
+
                                                 $sql = "SELECT crew, designation FROM usar WHERE id = :id";
 
-                                                // Prepare and execute the query
+
                                                 $stmt = $pdo->prepare($sql);
                                                 $stmt->execute(['id' => $id]);
 
-                                                // Fetch crew members and their designations as associative arrays
+
                                                 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                                                 if ($rows) {
@@ -679,13 +672,13 @@ if (isset($_GET['id'])) {
                                                     echo '    <th colspan="2" >Designation</th>';
                                                     echo '</tr>';
 
-                                                    // Display crew members and their designations
+
                                                     foreach ($rows as $row) {
-                                                        // Split the crew members and designations by comma
+
                                                         $crew_members = explode(',', $row['crew']);
                                                         $designations = explode(',', $row['designation']);
 
-                                                        // Iterate over each pair
+
                                                         foreach (array_map(null, $crew_members, $designations) as [$crew, $designation]) {
                                                             echo '<tr>';
                                                             echo '    <td  colspan="2" >' . $crew . '</td>';

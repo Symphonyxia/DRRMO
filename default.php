@@ -263,10 +263,9 @@ $pdf->Rect($rect4_x, $rect_y, $rect_size, $rect_size);
 $pdf->Rect($rect5_x, $rect_y, $rect_size, $rect_size);
 $pdf->Rect($rect6_x, $rect_y, $rect_size, $rect_size);
 
-// Output labels for location types
 $pdf->Cell(-143, 5, '', 0, 0);
 $pdf->Cell(0, 5, 'Farm', 0, 0);
-$pdf->Cell($rect2_x - $rect1_x - $rect_size); // Empty space for layout
+$pdf->Cell($rect2_x - $rect1_x - $rect_size);
 $pdf->Cell(-185, 5, '', 0, 0);
 $pdf->Cell(0, 5, 'School ', 0, 0);
 $pdf->Cell($rect3_x - $rect2_x - $rect_size);
@@ -886,54 +885,60 @@ $pdf->Cell(20, 5, '', 1);
 $pdf->Cell(-45, 5, '', 0, 0);
 $pdf->Ln();
 
+$weatherData = explode(',', $weather);
+foreach ($weatherData as $weather) {
+  if ($weather == 'Normal' || $weather == 'Hot/Humid' || $weather == 'Cold' || $weather == 'Light Rain' || $weather == 'Heavy Rain' || $weather == 'Hail' || $weather == 'Windy' || $weather == 'Thunderstorm' || $weather == 'Sun and Rain') {
+    $checkmark = "\x34";
+  }
 
-if ($weather == 'Normal' || $weather == 'Hot/Humid' || $weather == 'Cold' || $weather == 'Light Rain' || $weather == 'Heavy Rain' || $weather == 'Hail' || $weather == 'Windy' || $weather == 'Thunderstorm' || $weather == 'Sun and Rain') {
-  $checkmark = "\x34";
+  $pdf->SetFont('ZapfDingbats', '', 8);
+  if ($weather == 'Normal') {
+    $pdf->Text($rect2_x + -149.7, $rect1_x + -31.5, $checkmark);
+  } elseif ($weather == 'Hot/Humid') {
+    $pdf->Text($rect2_x + -149.7, $rect1_x +  -26.5, $checkmark);
+  } elseif ($weather == 'Cold') {
+    $pdf->Text($rect2_x + -149.7, $rect1_x + -21.5, $checkmark);
+  } elseif ($weather == 'Light Rain') {
+    $pdf->Text($rect2_x +  -149.7, $rect1_x + -16.5, $checkmark);
+  } elseif ($weather == 'Heavy Rain') {
+    $pdf->Text($rect2_x +  -149.7, $rect1_x + -11.5, $checkmark);
+  } elseif ($weather == 'Hail') {
+    $pdf->Text($rect2_x + -149.7, $rect1_x + -6.5, $checkmark);
+  } elseif ($weather == 'Windy') {
+    $pdf->Text($rect2_x + -149.7, $rect1_x + -1.5, $checkmark);
+  } elseif ($weather == 'Thunderstorm') {
+    $pdf->Text($rect2_x + -149.7, $rect1_x + 3.5, $checkmark);
+  } elseif ($weather == 'Sun and Rain') {
+    $pdf->Text($rect2_x + -149.7, $rect1_x + 8.5, $checkmark);
+  }
 }
 
-$pdf->SetFont('ZapfDingbats', '', 8);
-if ($weather == 'Normal') {
-  $pdf->Text($rect2_x + -149.7, $rect1_x + -31.5, $checkmark);
-} elseif ($weather == 'Hot/Humid') {
-  $pdf->Text($rect2_x + -149.7, $rect1_x +  -26.5, $checkmark);
-} elseif ($weather == 'Cold') {
-  $pdf->Text($rect2_x + -149.7, $rect1_x + -21.5, $checkmark);
-} elseif ($weather == 'Light Rain') {
-  $pdf->Text($rect2_x +  -149.7, $rect1_x + -16.5, $checkmark);
-} elseif ($weather == 'Heavy Rain') {
-  $pdf->Text($rect2_x +  -149.7, $rect1_x + -11.5, $checkmark);
-} elseif ($weather == 'Hail') {
-  $pdf->Text($rect2_x + -149.7, $rect1_x + -6.5, $checkmark);
-} elseif ($weather == 'Windy') {
-  $pdf->Text($rect2_x + -149.7, $rect1_x + -1.5, $checkmark);
-} elseif ($weather == 'Thunderstorm') {
-  $pdf->Text($rect2_x + -149.7, $rect1_x + 3.5, $checkmark);
-} elseif ($weather == 'Sun and Rain') {
-  $pdf->Text($rect2_x + -149.7, $rect1_x + 8.5, $checkmark);
-}
 
+$terrainData = explode(',', $terrain);
+foreach ($terrainData as $terrain) {
 
-if ($terrain == 'Concrete' || $terrain == 'Dirt' || $terrain == 'Mud' || $terrain == 'Sand' || $terrain == 'Gravel/Rock' || $terrain == 'Inclined' || $terrain == 'Swamp' || $terrain == 'Unstable') {
-  $checkmark = "\x34";
-}
+  if ($terrain == 'Concrete' || $terrain == 'Dirt' || $terrain == 'Mud' || $terrain == 'Sand' || $terrain == 'Gravel/Rock' || $terrain == 'Inclined' || $terrain == 'Swamp' || $terrain == 'Unstable') {
+    $checkmark = "\x34";
+  }
 
-$pdf->SetFont('ZapfDingbats', '', 8);
-if ($terrain == 'Concrete') {
-  $pdf->Text($rect2_x + -114.7, $rect1_x + -31.5, $checkmark);
-} elseif ($terrain == 'Dirt') {
-  $pdf->Text($rect2_x + -114.7, $rect1_x +  -26.5, $checkmark);
-} elseif ($terrain == 'Mud') {
-  $pdf->Text($rect2_x + -114.7, $rect1_x + -21.5, $checkmark);
-} elseif ($terrain == 'Sand') {
-  $pdf->Text($rect2_x +  -114.7, $rect1_x + -16.5, $checkmark);
-} elseif ($terrain == 'Gravel/Rock') {
-  $pdf->Text($rect2_x +  -114.7, $rect1_x + -11.5, $checkmark);
-} elseif ($terrain == 'Inclined') {
-  $pdf->Text($rect2_x + -114.7, $rect1_x + -6.5, $checkmark);
-} elseif ($terrain == 'Swamp') {
-  $pdf->Text($rect2_x + -114.7, $rect1_x + -1.5, $checkmark);
-} elseif ($terrain == 'Unstable') {
-  $pdf->Text($rect2_x + -114.7, $rect1_x + 3.5, $checkmark);
+  $pdf->SetFont('ZapfDingbats', '', 8);
+  if ($terrain == 'Concrete') {
+    $pdf->Text($rect2_x + -114.7, $rect1_x + -31.5, $checkmark);
+  } elseif ($terrain == 'Dirt') {
+    $pdf->Text($rect2_x + -114.7, $rect1_x +  -26.5, $checkmark);
+  } elseif ($terrain == 'Mud') {
+    $pdf->Text($rect2_x + -114.7, $rect1_x + -21.5, $checkmark);
+  } elseif ($terrain == 'Sand') {
+    $pdf->Text($rect2_x +  -114.7, $rect1_x + -16.5, $checkmark);
+  } elseif ($terrain == 'Gravel/Rock') {
+    $pdf->Text($rect2_x +  -114.7, $rect1_x + -11.5, $checkmark);
+  } elseif ($terrain == 'Inclined') {
+    $pdf->Text($rect2_x + -114.7, $rect1_x + -6.5, $checkmark);
+  } elseif ($terrain == 'Swamp') {
+    $pdf->Text($rect2_x + -114.7, $rect1_x + -1.5, $checkmark);
+  } elseif ($terrain == 'Unstable') {
+    $pdf->Text($rect2_x + -114.7, $rect1_x + 3.5, $checkmark);
+  }
 }
 
 
@@ -1588,13 +1593,13 @@ $result = $select->get_result();
 $crew = [];
 $designation = [];
 
-// Fetch data from the database
+
 while ($row = $result->fetch_object()) {
-  // Extract crew and designation values from the fetched row
+
   $crew_data = explode(',', $row->crew);
   $designation_data = explode(',', $row->designation);
 
-  // Merge fetched data with existing arrays
+
   $crew = array_merge($crew, $crew_data);
   $designation = array_merge($designation, $designation_data);
 }
@@ -1660,21 +1665,34 @@ $result_images = $conn->query($sql_images);
 
 if ($result_images->num_rows > 0) {
   while ($row_images = $result_images->fetch_assoc()) {
-    $imagePaths[] = "resources/gallery/" . $row_images['images'];
+    $imageFilename = $row_images['images'];
+    $imagePath = "resources/gallery/" . $imageFilename;
+
+
+    if (!empty($imageFilename) && file_exists($imagePath)) {
+      $imagePaths[] = $imagePath;
+    } else {
+
+      continue;
+    }
   }
 
-  foreach ($imagePaths as $imagePath) {
 
-    $imageWidth = 150;
+  foreach ($imagePaths as $imagePath) {
+    $imageWidth = 200;
     $imageHeight = 150;
-    $imageX = ($pdf->GetPageWidth() - $imageWidth) / 2;
+    $imageX = ($pdf->GetPageWidth() - $imageWidth) / 1.45;
     $imageY = $pdf->GetY();
+
 
     $pdf->Image($imagePath, $imageX, $imageY, $imageWidth, $imageHeight);
     $pdf->Cell(200, 150, '', 1);
     $pdf->Ln();
   }
+} else {
+  echo "No images found";
 }
+
 
 $pdf->Cell(1);
 $pdf->SetFont('Arial', 'B', 8);

@@ -81,33 +81,32 @@ include 'delete.php';
 <script>
     function deleteRecord(id) {
         if (confirm('Are you sure you want to delete this record?')) {
-            // Send AJAX request to delete record
+
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
-                        // Display success message
+
                         document.getElementById('deleteWarning').innerHTML = 'Data deleted successfully.';
                         document.getElementById('deleteWarning').style.display = 'block';
-                    
-                     // Reload page after successful deletion
-                     setTimeout(function() {
+
+
+                        setTimeout(function() {
                             window.location.reload();
-                        }, 500); 
+                        }, 500);
                     } else {
-                        // Display error message
+
                         var errorMessage = xhr.responseText.trim();
                         if (errorMessage) {
-                            // Display error message received from PHP
+
                             alert(errorMessage);
                         } else {
-                            // Default error message if no specific message received
                             alert('Error deleting record. Please try again later.');
                         }
                     }
                 }
             };
-            xhr.open('POST', 'delete.php'); // Replace 'delete.php' with the URL to your delete script
+            xhr.open('POST', 'delete.php');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr.send('id=' + id);
         }
