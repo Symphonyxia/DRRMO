@@ -47,6 +47,7 @@ if (isset($_GET['id'])) {
 
     <button onclick="printPage()" class='btn btn-primary'>Print</button>
 
+
     <script>
         function printPage() {
             var currentPageUrl = window.location.href;
@@ -116,7 +117,7 @@ if (isset($_GET['id'])) {
 
                         <tbody>
                             <tr>
-                                <td colspan="10">UNIT/VEHICLE NAME: <strong>
+                                <td colspan="9">UNIT/VEHICLE NAME: <strong>
                                         <?php echo $row['cycle']; ?>
                                     </strong readonly></td>
                                 <td colspan="2">IFR No.: <strong>
@@ -125,6 +126,11 @@ if (isset($_GET['id'])) {
                                 <td colspan="3">DATE: <strong>
                                         <?php echo $row['date']; ?>
                                     </strong readonly></td>
+                                <td>Call Recieved:
+                                    <strong>
+                                        <?php echo $row['call_received']; ?>
+                                    </strong>
+                                </td>
                             </tr>
 
                             <tr>
@@ -133,11 +139,12 @@ if (isset($_GET['id'])) {
                                         <?php echo $row['incident_loc']; ?>
                                     </strong readonly>
                                 </td>
-                                <td>Call Recieved:
+                                <td>Enroute:
                                     <strong>
-                                        <?php echo $row['call_received']; ?>
+                                        <?php echo $row['enroute']; ?>
                                     </strong>
                                 </td>
+
                             </tr>
 
                             <tr>
@@ -149,10 +156,8 @@ if (isset($_GET['id'])) {
                                     <input type="checkbox" class="form-check-input" id="otherResponseTypeCheckbox" disabled> Others:
                                     <input type="text" name="response_type_other" id="response_type_other" value="<?php echo isset($row['response_type']) && !in_array('Standby', explode(',', $row['response_type'])) && !in_array('Response to Scene', explode(',', $row['response_type'])) ? $row['response_type'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" <?php echo isset($row['response_type']) && (in_array('Standby', explode(',', $row['response_type'])) || in_array('Response to Scene', explode(',', $row['response_type']))) ? 'disabled' : ''; ?> disabled>
                                 </td>
-                                <td>Enroute:
-                                    <strong>
-                                        <?php echo $row['enroute']; ?>
-                                    </strong>
+                                <td>At scene:
+                                    <strong><?php echo $row['at_scene']; ?></strong>
                                 </td>
                             </tr>
                             <script>
@@ -199,8 +204,10 @@ if (isset($_GET['id'])) {
 
                                     </th>
 
-                                <td>At scene:
-                                    <strong><?php echo $row['at_scene']; ?></strong>
+                                <td>Depart scene:
+                                    <strong>
+                                        <?php echo $row['depart_scene']; ?>
+                                    </strong>
                                 </td>
                             </tr>
                             <tr>
@@ -224,9 +231,9 @@ if (isset($_GET['id'])) {
                                     <input type="checkbox" class="form-check-input" id="otherLocTypeCheckbox" disabled> Others:
                                     <input type="text" name="loc_type_other" id="loc_type_other" value="<?php echo isset($row['loc_type']) && !in_array('Airport', explode(',', $row['loc_type'])) && !in_array('Hospital', explode(',', $row['loc_type'])) && !in_array('Hospital', explode(',', $row['loc_type'])) && !in_array('Hospital', explode(',', $row['loc_type'])) && !in_array('Hospital', explode(',', $row['loc_type'])) && !in_array('Nursing Home', explode(',', $row['loc_type'])) && !in_array('Home/Residence', explode(',', $row['loc_type'])) && !in_array('Bridge', explode(',', $row['loc_type'])) && !in_array('Restuarant/Bar', explode(',', $row['loc_type'])) && !in_array('Farm', explode(',', $row['loc_type'])) && !in_array('School', explode(',', $row['loc_type'])) && !in_array('Clinic/RHU', explode(',', $row['loc_type'])) && !in_array('Highway/Street', explode(',', $row['loc_type'])) && !in_array('Public Building', explode(',', $row['loc_type'])) ? $row['loc_type'] : ''; ?>" style="border: none; background-color: transparent; border-bottom: 1px solid black;" <?php echo isset($row['loc_type']) && (in_array('', explode(',', $row['loc_type'])) || in_array('', explode(',', $row['loc_type']))) ? 'disabled' : ''; ?> disabled>
                                 </td>
-                                <td>Depart scene:
+                                <td>In service:
                                     <strong>
-                                        <?php echo $row['depart_scene']; ?>
+                                        <?php echo $row['in_service']; ?>
                                     </strong>
                                 </td>
                             </tr>
@@ -273,16 +280,15 @@ if (isset($_GET['id'])) {
                                     </label>
                                 </td>
 
-
-                                <td>In service:
+                                <td>Operation Team:
                                     <strong>
-                                        <?php echo $row['in_service']; ?>
+                                        <?php echo $row['operation_team']; ?>
                                     </strong>
                                 </td>
 
                             </tr>
                             <tr>
-                                <td colspan="14">
+                                <td colspan="15">
                                     <label class="form-check-label">
                                         <input type="checkbox" class="form-check-input" name="call_type[]" value="Flooding" <?php echo isset($row['call_type']) && in_array('Flooding', explode(',', $row['call_type'])) ? 'checked disabled' : 'disabled'; ?>>
                                         Flooding
@@ -308,11 +314,7 @@ if (isset($_GET['id'])) {
 
                                     updateOthersCheckbox();
                                 </script>
-                                <td>Operation Team:
-                                    <strong>
-                                        <?php echo $row['operation_team']; ?>
-                                    </strong>
-                                </td>
+
                             </tr>
                             <tr>
                                 <td colspan="14">
@@ -426,7 +428,7 @@ if (isset($_GET['id'])) {
                                             </label>
                                         </td>
                                         <td>
-                                        <p style = "font-weight: bold;"> Terrain:</p>
+                                            <p style="font-weight: bold;"> Terrain:</p>
                                             <label class="form-check-label">
                                                 <ul style="list-style-type: none; padding-left: 0;">
                                                     <li>
@@ -715,6 +717,8 @@ if (isset($_GET['id'])) {
                                             </tr>
                                         </tbody>
                                     </table>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

@@ -34,39 +34,25 @@ if (!isset($_SESSION['user_id'])) {
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
 
-    <style>
-        @media print {
-            body {
-                position: relative;
-                top: 0;
-
-            }
-
-            nav,
-            button {
-                display: none !important;
-            }
-
-            #print-button {
-                background-color: white;
-                color: #007bff;
-                border: none;
-                cursor: pointer;
-                position: relative;
-            }
-        }
-    </style>
 
 
 </head>
+<style type="text/css">
+    table tbody tr:hover {
+        cursor: pointer;
+    }
 
+    .normalTr:hover {
+        cursor: default;
+    }
+</style>
 <header>
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary-burlywood">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
             <a href="index.php"><img src="resources/img/iloilo.png" alt="" height="80"></a>
-            <a class="navbar-brand" href="index.php" style="color: green; margin-left: 30px;">Create Record</a>
-            <a class="navbar-brand" href="records_list.php" style="color: green;">Records</a>
+            <a class="navbar-brand" href="index.php" style="color: white; margin-left: 30px;">Create Record</a>
+            <a class="navbar-brand" href="records_list.php" style="color: white;">Records</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -77,7 +63,7 @@ if (!isset($_SESSION['user_id'])) {
 
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
+                <form class="d-flex" role="">
                     <button type="submit" class="btn btn-danger"><a class="dropdown-item" href="logout.php">
                             Logout
                         </a>

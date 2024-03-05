@@ -856,8 +856,8 @@ include 'header.php';
 
 
                                             <ul style="list-style-type: none; padding-left: 0;">
-                                            <p style = "font-weight: bold;"> Terrain:</p>
-                                            <li>
+                                                <p style="font-weight: bold;"> Terrain:</p>
+                                                <li>
                                                     <label>
                                                         <input type="checkbox" class="form-check-input terrain-checkbox-group" name="terrain[]" value="Concrete"> Concrete
                                                     </label>
@@ -1326,7 +1326,7 @@ include 'header.php';
 
 
             <label for="image-input">Select Image:</label>
-            <input type="file" name="images" accept="image/*" id="image-input" onchange="previewImage(this)">
+            <input type="file" name="images" accept="image/*" capture="camera" id="image-input" onchange="previewImage(this)">
             <br><br>
 
             <div class="imageform" style="height: 100%; width: 100%; display: flex; justify-content: center; border: 1px solid #ccc;">
@@ -1348,28 +1348,31 @@ include 'header.php';
             <table class="table table-bordered">
                 <tbody>
                     <tr>
-                        <th colspan="7" class="text-center">Map of Responded Scene</th>
+                        <th colspan="9" class="text-center">Map of Responded Scene</th>
                     </tr>
                     <tr>
-                        <th colspan="7">Location:
-                            <input type="text" name="map_loc" value="">
+                        <th colspan="9">Location:
+                            <textarea type="text" style="height: 100%; width: 100%; overflow-wrap: break-word; border: none; resize: none;" name="map_loc" value=""> </textarea>
 
                         </th>
                     </tr>
-                    <tr>
-                        <th>GPS</th>
-                        <th>Longitude</th>
-                        <td colspan="3">
-                            <input type="number" name="longitude" value="">
-                        </td>
-                        <th>Latitude</th>
-                        <td colspan="3">
-                            <input type="number" name="latitude" value="">
-                        </td>
-                        </td>
+
+
+                    <th>GPS</th>
+                    <th>Longitude</th>
+                    <td colspan="3">
+                        <textarea name="longitude" id="long" rows="1" class="text" required readonly></textarea>
+                    </td>
+                    <th>Latitude</th>
+                    <td colspan="2">
+                        <textarea name="latitude" id="lat" rows="1" class="text" required readonly></textarea>
+                    </td>
+                    <td style="text-align: center;">
+                        <button type="button" onclick="getLocation()" class="btn btn-secondary btn-sm my-2 buton"> <i class="fa-solid fa-location-dot"></i></button> <!-- button -->
+                    </td>
                     </tr>
                     <tr>
-                        <th colspan="7">DOT Distance Ratio:
+                        <th colspan="9">DOT Distance Ratio:
                             <input type="number" name="dist_ratio" value=""></td>
                         </th>
                     </tr>
@@ -1476,21 +1479,46 @@ include 'header.php';
                             <th colspan="5" class="text-center">Recommendations</th>
                         </tr>
                         <tr>
-                            <th colspan="12" style="height: 300px;">
-                                <textarea name="recommendation" style="height: 670px; width: 100%; overflow-wrap: break-word; border: none; resize: none;" placeholder="Enter your text here"></textarea>
+                            <th colspan="12" style="height: 200px;">
+                                <textarea name="recommendation" style="height: 100%; width: 100%; overflow-wrap: break-word; border: none; resize: none;" placeholder="Enter your text here"></textarea>
                             </th>
                         </tr>
 
                     </tbody>
                 </table>
 
+                <button type="submit" class="btn btn-success btn-sm" onclick="uploadImage()" style="float: right;" name="addform">Submit</button>
+
+
+
             </div>
         </div>
+    </form>
 </div>
 
-<button type="submit" class="btn btn-success btn-sm" onclick="uploadImage()" style="float: right;" name="addform">Submit</button>
 
-</form>
+
+<script type="text/javascript">
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        var y = position.coords.longitude;
+        var x = position.coords.latitude;
+        document.getElementById("long").innerHTML = y;
+        document.getElementById("lat").innerHTML = x;
+        var output = "";
+
+        output += '<center><iframe src="https://www.google.com/maps?q=' + x + ',' + y + '&ie=UTF8&iwloc=&output=embed" width="100%" height="200px"></iframe></center>';
+        document.getElementById('displayMapa').innerHTML = output;
+    }
+</script>
+
 
 
 

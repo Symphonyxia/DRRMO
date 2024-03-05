@@ -18,16 +18,17 @@ if (isset($_POST['id'])) {
         $stmt1->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt1->execute();
 
-
-        $stmt2 = $pdo->prepare("DELETE FROM equipments WHERE equip_id = :equip_id");
-        $stmt2->bindParam(':equip_id', $equipId, PDO::PARAM_INT);
-        $stmt2->execute();
-
-
+        if ($equipId !== false) {
+            $stmt2 = $pdo->prepare("DELETE FROM equipments WHERE equip_id = :equip_id");
+            $stmt2->bindParam(':equip_id', $equipId, PDO::PARAM_INT);
+            $stmt2->execute();
+        }
 
         $stmt3 = $pdo->prepare("DELETE FROM usar WHERE id = :id");
         $stmt3->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt3->execute();
+
+        $pdo->commit();
 
 
 
