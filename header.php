@@ -51,8 +51,8 @@ if (!isset($_SESSION['user_id'])) {
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
             <a href="index.php"><img src="resources/img/iloilo.png" alt="" height="80"></a>
-            <a class="navbar-brand" href="index.php" style="color: white; margin-left: 30px;">Create Record</a>
-            <a class="navbar-brand" href="records_list.php" style="color: white;">Records</a>
+            <a class="navbar-brand <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>" href="index.php" style="color: <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'blue' : 'white'; ?>; margin-left: 30px;">Create Record</a>
+            <a class="navbar-brand <?php echo basename($_SERVER['PHP_SELF']) == 'records_list.php' ? 'active' : ''; ?>" href="records_list.php" style="color: <?php echo basename($_SERVER['PHP_SELF']) == 'records_list.php' ? 'blue' : 'white'; ?>;">Records</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -73,6 +73,7 @@ if (!isset($_SESSION['user_id'])) {
             </div>
         </div>
     </nav>
+
 </header>
 
 <body>
