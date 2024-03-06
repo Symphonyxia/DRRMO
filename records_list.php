@@ -2,32 +2,6 @@
 include 'header.php';
 include 'delete.php';
 
-$limit = 10;
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
-$offset = ($page - 1) * $limit;
-
-
-$search = isset($_GET['search']) ? $_GET['search'] : '';
-
-
-$sql = "SELECT id, date, loc_type, incident_loc FROM usar WHERE 1=1";
-
-
-if (!empty($search)) {
-    $sql .= " AND (date LIKE :search OR loc_type LIKE :search OR incident_loc LIKE :search)";
-}
-
-$stmt = $pdo->prepare($sql);
-
-if (!empty($search)) {
-    $searchParam = "%$search%";
-    $stmt->bindValue(':search', $searchParam, PDO::PARAM_STR);
-}
-
-$stmt->execute();
-$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-$totalRows = count($results);
-$totalPages = ceil($totalRows / $limit);
 ?>
 
 
@@ -36,7 +10,9 @@ $totalPages = ceil($totalRows / $limit);
     <div class="title-search-block">
         <div class="title-block">
             <div class="row form-group">
+
                 <div class="col-sm-6">
+                    <br>
                     <h3 class="title" style="margin-left: 50px;">Records List <a href="csv.php" class="btn btn-primary  btn-sm rounded-s">Export to CSV</a></h3>
 
 
@@ -45,100 +21,127 @@ $totalPages = ceil($totalRows / $limit);
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
 
-
-    <div class="alert alert-success alert-dismissible fade show" style="display: none; position: absolute; top: 0px; left: 50%; transform: translateX(-50%); border-radius: 10px;" role="alert">
-        Data deleted successfully.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="alert alert-warning alert-dismissible fade show deleteWarning" style="display: none;" role="alert">
-        Error deleting record. Please try again later.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>x-www-form-urlencoded
-        </button>
-    </div>
 
     <section class="section">
         <dive class="row">
-            <br>
-            <br>
-            <div class="card col-lg-12">
+
+
+            <div class="alert alert-success alert-dismissible fade show" style="display: none; position: absolute; top: 0px; left: 50%; transform: translateX(-50%); border-radius: 10px;" role="alert">
+                Data deleted successfully.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="alert alert-warning alert-dismissible fade show deleteWarning" style="display: none;" role="alert">
+                Error deleting record. Please try again later.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>x-www-form-urlencoded
+                </button>
+            </div>
+            <div class="card col-lg-11" style="margin-left: 60px;">
+
                 <div class="card-body">
                     <div class="card-body">
                         <br>
                         <div class="card-title-body">
-                            <br>
-                            <form method="GET" action="">
-                                <label for="search">Search:</label>
-                                <input type="text" name="search" id="search" value="<?php echo $search; ?>">
-                                <button type="submit" class="btn btn-primary btn-sm rounded-s">Search</button>
-                                <?php
-                                // Display cancel search button if a search term is provided
-                                if (!empty($search)) {
-                                    echo '<a href="?page=1" class="btn btn-warning btn-sm rounded-s">Cancel Search</a>';
+
+
+
+
+                            <script>
+                                $(document).ready(function() {
+                                    var table = $('#recordstable').DataTable({
+                                        'pageLength': 10,
+                                        'scrollY': '40vh',
+                                        columnDefs: [{
+                                                width: '10%',
+                                                targets: 1
+                                            },
+                                            {
+                                                width: '10%',
+                                                targets: 3
+                                            },
+                                        ]
+                                    });
+
+                                    $('.nav-link').click(function() {
+                                        table.columns.adjust().draw();
+
+                                    });
+
+
+                                });
+                            </script>
+                            <style type="text/css">
+                                table tbody tr:hover {
+                                    cursor: pointer;
                                 }
-                                ?>
-                            </form>
-                            <br>
 
-                            <section class="section">
-                                <table class="table table-bordered col-md-12">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">Date</th>
-                                            <th class="text-center">Location Type</th>
-                                            <th class="text-center">Address</th>
-                                            <th class="text-center">View Details</th>
-                                            <th class="text-center">Delete </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        foreach ($results as $row) {
-                                            echo "<tr>";
-                                            echo "<td class='text-center'>" . $row['date'] . "</td>";
-                                            echo "<td class='text-center'>" . $row['loc_type'] . "</td>";
-                                            echo "<td class='text-center'>" . $row['incident_loc'] . "</td>";
-                                            echo "<td class='text-center'><a href='records.php?id=" . $row['id'] . "' class='btn btn-primary'>View</a></td>";
-                                            echo "<td class='text-center'><button class='btn btn-danger' onclick='deleteRecord(" . $row['id'] . ")'>Delete</button></td>"; // Add delete button
-                                            echo "</tr>";
+                                .normalTr:hover {
+                                    cursor: default;
+                                }
+                            </style>
+
+                            <table class="table table-bordered table-hover w-100" id="recordstable">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Location Type</th>
+                                        <th class="text-center">Address</th>
+                                        <th class="text-center">View Details</th>
+                                        <th class="text-center">Delete </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+
+                                    $servername = "localhost";
+                                    $username = "root";
+                                    $password = "";
+                                    $database = "drrmo";
+
+                                    try {
+
+                                        $conn = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
+
+                                        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
+                                        $sql = "SELECT id, date, loc_type, incident_loc FROM usar";
+                                        $stmt = $conn->prepare($sql);
+                                        $stmt->execute();
+
+
+                                        if ($stmt->rowCount() > 0) {
+
+                                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                                echo "<tr>";
+                                                echo "<td class='text-center'>" . $row['date'] . "</td>";
+                                                echo "<td class='text-center'>" . $row['loc_type'] . "</td>";
+                                                echo "<td class='text-center'>" . $row['incident_loc'] . "</td>";
+                                                echo "<td class='text-center'><a href='records.php?id=" . $row['id'] . "' class='btn btn-primary'>View</a></td>";
+                                                echo "<td class='text-center'><button class='btn btn-danger' onclick='deleteRecord(" . $row['id'] . ")'>Delete</button></td>";
+                                                echo "</tr>";
+                                            }
+                                        } else {
+                                            echo "<tr><td colspan='5' class='text-center'>No records found</td></tr>";
                                         }
-                                        ?>
-                                    </tbody>
-                                </table>
+                                    } catch (PDOException $e) {
 
-                            </section>
+                                        echo "Connection failed: " . $e->getMessage();
+                                    }
+                                    ?>
+
+                                </tbody>
+                            </table>
                         </div>
-
                     </div>
                 </div>
             </div>
-
-
-            <nav class="text-xs-center">
-                <ul class="pagination justify-content-center">
-                    <div class="pagination">
-                        <?php
-                        if ($page > 1) {
-                            echo "<li class='page-item'><a class='page-link' href='?page=" . ($page - 1) . "'>&laquo; Previous</a></li>";
-                        } else {
-                            echo "<li class='page-item disabled'><span class='page-link'>&laquo; Previous</span></li>";
-                        }
-                        for ($i = 1; $i <= $totalPages; $i++) {
-                            echo "<li class='page-item " . ($page == $i ? 'active' : '') . "'><a class='page-link' href='?page=$i'>$i</a></li>";
-                        }
-                        if ($page < $totalPages) {
-                            echo "<li class='page-item'><a class='page-link' href='?page=" . ($page + 1) . "'>Next &raquo;</a></li>";
-                        } else {
-                            echo "<li class='page-item disabled'><span class='page-link'>Next &raquo;</span></li>";
-                        }
-                        ?>
-                    </div>
-                </ul>
-            </nav>
-
         </dive>
     </section>
 </article>
