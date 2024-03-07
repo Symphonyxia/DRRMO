@@ -2,8 +2,7 @@
 include 'boot.php';
 
 ?>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 
@@ -40,17 +39,17 @@ include 'boot.php';
 
       <body class="main-bg">
         <div class="login-container text-c animated flipInX">
-          <div>
-            <h1 class="text-center" style="color: white;">Login</h1>
-          </div>
+
           <div class="container-content">
+            <div>
+              <h1 class="text-center" style="color:   white;">Login</h1>
+            </div>
             <form class="margin-t" action="resources/dir/logcode.php" method="POST">
               <div class="form-group mb-3">
                 <input class="form-control" type="email" id="email" name="email" placeholder="Enter email" required>
               </div>
               <div class="form-group mb-3">
-                <input class="form-control" type="password" id="password" name="password" placeholder="Enter password"
-                  required>
+                <input class="form-control" type="password" id="password" name="password" placeholder="Enter password" required>
               </div>
               <button type="submit" name="login" class="form-button button-l margin-b">Sign In</button>
               <p class="text-darkyellow"><small><a href="signin.php" class="btn-link">Register a new account</a></small>

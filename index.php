@@ -1007,6 +1007,35 @@ include 'header.php';
                             </table>
                         </div>
 
+                        <script>
+                            function addTableRow(event) {
+                                // Prevent default button behavior (e.g., form submission)
+                                event.preventDefault();
+
+                                // Prevent event propagation to avoid triggering other buttons
+                                event.stopPropagation();
+
+                                // Get the table body element
+                                var tableBody = document.getElementById('equipmentTableBody');
+
+                                // Create a new row element
+                                var newRow = document.createElement('tr');
+
+                                // Set innerHTML for the new row
+                                newRow.innerHTML = `
+        <td>
+            <input type="text" name="equip_name[]" value="">
+            
+        </td>
+        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Used"></td>
+        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Checked"></td>
+        <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
+    `;
+
+                                // Append the new row to the table body
+                                tableBody.appendChild(newRow);
+                            }
+                        </script>
                         <div class="col-md-6">
                             <table class="table table-bordered">
                                 <style>
@@ -1026,11 +1055,13 @@ include 'header.php';
 
                                     }
                                 </style>
-                                <tbody>
+                                <thead>
                                     <th style="text-align: center;">Equipment</th>
                                     <th style="text-align: center;">Used</th>
                                     <th style="text-align: center;">Checked</th>
                                     <th style="text-align: center;">Missing</th>
+                                </thead>
+                                <tbody id="equipmentTableBody">
                                     <tr>
                                         <td>
                                             <input type="hidden" name="equip_name[]" value="Self-Contained Breathing Apparatus">Self-Contained Breathing
@@ -1136,13 +1167,16 @@ include 'header.php';
                                         <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
                                     </tr>
                                     <tr>
-                                        <td><input type="hidden" name="equip_name[]" value="Other">Other</td>
+                                        <td><input type="hidden" name="equip_name[]" value="Others"> Others</td>
                                         <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Used"></td>
                                         <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Checked"></td>
                                         <td style="text-align: center;"><input type="checkbox" class="form-check-input table-checkbox-input" name="equip_status[]" value="Missing"></td>
                                     </tr>
+
                                 </tbody>
                             </table>
+
+
 
 
                             <table class="table table-bordered">
