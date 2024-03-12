@@ -49,7 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addform'])) {
             $uploadDir = '../../resources/gallery/';
 
             if (!is_dir($uploadDir) || !is_writable($uploadDir)) {
-                die("Error: Upload directory is not writable or does not exist.");
+                // die("Error: Upload directory is not writable or does not exist.");
+                mkdir($uploadDir, 0777);
             }
 
             $uploadFile = $uploadDir . basename($_FILES['images']['name']);
