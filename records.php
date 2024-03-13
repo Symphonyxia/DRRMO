@@ -317,13 +317,13 @@ if (isset($_GET['id'])) {
 
                             </tr>
                             <tr>
-                                <td colspan="14">
+                                <td colspan="15">
                                     SRR Services:
                                     <strong>
                                         <?php echo $row['srr_services']; ?>
                                     </strong>
                                 </td>
-                                <td></td>
+
                             </tr>
                             <tr>
                                 <td colspan="20">Incident Commander:

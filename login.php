@@ -10,39 +10,42 @@ include 'boot.php';
 
   <div class="row justify-content-md-center">
     <div class="col-md-5" style="margin-top:20px;">
-      <?php
-      if (isset($_SESSION['error'])) {
-        echo "
+
+
+
+      <body class="main-bg">
+        <div class="login-container text-c animated flipInX">
+          <br>
+          <br>
+          <br>
+          <?php
+          if (isset($_SESSION['error'])) {
+            echo "
                         <div class='alert alert-danger text-center'>
                             <i class='fas fa-exclamation-triangle'></i> " . $_SESSION['error'] . "
                         </div>
                     ";
 
 
-        unset($_SESSION['error']);
-      }
+            unset($_SESSION['error']);
+          }
 
-      if (isset($_SESSION['success'])) {
-        echo "
+          if (isset($_SESSION['success'])) {
+            echo "
                         <div class='alert alert-success text-center'>
                             <i class='fas fa-check-circle'></i> " . $_SESSION['success'] . "
                         </div>
                     ";
 
 
-        unset($_SESSION['success']);
-      }
-      ?>
+            unset($_SESSION['success']);
+          }
+          ?>
 
-
-
-
-      <body class="main-bg">
-        <div class="login-container text-c animated flipInX">
 
           <div class="container-content">
             <div>
-              <h1 class="text-center" style="color:   white;">Login</h1>
+              <h1 class="text-center" style="color:   black;">Login</h1>
             </div>
             <form class="margin-t" action="resources/dir/logcode.php" method="POST">
               <div class="form-group mb-3">

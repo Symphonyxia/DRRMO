@@ -24,10 +24,10 @@ body {
 
 /* Text Color */
 .text-whitesmoke {
-    color: whitesmoke
+    color: rgb(0, 0, 0)
 }
 .text-darkyellow {
-    color: rgba(255, 235, 59, 0.432)
+    color: rgba(0, 0, 0, 0.432)
 }
 
 /* Lines */
@@ -41,9 +41,9 @@ body {
     border-radius: 3px;
 }
 .form-button {
-    background-color: rgba(255, 235, 59, 0.24);
-    border-color: rgba(255, 235, 59, 0.24);
-    color: #e6e6e6;
+    background-color: rgb(255, 230, 0);
+    border-color: rgb(255, 230, 0);
+    color: #000000;
 }
 .form-button:hover,
 .form-button:focus,
@@ -53,8 +53,8 @@ body {
 .form-button:active:hover,
 .form-button.active:hover,
 .form-button.active:focus {
-    background-color: rgba(255, 235, 59, 0.473);
-    border-color: rgba(255, 235, 59, 0.473);
+    background-color: rgb(255, 230, 0);
+    border-color: rgb(252, 228, 11);
     color: #e6e6e6;
 }
 .button-l {
@@ -132,9 +132,9 @@ body {
 
 .form-control,
 .border-line {
-    background-color: #5f5f5f;
+    background-color: #ffffff;
     background-image: none;
-    border: 1px solid #424242;
+    border: 1px solid black;
     border-radius: 1px;
     color: inherit;
     display: block;
@@ -144,9 +144,9 @@ body {
 }
 .form-control:focus,
 .border-line:focus {
-    border-color: #FFEB3B;
-    background-color: #616161;
-    color: #e6e6e6;
+    border-color: #000000;
+    background-color: white;
+    color: #000000;
 }
 .form-control,
 .form-control:focus {
@@ -157,7 +157,7 @@ body {
 /* Container */
 
 .container-content {
-    background-color: #3a3a3aa2;
+    background-color: #ffffff;
     color: inherit;
     padding: 15px 20px 20px 20px;
     border-color: #FFEB3B;
@@ -169,7 +169,7 @@ body {
 /* Backgrounds */
 
 .main-bg {
-    background: #424242;
+    background: #424242;    
     background: linear-gradient( #424242, #212121);
 }
 

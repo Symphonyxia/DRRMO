@@ -1402,7 +1402,7 @@ include 'header.php';
                         <textarea name="latitude" id="lat" rows="1" class="text" required readonly></textarea>
                     </td>
                     <td style="text-align: center;">
-                        <button type="button" onclick="getLocation()" class="btn btn-secondary btn-sm my-2 buton"> <i class="fa-solid fa-location-dot"></i></button> <!-- button -->
+                        <button type="button" onclick="getLocation()" class="btn btn-primary btn-sm my-2 buton"> <i class="fa-solid fa-location-dot"></i></button>
                     </td>
                     </tr>
                     <tr>
